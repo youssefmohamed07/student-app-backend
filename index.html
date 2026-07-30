@@ -77,7 +77,7 @@
                 <span class="badge-custom"><i class="fas fa-globe me-1"></i> نتيجة جمهورية موحدة</span>
                 <span class="badge-custom">العام الدراسي 2026</span>
             </div>
-            <h1 class="fw-extrabold display-5 mb-3">استعلم فوراً عن نتيجتك برقم الجلوس أو الاسم</h1>
+            <h1 class="fw-bold display-5 mb-3">استعلم فوراً عن نتيجتك برقم الجلوس أو الاسم</h1>
             <p class="text-muted fs-5">أدخل رقم الجلوس أو الاسم كاملاً لمعرفة تفاصيل المجموع والنسبة المئوية رسمياً.</p>
         </div>
 
@@ -102,7 +102,6 @@
                     </form>
                 </div>
 
-                <!-- Container display results -->
                 <div id="outputArea"></div>
             </div>
         </div>
@@ -122,7 +121,6 @@
             output.innerHTML = '';
 
             const isNumber = /^\d+$/.test(query);
-            // استخدام مسار نسبي مباشر يربط تلقائياً بفرسيل بدون CORS أو Mixed Content
             const url = isNumber 
                 ? `/api/result/${query}` 
                 : `/api/search/name?name=${encodeURIComponent(query)}`;
