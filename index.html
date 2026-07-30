@@ -3,23 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
   <title>نتيجة الثانوية العامة 2026 برقم الجلوس والاسم — الثانوية العامة (الأصلي)</title>
-  <meta name="title" content="نتيجة الثانوية العامة 2026 برقم الجلوس والاسم — الثانوية العامة (الأصلي)">
-  <meta name="description" content="استعلم فورياً عن نتيجة الثانوية العامة 2026 برقم الجلوس والاسم وتعرف على ترتيبك على مستوى الجمهورية ودرجات المواد كاملة.">
-  <meta name="keywords" content="نتيجة الثانوية العامة 2026, ترتيب الثانوية العامة, الثانوية العامة الاصلي, نتيجة تالتة ثانوي">
-  <meta name="robots" content="index, follow">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="نتيجة الثانوية العامة 2026 برقم الجلوس والاسم — الثانوية العامة (الأصلي)">
-  <meta property="og:description" content="استعلم فورياً عن نتيجتك برقم الجلوس وترتيبك على الجمهورية عبر بوابة الثانوية العامة (الأصلي).">
-
-  <!-- Fonts & Tailwind CSS -->
+  <meta name="description" content="استعلم عن نتيجة الثانوية العامة 2026 برقم الجلوس أو الاسم واستخرج ترتيبك على الجمهورية وعدد الطلاب الحاصلين على نفس المجموع.">
+  
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -42,137 +34,103 @@
       }
     }
   </script>
-  
   <style>
     body { font-family: 'Cairo', sans-serif; background-color: #f8fafc; }
     @media print {
       header, footer, #searchSection, .no-print, .telegram-float { display: none !important; }
       body { background-color: white !important; }
-      .print-card { border: none !important; shadow: none !important; }
+      .print-card { border: none !important; box-shadow: none !important; }
     }
   </style>
 </head>
-
-<body class="text-slate-800 antialiased flex flex-col min-h-screen relative">
-
-  <!-- Floating Telegram Button -->
-  <a href="https://t.me/Highschool0000" target="_blank" class="telegram-float fixed bottom-6 left-6 z-50 bg-[#229ED9] hover:bg-[#1d87b9] text-white px-5 py-3.5 rounded-full shadow-2xl flex items-center gap-3 transition-all hover:scale-105 active:scale-95 group">
-    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-      <path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.55.85-1.12.53l-3.08-2.27-1.49 1.43c-.16.16-.3.3-.62.3l.22-3.14 5.72-5.17c.25-.22-.05-.34-.38-.12l-7.07 4.45-3.05-.95c-.66-.21-.68-.66.14-.98l11.91-4.59c.55-.2 1.04.14.84.98z"/>
-    </svg>
-    <span class="font-extrabold text-xs sm:text-sm">قناة التلجرام الرسمية</span>
-  </a>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 
   <!-- Header -->
-  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-20">
-        
-        <a href="#" class="flex items-center gap-3">
-          <div class="w-12 h-12 bg-brand-600 rounded-2xl flex items-center justify-center text-white shadow-md shadow-brand-500/20">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
-            </svg>
-          </div>
-          <div>
-            <span class="text-2xl font-black text-slate-900 tracking-tight block">الثانوية العامة (الأصلي)</span>
-            <span class="text-xs font-bold text-brand-600 block -mt-1">البوابة الرسمية للنتائج</span>
-          </div>
-        </a>
-
-        <nav class="hidden lg:flex items-center gap-6 font-bold text-slate-700 text-sm">
-          <a href="#" class="hover:text-brand-600 transition">الرئيسية</a>
-          <a href="https://t.me/Highschool0000" target="_blank" class="text-[#229ED9] hover:underline flex items-center gap-1.5 font-black">
-            قناة التلجرام
-          </a>
-          <a href="#" class="bg-brand-50 text-brand-600 px-4 py-2 rounded-xl font-black border border-brand-100">نتائج 2026</a>
-        </nav>
-
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="bg-brand-600 text-white p-2 rounded-2xl">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+        </div>
+        <div>
+          <h1 class="font-black text-lg sm:text-xl text-slate-900 leading-tight">الثانوية العامة (الأصلي)</h1>
+          <p class="text-xs text-brand-600 font-bold">البوابة الرسمية للنتائج 2026</p>
+        </div>
       </div>
+      
+      <nav class="hidden md:flex items-center gap-6 font-bold text-sm text-slate-600">
+        <a href="#" class="hover:text-brand-600 transition">الرئيسية</a>
+        <a href="https://t.me/Highschool0000" target="_blank" class="hover:text-telegram transition flex items-center gap-1">قناة التلجرام</a>
+        <span class="bg-brand-50 text-brand-600 px-3 py-1 rounded-full text-xs font-black">نتائج 2026</span>
+      </nav>
     </div>
   </header>
 
-  <!-- News Ticker -->
-  <div class="bg-red-600 text-white text-xs sm:text-sm py-2.5 px-4 shadow-inner">
-    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
-      <div class="flex items-center gap-3 overflow-hidden">
-        <span class="bg-white text-red-600 font-black px-2.5 py-0.5 rounded-full text-xs shrink-0 animate-pulse">عاجل</span>
-        <p class="truncate font-medium">انضموا فوراً لقناة التلجرام الرسمية لمعرفة أخبار التنسيق والنتائج أولاً بأول: <a href="https://t.me/Highschool0000" target="_blank" class="underline font-bold text-yellow-300">t.me/Highschool0000</a></p>
+  <main class="max-w-4xl mx-auto px-4 py-8 sm:py-12 w-full space-y-8">
+    
+    <!-- Hero Section -->
+    <section class="bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-10 text-center shadow-sm space-y-4">
+      <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        نتيجة جمهورية موحدة — عام دراسي 2026
       </div>
-      <a href="https://t.me/Highschool0000" target="_blank" class="hidden sm:inline-block bg-white/20 hover:bg-white/30 text-white px-3 py-1 rounded-lg text-xs font-bold shrink-0">متابعة التلجرام 🚀</a>
-    </div>
-  </div>
-
-  <!-- Main Container -->
-  <main class="max-w-5xl mx-auto px-4 py-8 flex-grow w-full">
-
-    <!-- Hero Box -->
-    <section class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-sm mb-8 text-center sm:text-right relative">
-      <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-4">
-        <span class="bg-emerald-100 text-emerald-800 text-xs font-extrabold px-3 py-1 rounded-full flex items-center gap-1.5">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-          نتيجة جمهورية موحّدة
-        </span>
-        <span class="bg-brand-50 text-brand-700 text-xs font-extrabold px-3 py-1 rounded-full">عام دراسي 2026</span>
-      </div>
-
-      <h1 class="text-2xl sm:text-4xl font-black text-slate-900 mb-3 leading-tight">
+      <h2 class="text-2xl sm:text-4xl font-black text-slate-900 leading-tight">
         نتيجة الثانوية العامة 2026 والترتيب على الجمهورية
-      </h1>
-      <p class="text-slate-600 font-medium text-sm sm:text-base mb-6">
-        جمهورية مصر العربية — استعلم فورياً عن نتيجتك، وترتيبك على الجمهورية، وعدد الطلاب الحاصلين على نفس المجموع.
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-500 font-semibold max-w-xl mx-auto">
+        جمهورية مصر العربية — استعلم فوراً عن نتيجتك، وترتيبك على الجمهورية، وعدد الطلاب الحاصلين على نفس المجموع.
       </p>
-
-      <div class="flex flex-wrap gap-2 justify-center sm:justify-start">
-        <a href="#searchSection" class="bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-sm px-6 py-3 rounded-2xl shadow-lg shadow-brand-500/20 transition flex items-center gap-2">
+      <div class="pt-2 flex flex-wrap justify-center gap-3">
+        <a href="#searchSection" class="bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-2xl shadow-sm transition">
           ابدأ الاستعلام الآن
         </a>
-        <a href="https://t.me/Highschool0000" target="_blank" class="bg-[#229ED9] hover:bg-[#1c83b5] text-white font-extrabold text-sm px-6 py-3 rounded-2xl shadow-lg shadow-blue-500/20 transition flex items-center gap-2">
+        <a href="https://t.me/Highschool0000" target="_blank" class="bg-telegram hover:opacity-90 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-2xl transition flex items-center gap-2">
           قناة التلجرام الرسمية 🔗
         </a>
       </div>
     </section>
 
-    <!-- Search Box -->
-    <section id="searchSection" class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-md mb-8">
-      <form onsubmit="event.preventDefault(); searchStudent();" class="max-w-2xl mx-auto">
-        <div class="flex flex-col sm:flex-row gap-3">
-          <input 
-            type="text" 
-            id="searchInput"
-            placeholder="أدخل رقم الجلوس أو اسم الطالب..." 
-            class="flex-1 bg-white border-2 border-slate-200 text-slate-900 font-bold text-base sm:text-lg rounded-2xl px-5 py-3.5 focus:outline-none focus:border-brand-600 transition text-center sm:text-right"
-            required
-          >
-          <button 
-            type="submit"
-            class="bg-brand-accent hover:bg-brand-hoverAccent text-slate-900 font-black text-base px-8 py-3.5 rounded-2xl transition active:scale-95 shadow-md flex items-center justify-center gap-2 shrink-0"
-          >
-            عرض النتيجة والترتيب
-          </button>
-        </div>
-        <p class="text-center text-xs text-slate-500 mt-3 font-semibold">
-          الاستعلام برقم الجلوس أو بالاسم — الثانوية العامة (الأصلي) 2026.
-        </p>
+    <!-- Search Section -->
+    <section id="searchSection" class="bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+      <form onsubmit="event.preventDefault(); searchStudent();" class="flex flex-col sm:flex-row gap-3">
+        <input 
+          type="text" 
+          id="searchInput" 
+          placeholder="أدخل رقم الجلوس أو اسم الطالب..." 
+          class="flex-1 bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-slate-800 font-bold focus:outline-none focus:border-brand-600 focus:bg-white transition text-center sm:text-right text-base sm:text-lg"
+          required
+        >
+        <button 
+          type="submit" 
+          class="bg-brand-accent hover:bg-brand-hoverAccent text-slate-900 font-black px-8 py-4 rounded-2xl transition text-base shadow-sm shrink-0"
+        >
+          عرض النتيجة والترتيب
+        </button>
       </form>
+      <p class="text-center text-xs text-slate-400 font-semibold">
+        الاستعلام برقم الجلوس أو بالاسم — الثانوية العامة (الأصلي) 2026.
+      </p>
 
-      <!-- Dynamic Results Output -->
-      <div id="searchResults" class="mt-8 transition-all"></div>
+      <!-- Results Container -->
+      <div id="searchResults"></div>
     </section>
 
   </main>
 
+  <!-- Telegram Floating Button -->
+  <a href="https://t.me/Highschool0000" target="_blank" class="telegram-float fixed bottom-5 left-5 bg-telegram hover:opacity-90 text-white font-bold text-xs sm:text-sm px-4 py-3 rounded-2xl shadow-lg flex items-center gap-2 z-50 transition">
+    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.51c-.15.68-.55.85-1.12.53l-3.08-2.27-1.48 1.43c-.16.16-.3.3-.62.3l.22-3.15 5.73-5.18c.25-.22-.05-.34-.38-.12l-7.08 4.46-3.06-.96c-.66-.21-.68-.66.14-.98l11.96-4.61c.55-.2 1.04.14.89.84z"/></svg>
+    قناة التلجرام الرسمية
+  </a>
+
   <!-- Footer -->
-  <footer class="bg-slate-900 text-slate-400 text-xs sm:text-sm mt-16 border-t border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 py-8 text-center space-y-3">
-      <p class="text-white font-bold">الثانوية العامة (الأصلي) — البوابة الأولى لنتائج الطلاب في مصر</p>
-      <p class="text-slate-400 text-xs">تابعنا على تلجرام: <a href="https://t.me/Highschool0000" target="_blank" class="text-blue-400 underline">t.me/Highschool0000</a></p>
-      <p class="text-slate-600 text-xs pt-4">© 2026 الثانوية العامة (الأصلي) — جميع الحقوق محفوظة.</p>
-    </div>
+  <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs border-t border-slate-800 space-y-2 mt-12">
+    <p class="font-bold text-slate-300">الثانوية العامة (الأصلي) — البوابة الأولى لنتائج الطلاب في مصر</p>
+    <p>تابعنا على تلجرام: <a href="https://t.me/Highschool0000" target="_blank" class="text-telegram font-bold underline">t.me/Highschool0000</a></p>
+    <p class="text-slate-500 pt-2">© 2026 الثانوية العامة (الأصلي) — جميع الحقوق محفوظة.</p>
   </footer>
 
-  <!-- Search Logic Script -->
+  <!-- Script -->
   <script>
     async function searchStudent() {
       const query = document.getElementById('searchInput').value.trim();
@@ -181,9 +139,9 @@
       if (!query) return;
 
       resultsDiv.innerHTML = `
-        <div class="text-center py-8">
-          <div class="inline-block w-8 h-8 border-4 border-brand-600 border-t-transparent rounded-full animate-spin mb-3"></div>
-          <p class="font-bold text-slate-600 text-sm">جاري حساب المجموع والترتيب على الجمهورية...</p>
+        <div class="text-center py-10 space-y-3">
+          <div class="inline-block w-8 h-8 border-4 border-brand-600 border-t-transparent rounded-full animate-spin"></div>
+          <p class="font-bold text-slate-600 text-sm">جاري جلب النتيجة وحساب الترتيب على الجمهورية...</p>
         </div>
       `;
 
@@ -197,48 +155,51 @@
         const list = data.results || [];
 
         if (list.length === 0) {
+          const errorMsg = data.error ? `<p class="text-xs text-red-600 font-bold mb-2">تنبيه السيرفر: ${data.error}</p>` : '';
           resultsDiv.innerHTML = `
-            <div class="bg-amber-50 border border-amber-200 text-amber-900 p-6 rounded-2xl text-center">
-              <strong class="block text-base mb-1">لم يتم العثور على نتيجة!</strong>
-              <p class="text-xs mb-3">تأكد من كتابة رقم الجلوس بصورة صحيحة أو تجربة جزء آخر من الاسم.</p>
-              <a href="https://t.me/Highschool0000" target="_blank" class="inline-block bg-[#229ED9] text-white text-xs font-bold px-4 py-2 rounded-xl">انضم لقناة التلجرام للمساعدة 🚀</a>
+            <div class="bg-amber-50 border border-amber-200 text-amber-900 p-6 rounded-2xl text-center space-y-2">
+              <strong class="block text-base">لم يتم العثور على نتيجة!</strong>
+              ${errorMsg}
+              <p class="text-xs text-amber-800">تأكد من كتابة رقم الجلوس بصورة صحيحة أو تجربة جزء آخر من الاسم.</p>
+              <div class="pt-2">
+                <a href="https://t.me/Highschool0000" target="_blank" class="inline-block bg-telegram text-white text-xs font-bold px-5 py-2.5 rounded-xl shadow-sm hover:opacity-90 transition">
+                  انضم لقناة التلجرام للمساعدة 🚀
+                </a>
+              </div>
             </div>
           `;
           return;
         }
 
-        let html = `<div class="space-y-8">`;
+        let html = `<div class="space-y-8 pt-4">`;
 
         list.forEach(student => {
-          const name = student.name || student.student_name || student.NAME || 'طالب ثانوية عامة';
+          const name = student.name || student.student_name || student.full_name || student.fullname || student.NAME || 'طالب ثانوية عامة';
           const seating = student.seating_no || student.seating_number || student.roll_no || student.seat_no || 'غير متوفر';
-          const total = student.total_degree || student.total || student.score || student.degree || '—';
-          const branch = student.branch || student.section || 'عام';
-          const status = student.status || student.state || 'ناجح';
+          
+          // استخراج المجموع الكلي والنسبة المئوية الموحدة من الباك إند
+          const total = student.formatted_total !== undefined && student.formatted_total !== '—' ? student.formatted_total : (student.total_degree || student.total || student.score || student.degree || '—');
+          const percentage = student.percentage || '—';
           
           const rank = student.national_rank || '—';
           const sameScore = student.same_score_count || '—';
-
-          let percentage = student.percentage || student.percent || '';
-          if (!percentage && total !== '—' && !isNaN(total)) {
-             percentage = ((parseFloat(total) / 410) * 100).toFixed(1) + '%';
-          } else if (percentage && !percentage.toString().includes('%')) {
-             percentage = percentage + '%';
-          }
+          const branch = student.branch || student.section || 'عام';
+          const status = student.status || student.school || 'ناجح';
 
           html += `
             <div class="print-card bg-white border-2 border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm text-center space-y-6">
               
-              <!-- Student Header Info -->
               <div class="border-b border-slate-100 pb-4 space-y-2">
-                <span class="bg-brand-50 text-brand-700 text-xs font-black px-3 py-1 rounded-full">الشعبة: ${branch} | الحالة: ${status}</span>
+                <span class="inline-block bg-brand-50 text-brand-700 text-xs font-black px-3 py-1 rounded-full">
+                  الشعبة: ${branch} | الحالة: ${status}
+                </span>
                 <h3 class="text-2xl sm:text-3xl font-black text-brand-600">${name}</h3>
-                <p class="text-slate-500 font-bold text-xs sm:text-sm">رقم الجلوس: <span class="text-slate-900 font-black">${seating}</span></p>
+                <p class="text-slate-500 font-bold text-xs sm:text-sm">
+                  رقم الجلوس: <span class="text-slate-900 font-black">${seating}</span>
+                </p>
               </div>
 
-              <!-- 4 Main Statistics Cards Grid -->
               <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-                
                 <div class="bg-slate-50 border border-slate-200/80 p-4 rounded-2xl flex flex-col justify-center items-center">
                   <span class="text-xs font-bold text-slate-500 mb-1">المجموع الكلي</span>
                   <span class="text-2xl sm:text-3xl font-black text-slate-900">${total}</span>
@@ -246,32 +207,30 @@
 
                 <div class="bg-emerald-50/60 border border-emerald-200/80 p-4 rounded-2xl flex flex-col justify-center items-center">
                   <span class="text-xs font-bold text-emerald-700 mb-1">النسبة المئوية</span>
-                  <span class="text-2xl sm:text-3xl font-black text-emerald-600">${percentage || '—'}</span>
+                  <span class="text-2xl sm:text-3xl font-black text-emerald-600">${percentage}</span>
                 </div>
 
                 <div class="bg-amber-50/60 border border-amber-200/80 p-4 rounded-2xl flex flex-col justify-center items-center">
                   <span class="text-xs font-bold text-amber-800 mb-1">الترتيب على الجمهورية 🏆</span>
-                  <span class="text-2xl sm:text-3xl font-black text-amber-600">#${rank}</span>
+                  <span class="text-2xl sm:text-3xl font-black text-amber-600">${rank !== '—' ? '#' + rank : '—'}</span>
                 </div>
 
                 <div class="bg-blue-50/60 border border-blue-200/80 p-4 rounded-2xl flex flex-col justify-center items-center">
                   <span class="text-xs font-bold text-blue-800 mb-1">نفس المجموع 👥</span>
-                  <span class="text-2xl sm:text-3xl font-black text-blue-600">${sameScore} طالب</span>
+                  <span class="text-2xl sm:text-3xl font-black text-blue-600">${sameScore !== '—' ? sameScore + ' طالب' : '—'}</span>
                 </div>
-
               </div>
 
-              <!-- Action Buttons -->
               <div class="no-print flex flex-wrap justify-center gap-3 pt-2">
                 <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition flex items-center gap-2">
                   🖨️ حفظ وتنزيل كـ PDF
                 </button>
                 
-                <a href="https://wa.me/?text=${encodeURIComponent('حصليت على نتيجة الثانوية العامة:\nاسم الطالب: ' + name + '\nالمجموع: ' + total + '\nالنسبة المئوية: ' + percentage + '\nالترتيب على الجمهورية: #' + rank + '\nتابع النتائج عبر التلجرام: https://t.me/Highschool0000')}" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition flex items-center gap-2">
+                <a href="https://wa.me/?text=${encodeURIComponent('نتيجة الثانوية العامة:\nاسم الطالب: ' + name + '\nالمجموع: ' + total + '\nالنسبة المئوية: ' + percentage + '\nالترتيب على الجمهورية: #' + rank + '\nتابعنا عبر التلجرام: https://t.me/Highschool0000')}" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition flex items-center gap-2">
                   💬 مشاركة عبر الواتساب
                 </a>
 
-                <a href="https://t.me/Highschool0000" target="_blank" class="bg-[#229ED9] hover:bg-[#1a7eb0] text-white font-bold text-xs px-5 py-2.5 rounded-xl transition flex items-center gap-2">
+                <a href="https://t.me/Highschool0000" target="_blank" class="bg-telegram hover:opacity-90 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition flex items-center gap-2">
                   🚀 متابعة التنسيق على التلجرام
                 </a>
               </div>
@@ -286,8 +245,8 @@
       } catch (err) {
         resultsDiv.innerHTML = `
           <div class="bg-amber-50 border border-amber-200 text-amber-900 p-6 rounded-2xl text-center">
-            <strong class="block text-base mb-1">لم يتم العثور على نتائج مطابقة!</strong>
-            <p class="text-xs">يرجى التأكد من كتابة الاسم أو رقم الجلوس بشكل صحيح.</p>
+            <strong class="block text-base mb-1">تعذر جلب البيانات حالياً!</strong>
+            <p class="text-xs text-amber-800">يرجى المحاولة مرة أخرى بعد لحظات أو التأكد من الاتصال بالإنترنت.</p>
           </div>
         `;
       }
