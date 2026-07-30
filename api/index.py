@@ -29,7 +29,7 @@ class handler(BaseHTTPRequestHandler):
         
         try:
             if not SUPABASE_AVAILABLE:
-                self.wfile.write(json.dumps({"results": [], "error": "Supabase library missing"}, ensure_ascii=False).encode('utf-8'))
+                self.wfile.write(json.dumps({"results": [], "error": "مكتبة supabase غير مثبتة في requirements.txt"}, ensure_ascii=False).encode('utf-8'))
                 return
 
             parsed_url = urllib.parse.urlparse(self.path)
@@ -44,13 +44,13 @@ class handler(BaseHTTPRequestHandler):
             supabase_key = os.environ.get("SUPABASE_KEY")
             
             if not supabase_url or not supabase_key:
-                self.wfile.write(json.dumps({"results": [], "error": "Missing Environment Variables"}, ensure_ascii=False).encode('utf-8'))
+                self.wfile.write(json.dumps({"results": [], "error": "المتغيرات SUPABASE_URL أو SUPABASE_KEY غير موجودة في Vercel"}, ensure_ascii=False).encode('utf-8'))
                 return
 
             supabase: Client = create_client(supabase_url, supabase_key)
             data = []
 
-            # 1. البحث برقم الجلوس (إذا كان المدخل أرقاماً فقط)
+            # 1. البحث برقم الجلوس (سريع جداً)
             if q.isdigit():
                 val = int(q)
                 try:
@@ -58,7 +58,6 @@ class handler(BaseHTTPRequestHandler):
                     if res.data:
                         data = res.data
                 except Exception:
-                    # تحسباً لو كان seating_no مخزناً كنص وليس رقم
                     try:
                         res = supabase.table('results').select('*').eq('seating_no', str(q)).execute()
                         if res.data:
@@ -66,19 +65,27 @@ class handler(BaseHTTPRequestHandler):
                     except Exception:
                         pass
             
-            # 2. البحث بالاسم (كلمة واحدة مثل "يوسف" أو اسم كامل)
+            # 2. البحث بالاسم (مُحسّن لقواعد البيانات الضخمة)
             else:
                 words = q.split()
                 first_word = words[0] if words else q
                 
+                # البحث ببدء الاسم بالكلمة أولاً (سريع جداً في PostgreSQL)
                 try:
-                    # البحث في جدول results بكلمة البحث في عمود name
-                    res = supabase.table('results').select('*').ilike('name', f'%{first_word}%').limit(25).execute()
+                    res = supabase.table('results').select('*').ilike('name', f'{first_word}%').limit(20).execute()
                     data = res.data or []
                 except Exception:
                     pass
 
-                # إذا كتب المستخدم أكثر من كلمة (مثل "يوسف محمد") نفلتر النتائج لتطابق الكل
+                # إذا لم تجد نتائج، تجربة البحث في أي مكان بالاسم
+                if not data:
+                    try:
+                        res = supabase.table('results').select('*').ilike('name', f'%{first_word}%').limit(20).execute()
+                        data = res.data or []
+                    except Exception:
+                        pass
+
+                # إذا أدخل المستخدم أكثر من كلمة (مثل "عمر محمد") يتم الفلترة بدقة
                 if data and len(words) > 1:
                     clean_q_words = [clean_arabic(w) for w in words]
                     filtered = []
@@ -90,37 +97,12 @@ class handler(BaseHTTPRequestHandler):
                     if filtered:
                         data = filtered
 
-            # 3. حساب الترتيب والمجموع لأول 5 نتائج
+            # 3. إعداد بيانات العرض
             for st in data[:5]:
-                tot_val = None
-                tot_col = None
-                # البحث عن العمود الذي يحتوي المجموع الفعلي
-                for c in ['total_degree', 'total', 'score', 'degree', 'total_score', 'degree_total']:
-                    if c in st and st[c] is not None:
-                        try:
-                            tot_val = float(st[c])
-                            tot_col = c
-                            break
-                        except (ValueError, TypeError):
-                            pass
-
-                if tot_val is not None and tot_col:
-                    try:
-                        rank_res = supabase.table('results').select(tot_col, count='exact').gt(tot_col, tot_val).execute()
-                        st['national_rank'] = (rank_res.count or 0) + 1
-                    except Exception:
-                        st['national_rank'] = '—'
-
-                    try:
-                        same_res = supabase.table('results').select(tot_col, count='exact').eq(tot_col, tot_val).execute()
-                        st['same_score_count'] = same_res.count or 1
-                    except Exception:
-                        st['same_score_count'] = '—'
-                else:
-                    st['national_rank'] = '—'
-                    st['same_score_count'] = '—'
+                st['national_rank'] = st.get('national_rank', '—')
+                st['same_score_count'] = st.get('same_score_count', '—')
 
             self.wfile.write(json.dumps({"results": data}, ensure_ascii=False).encode('utf-8'))
 
         except Exception as e:
-            self.wfile.write(json.dumps({"results": [], "error": str(e)}, ensure_ascii=False).encode('utf-8'))
+            self.wfile.write(json.dumps({"results": [], "error": f"خطأ في السيرفر: {str(e)}"}, ensure_ascii=False).encode('utf-8'))
