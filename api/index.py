@@ -11,7 +11,7 @@ except ImportError:
     SUPABASE_AVAILABLE = False
 
 def clean_arabic(text):
-    """حذف التشكيل وتوحيد الألف والياء والتاء المربوطة لضمان المطابقة 100%"""
+    """تجريد التشكيل وتوحيد الحروف العربية للمطابقة الدقيقة"""
     if not text:
         return ""
     text = str(text)
@@ -50,57 +50,52 @@ class handler(BaseHTTPRequestHandler):
             supabase: Client = create_client(supabase_url, supabase_key)
             data = []
 
-            # 1. إذا كان البحث برقم الجلوس (أرقام فقط)
+            # 1. البحث برقم الجلوس (إذا كان المدخل أرقاماً فقط)
             if q.isdigit():
                 val = int(q)
                 try:
-                    # البحث في أعمدة أرقام الجلوس المختلفة
-                    res = supabase.table('students').select('*').or_(
-                        f"seating_no.eq.{val},seating_number.eq.{val},roll_no.eq.{q},seat_no.eq.{val}"
-                    ).execute()
-                    data = res.data or []
+                    res = supabase.table('results').select('*').eq('seating_no', val).execute()
+                    if res.data:
+                        data = res.data
                 except Exception:
-                    # تجربة استعلام مباشر إذا فشل الاستعلام المجمع
-                    for col in ['seating_no', 'seating_number', 'roll_no', 'seat_no']:
-                        try:
-                            res = supabase.table('students').select('*').eq(col, val if col != 'roll_no' else q).execute()
-                            if res.data:
-                                data = res.data
-                                break
-                        except Exception:
-                            pass
+                    # تحسباً لو كان seating_no مخزناً كنص وليس رقم
+                    try:
+                        res = supabase.table('results').select('*').eq('seating_no', str(q)).execute()
+                        if res.data:
+                            data = res.data
+                    except Exception:
+                        pass
             
-            # 2. إذا كان البحث باسم الطالب (كلمة واحدة مثل "يوسف" أو اسم كامل)
+            # 2. البحث بالاسم (كلمة واحدة مثل "يوسف" أو اسم كامل)
             else:
                 words = q.split()
-                # البحث بالكلمة الأولى أو الجملة كاملة بنفس المرونة
-                search_term = words[0] if len(words) == 1 else q
+                first_word = words[0] if words else q
                 
                 try:
-                    # بحث موحد في كل أعمدة الأسماء المحتملة بنفس الوقت
-                    or_query = f"name.ilike.*{search_term}*,student_name.ilike.*{search_term}*,full_name.ilike.*{search_term}*,fullname.ilike.*{search_term}*"
-                    res = supabase.table('students').select('*').or_(or_query).limit(30).execute()
+                    # البحث في جدول results بكلمة البحث في عمود name
+                    res = supabase.table('results').select('*').ilike('name', f'%{first_word}%').limit(25).execute()
                     data = res.data or []
                 except Exception:
                     pass
 
-                # إذا أدخل المستخدم أكثر من كلمة (مثلاً: يوسف محمد)، نفلتر النتائج لتطابق الكلمتين معاً
+                # إذا كتب المستخدم أكثر من كلمة (مثل "يوسف محمد") نفلتر النتائج لتطابق الكل
                 if data and len(words) > 1:
                     clean_q_words = [clean_arabic(w) for w in words]
                     filtered = []
                     for st in data:
-                        st_name = st.get('name') or st.get('student_name') or st.get('full_name') or st.get('fullname') or ''
+                        st_name = st.get('name') or ''
                         clean_st_name = clean_arabic(st_name)
                         if all(w in clean_st_name for w in clean_q_words):
                             filtered.append(st)
                     if filtered:
                         data = filtered
 
-            # 3. حساب الترتيب وعدد الطلاب بنفس المجموع بأمان
+            # 3. حساب الترتيب والمجموع لأول 5 نتائج
             for st in data[:5]:
                 tot_val = None
                 tot_col = None
-                for c in ['total_degree', 'total', 'score', 'degree', 'total_score']:
+                # البحث عن العمود الذي يحتوي المجموع الفعلي
+                for c in ['total_degree', 'total', 'score', 'degree', 'total_score', 'degree_total']:
                     if c in st and st[c] is not None:
                         try:
                             tot_val = float(st[c])
@@ -111,13 +106,13 @@ class handler(BaseHTTPRequestHandler):
 
                 if tot_val is not None and tot_col:
                     try:
-                        rank_res = supabase.table('students').select(tot_col, count='exact').gt(tot_col, tot_val).execute()
+                        rank_res = supabase.table('results').select(tot_col, count='exact').gt(tot_col, tot_val).execute()
                         st['national_rank'] = (rank_res.count or 0) + 1
                     except Exception:
                         st['national_rank'] = '—'
 
                     try:
-                        same_res = supabase.table('students').select(tot_col, count='exact').eq(tot_col, tot_val).execute()
+                        same_res = supabase.table('results').select(tot_col, count='exact').eq(tot_col, tot_val).execute()
                         st['same_score_count'] = same_res.count or 1
                     except Exception:
                         st['same_score_count'] = '—'
