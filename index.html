@@ -31,7 +31,6 @@
         .btn-custom:hover {
             background-color: #1e40af;
             color: white;
-            transform: translateY(-1px);
         }
         .badge-custom {
             background-color: #eff6ff;
@@ -42,10 +41,11 @@
             font-weight: 600;
             font-size: 0.875rem;
         }
-        .result-box {
-            background-color: #f0fdf4;
-            border: 1px solid #bbf7d0;
+        .result-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
             border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
         .error-box {
             background-color: #fef2f2;
@@ -57,6 +57,7 @@
 </head>
 <body>
 
+    <!-- Navbar -->
     <nav class="navbar navbar-light bg-white border-bottom py-3">
         <div class="container">
             <div class="d-flex align-items-center gap-2">
@@ -71,13 +72,14 @@
         </div>
     </nav>
 
+    <!-- Main Content -->
     <div class="container py-5">
         <div class="text-center mb-4">
             <div class="d-inline-flex gap-2 mb-3">
                 <span class="badge-custom"><i class="fas fa-globe me-1"></i> نتيجة جمهورية موحدة</span>
                 <span class="badge-custom">العام الدراسي 2026</span>
             </div>
-            <h1 class="fw-bold display-5 mb-3">استعلم فوراً عن نتيجتك برقم الجلوس أو الاسم</h1>
+            <h1 class="fw-extrabold display-5 mb-3" style="font-weight: 800;">استعلم فوراً عن نتيجتك برقم الجلوس أو الاسم</h1>
             <p class="text-muted fs-5">أدخل رقم الجلوس أو الاسم كاملاً لمعرفة تفاصيل المجموع والنسبة المئوية رسمياً.</p>
         </div>
 
@@ -154,20 +156,20 @@
 
         function renderSingleResult(data) {
             document.getElementById('outputArea').innerHTML = `
-                <div class="result-box p-4 text-center">
-                    <h3 class="fw-bold text-success mb-2">${data.name}</h3>
-                    <p class="text-muted mb-3">رقم الجلوس: <strong>${data.seating_no}</strong></p>
+                <div class="result-card p-4 text-center">
+                    <h3 class="fw-bold text-primary mb-2">${data.name}</h3>
+                    <p class="text-muted mb-4">رقم الجلوس: <strong>${data.seating_no}</strong></p>
                     <div class="row g-3">
                         <div class="col-6">
-                            <div class="bg-white p-3 rounded-3 border">
-                                <span class="d-block text-muted small">المجموع الكلي</span>
-                                <span class="fs-3 fw-bold text-primary">${data.total_score}</span>
+                            <div class="bg-light p-3 rounded-3 border">
+                                <span class="d-block text-muted small mb-1">المجموع الكلي</span>
+                                <span class="fs-2 fw-bold text-dark">${data.total_score}</span>
                             </div>
                         </div>
                         <div class="col-6">
-                            <div class="bg-white p-3 rounded-3 border">
-                                <span class="d-block text-muted small">النسبة المئوية</span>
-                                <span class="fs-3 fw-bold text-success">${data.percentage}%</span>
+                            <div class="bg-light p-3 rounded-3 border">
+                                <span class="d-block text-muted small mb-1">النسبة المئوية</span>
+                                <span class="fs-2 fw-bold text-success">${data.percentage}%</span>
                             </div>
                         </div>
                     </div>
@@ -176,15 +178,19 @@
         }
 
         function renderMultipleResults(list) {
-            let html = `<div class="bg-white rounded-4 border p-3"><h5 class="fw-bold mb-3 px-2">نتائج البحث (${list.length}):</h5><div class="list-group list-group-flush">`;
+            let html = `
+                <div class="result-card p-3">
+                    <h6 class="fw-bold mb-3 px-2 text-muted">عُثر على (${list.length}) طالب بنفس الاسم:</h6>
+                    <div class="list-group list-group-flush">
+            `;
             list.forEach(item => {
                 html += `
-                    <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+                    <div class="list-group-item d-flex justify-content-between align-items-center py-3 bg-transparent">
                         <div>
                             <h6 class="fw-bold mb-1">${item.name}</h6>
-                            <small class="text-muted">رقم الجلوس: ${item.seating_no}</small>
+                            <small class="text-muted">جلوس: ${item.seating_no}</small>
                         </div>
-                        <span class="badge bg-primary rounded-pill fs-6">${item.total_score} درجة</span>
+                        <span class="badge bg-primary rounded-pill px-3 py-2 fs-6">${item.total_score} درجة</span>
                     </div>
                 `;
             });
