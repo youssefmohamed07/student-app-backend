@@ -43,11 +43,11 @@ class handler(BaseHTTPRequestHandler):
             supabase_key = os.environ.get("SUPABASE_KEY")
             
             if not supabase_url or not supabase_key:
-                self.wfile.write(json.dumps({"results": [], "error": "المتغيرات البيئية لـ Supabase مفقودة"}, ensure_ascii=False).encode('utf-8'))
+                self.wfile.write(json.dumps({"results": [], "error": "المتغيرات البيئية غير مكتملة"}, ensure_ascii=False).encode('utf-8'))
                 return
 
             supabase: Client = create_client(supabase_url, supabase_key)
-            data = []
+            raw_data = []
 
             # 1. البحث برقم الجلوس
             if q.isdigit():
@@ -55,12 +55,12 @@ class handler(BaseHTTPRequestHandler):
                 try:
                     res = supabase.table('results').select('*').eq('seating_no', val).execute()
                     if res.data:
-                        data = res.data
+                        raw_data = res.data
                 except Exception:
                     try:
                         res = supabase.table('results').select('*').eq('seating_no', str(q)).execute()
                         if res.data:
-                            data = res.data
+                            raw_data = res.data
                     except Exception:
                         pass
             
@@ -71,81 +71,79 @@ class handler(BaseHTTPRequestHandler):
                 
                 try:
                     res = supabase.table('results').select('*').ilike('name', f'{first_word}%').limit(20).execute()
-                    data = res.data or []
+                    raw_data = res.data or []
                 except Exception:
                     pass
 
-                if not data:
+                if not raw_data:
                     try:
                         res = supabase.table('results').select('*').ilike('name', f'%{first_word}%').limit(20).execute()
-                        data = res.data or []
+                        raw_data = res.data or []
                     except Exception:
                         pass
 
-                if data and len(words) > 1:
+                if raw_data and len(words) > 1:
                     clean_q_words = [clean_arabic(w) for w in words]
                     filtered = []
-                    for st in data:
+                    for st in raw_data:
                         st_name = st.get('name') or ''
                         clean_st_name = clean_arabic(st_name)
                         if all(w in clean_st_name for w in clean_q_words):
                             filtered.append(st)
                     if filtered:
-                        data = filtered
+                        raw_data = filtered
 
-            # 3. توحيد قراءة المجموع وحساب الترتيب والنسبة المئوية
-            for st in data[:5]:
+            formatted_results = []
+
+            # 3. معالجة وتوحيد كافة الحقول
+            for st in raw_data[:5]:
                 tot_val = None
                 tot_col = None
 
-                # البحث عن اسم عمود المجموع محتمل المسمى
-                possible_cols = ['total_degree', 'total', 'score', 'degree', 'total_score', 'degree_total', 'tot_degree', 'mark', 'sum']
-                for c in possible_cols:
-                    if c in st and st[c] is not None:
+                # البحث عن قيمة المجموع من أي عمود رقمي بين 0 و 410
+                for k, v in st.items():
+                    if k not in ['seating_no', 'id'] and v is not None:
                         try:
-                            tot_val = float(st[c])
-                            tot_col = c
-                            break
+                            v_float = float(v)
+                            if 0 <= v_float <= 410:
+                                tot_val = v_float
+                                tot_col = k
+                                break
                         except (ValueError, TypeError):
                             pass
 
-                # فحص احتياطي لجميع أعمدة الصف لإيجاد رقم المجموع (بين 0 و 410)
-                if tot_val is None:
-                    for k, v in st.items():
-                        if k not in ['seating_no', 'id'] and v is not None:
-                            try:
-                                v_float = float(v)
-                                if 0 <= v_float <= 410:
-                                    tot_val = v_float
-                                    tot_col = k
-                                    break
-                            except (ValueError, TypeError):
-                                pass
+                # حساب الترتيب والعدد
+                national_rank = '—'
+                same_score_count = '—'
 
-                # إدراج القيمة والنسبة المئوية الموحدة في الكائن المرجّع
-                if tot_val is not None:
-                    st['formatted_total'] = tot_val
-                    st['percentage'] = f"{((tot_val / 410) * 100):.1f}%"
-                    
-                    if tot_col:
-                        try:
-                            rank_res = supabase.table('results').select(tot_col, count='exact').gt(tot_col, tot_val).execute()
-                            st['national_rank'] = (rank_res.count or 0) + 1
-                        except Exception:
-                            st['national_rank'] = st.get('national_rank', '—')
+                if tot_val is not None and tot_col:
+                    try:
+                        rank_res = supabase.table('results').select(tot_col, count='exact').gt(tot_col, tot_val).execute()
+                        national_rank = (rank_res.count or 0) + 1
+                    except Exception:
+                        pass
 
-                        try:
-                            same_res = supabase.table('results').select(tot_col, count='exact').eq(tot_col, tot_val).execute()
-                            st['same_score_count'] = same_res.count or 1
-                        except Exception:
-                            st['same_score_count'] = st.get('same_score_count', '—')
-                else:
-                    st['formatted_total'] = '—'
-                    st['percentage'] = '—'
-                    st['national_rank'] = st.get('national_rank', '—')
-                    st['same_score_count'] = st.get('same_score_count', '—')
+                    try:
+                        same_res = supabase.table('results').select(tot_col, count='exact').eq(tot_col, tot_val).execute()
+                        same_score_count = same_res.count or 1
+                    except Exception:
+                        pass
 
-            self.wfile.write(json.dumps({"results": data}, ensure_ascii=False).encode('utf-8'))
+                pct_val = round((tot_val / 410.0) * 100, 1) if tot_val is not None else '—'
+
+                formatted_results.append({
+                    "name": st.get('name') or 'طالب ثانوية عامة',
+                    "seating_no": st.get('seating_no') or q,
+                    "total": tot_val if tot_val is not None else '—',
+                    "percentage": f"{pct_val}%" if pct_val != '—' else '—',
+                    "pct_num": pct_val if pct_val != '—' else 0,
+                    "national_rank": national_rank,
+                    "same_score_count": same_score_count,
+                    "status": st.get('school') or st.get('status') or 'ناجح',
+                    "branch": st.get('branch') or 'عام'
+                })
+
+            self.wfile.write(json.dumps({"results": formatted_results}, ensure_ascii=False).encode('utf-8'))
 
         except Exception as e:
             self.wfile.write(json.dumps({"results": [], "error": f"خطأ في السيرفر: {str(e)}"}, ensure_ascii=False).encode('utf-8'))
