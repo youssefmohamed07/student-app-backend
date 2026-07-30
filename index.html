@@ -6,14 +6,14 @@
   
   <title>نتيجة الثانوية العامة 2026 برقم الجلوس والاسم — الثانوية العامة (الأصلي)</title>
   <meta name="title" content="نتيجة الثانوية العامة 2026 برقم الجلوس والاسم — الثانوية العامة (الأصلي)">
-  <meta name="description" content="استعلم فورياً عن نتيجة الثانوية العامة 2026 برقم الجلوس أو الاسم على مستوى الجمهورية عبر بوابة الثانوية العامة (الأصلي). نتيجة معتمدة رسمياً لجميع المحافظات والشُعب.">
-  <meta name="keywords" content="نتيجة الثانوية العامة 2026, نتيجة تالتة ثانوي, الثانوية العامة الأصلي, نتيجة الثانوية العامة برقم الجلوس">
+  <meta name="description" content="استعلم فورياً عن نتيجة الثانوية العامة 2026 برقم الجلوس والاسم وتعرف على ترتيبك على مستوى الجمهورية ودرجات المواد كاملة.">
+  <meta name="keywords" content="نتيجة الثانوية العامة 2026, ترتيب الثانوية العامة, الثانوية العامة الاصلي, نتيجة تالتة ثانوي">
   <meta name="robots" content="index, follow">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="نتيجة الثانوية العامة 2026 برقم الجلوس والاسم — الثانوية العامة (الأصلي)">
-  <meta property="og:description" content="استعلم فورياً عن نتيجتك برقم الجلوس على مستوى الجمهورية. النتيجة معتمدة رسمياً.">
+  <meta property="og:description" content="استعلم فورياً عن نتيجتك برقم الجلوس وترتيبك على الجمهورية عبر بوابة الثانوية العامة (الأصلي).">
 
   <!-- Fonts & Tailwind CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,7 +35,8 @@
               700: '#1e40af',
               accent: '#facc15',
               hoverAccent: '#eab308'
-            }
+            },
+            telegram: '#229ED9'
           }
         }
       }
@@ -44,31 +45,29 @@
   
   <style>
     body { font-family: 'Cairo', sans-serif; background-color: #f8fafc; }
-  </style>
-
-  <!-- Schema.org JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "نتيجة الثانوية العامة 2026 برقم الجلوس والاسم — الثانوية العامة (الأصلي)",
-    "description": "بوابة الثانوية العامة (الأصلي) للاستعلام عن نتائج الطلاب 2026 برقم الجلوس والاسم.",
-    "publisher": {
-      "@type": "Organization",
-      "name": "الثانوية العامة (الأصلي)"
+    @media print {
+      header, footer, #searchSection, .no-print, .telegram-float { display: none !important; }
+      body { background-color: white !important; }
+      .print-card { border: none !important; shadow: none !important; }
     }
-  }
-  </script>
+  </style>
 </head>
 
-<body class="text-slate-800 antialiased flex flex-col min-h-screen">
+<body class="text-slate-800 antialiased flex flex-col min-h-screen relative">
+
+  <!-- Floating Telegram Button -->
+  <a href="https://t.me/Highschool0000" target="_blank" class="telegram-float fixed bottom-6 left-6 z-50 bg-[#229ED9] hover:bg-[#1d87b9] text-white px-5 py-3.5 rounded-full shadow-2xl flex items-center gap-3 transition-all hover:scale-105 active:scale-95 group">
+    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+      <path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.52c-.15.68-.55.85-1.12.53l-3.08-2.27-1.49 1.43c-.16.16-.3.3-.62.3l.22-3.14 5.72-5.17c.25-.22-.05-.34-.38-.12l-7.07 4.45-3.05-.95c-.66-.21-.68-.66.14-.98l11.91-4.59c.55-.2 1.04.14.84.98z"/>
+    </svg>
+    <span class="font-extrabold text-xs sm:text-sm">قناة التلجرام الرسمية</span>
+  </a>
 
   <!-- Header -->
-  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20">
         
-        <!-- Logo -->
         <a href="#" class="flex items-center gap-3">
           <div class="w-12 h-12 bg-brand-600 rounded-2xl flex items-center justify-center text-white shadow-md shadow-brand-500/20">
             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,12 +81,11 @@
           </div>
         </a>
 
-        <!-- Menu Links -->
         <nav class="hidden lg:flex items-center gap-6 font-bold text-slate-700 text-sm">
           <a href="#" class="hover:text-brand-600 transition">الرئيسية</a>
-          <a href="#" class="hover:text-brand-600 transition">علمي علوم</a>
-          <a href="#" class="hover:text-brand-600 transition">علمي رياضة</a>
-          <a href="#" class="hover:text-brand-600 transition">أدبي</a>
+          <a href="https://t.me/Highschool0000" target="_blank" class="text-[#229ED9] hover:underline flex items-center gap-1.5 font-black">
+            قناة التلجرام
+          </a>
           <a href="#" class="bg-brand-50 text-brand-600 px-4 py-2 rounded-xl font-black border border-brand-100">نتائج 2026</a>
         </nav>
 
@@ -96,27 +94,18 @@
   </header>
 
   <!-- News Ticker -->
-  <div class="bg-red-600 text-white text-xs sm:text-sm py-2 px-4 shadow-inner">
+  <div class="bg-red-600 text-white text-xs sm:text-sm py-2.5 px-4 shadow-inner">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
       <div class="flex items-center gap-3 overflow-hidden">
         <span class="bg-white text-red-600 font-black px-2.5 py-0.5 rounded-full text-xs shrink-0 animate-pulse">عاجل</span>
-        <p class="truncate font-medium">موقع الثانوية العامة (الأصلي) — استعلام مباشر وسريع عن نتائج الصف الثالث الثانوي 2026 فور الاعتماد.</p>
+        <p class="truncate font-medium">انضموا فوراً لقناة التلجرام الرسمية لمعرفة أخبار التنسيق والنتائج أولاً بأول: <a href="https://t.me/Highschool0000" target="_blank" class="underline font-bold text-yellow-300">t.me/Highschool0000</a></p>
       </div>
-      <span class="hidden sm:inline-block text-red-100 font-bold shrink-0 text-xs">عام 2026</span>
+      <a href="https://t.me/Highschool0000" target="_blank" class="hidden sm:inline-block bg-white/20 hover:bg-white/30 text-white px-3 py-1 rounded-lg text-xs font-bold shrink-0">متابعة التلجرام 🚀</a>
     </div>
   </div>
 
   <!-- Main Container -->
   <main class="max-w-5xl mx-auto px-4 py-8 flex-grow w-full">
-
-    <!-- Breadcrumb -->
-    <nav class="flex items-center gap-2 text-xs text-slate-500 font-bold mb-6">
-      <a href="#" class="hover:text-brand-600">رئيسية النتائج</a>
-      <span>›</span>
-      <a href="#" class="hover:text-brand-600">الثانوية العامة (الأصلي)</a>
-      <span>›</span>
-      <span class="text-slate-800">نتيجة 2026</span>
-    </nav>
 
     <!-- Hero Box -->
     <section class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-sm mb-8 text-center sm:text-right relative">
@@ -129,19 +118,19 @@
       </div>
 
       <h1 class="text-2xl sm:text-4xl font-black text-slate-900 mb-3 leading-tight">
-        نتيجة الثانوية العامة 2026 برقم الجلوس على مستوى الجمهورية
+        نتيجة الثانوية العامة 2026 والترتيب على الجمهورية
       </h1>
       <p class="text-slate-600 font-medium text-sm sm:text-base mb-6">
-        جمهورية مصر العربية — استعلم فورياً عن نتيجتك برقم الجلوس أو الاسم. النتيجة معتمدة رسمياً.
+        جمهورية مصر العربية — استعلم فورياً عن نتيجتك، وترتيبك على الجمهورية، وعدد الطلاب الحاصلين على نفس المجموع.
       </p>
 
       <div class="flex flex-wrap gap-2 justify-center sm:justify-start">
         <a href="#searchSection" class="bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-sm px-6 py-3 rounded-2xl shadow-lg shadow-brand-500/20 transition flex items-center gap-2">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
           ابدأ الاستعلام الآن
         </a>
-        <span class="bg-slate-100 text-slate-700 text-xs font-bold px-4 py-3 rounded-2xl border border-slate-200">✔ معتمدة للاستعلام</span>
-        <span class="bg-slate-100 text-slate-700 text-xs font-bold px-4 py-3 rounded-2xl border border-slate-200">جميع الشُعب (علمي / أدبي)</span>
+        <a href="https://t.me/Highschool0000" target="_blank" class="bg-[#229ED9] hover:bg-[#1c83b5] text-white font-extrabold text-sm px-6 py-3 rounded-2xl shadow-lg shadow-blue-500/20 transition flex items-center gap-2">
+          قناة التلجرام الرسمية 🔗
+        </a>
       </div>
     </section>
 
@@ -160,40 +149,30 @@
             type="submit"
             class="bg-brand-accent hover:bg-brand-hoverAccent text-slate-900 font-black text-base px-8 py-3.5 rounded-2xl transition active:scale-95 shadow-md flex items-center justify-center gap-2 shrink-0"
           >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-            عرض النتيجة
+            عرض النتيجة والترتيب
           </button>
         </div>
         <p class="text-center text-xs text-slate-500 mt-3 font-semibold">
-          الاستعلام برقم الجلوس أو بالاسم على مستوى الجمهورية — الثانوية العامة (الأصلي) 2026.
+          الاستعلام برقم الجلوس أو بالاسم — الثانوية العامة (الأصلي) 2026.
         </p>
       </form>
 
-      <!-- Dynamic Results -->
+      <!-- Dynamic Results Output -->
       <div id="searchResults" class="mt-8 transition-all"></div>
     </section>
-
-    <!-- SEO Content -->
-    <article class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 space-y-8 text-slate-700 leading-relaxed text-sm sm:text-base">
-      <div>
-        <span class="text-xs font-black text-brand-600 block mb-1">دليل نتيجة الثانوية العامة</span>
-        <h2 class="text-2xl font-black text-slate-900 mb-4">نتيجة الثانوية العامة 2026 برقم الجلوس في مصر</h2>
-        <p>
-          هذه الصفحة مخصصة لمتابعة نتيجة الثانوية العامة 2026، وهي نفس النتيجة التي يبحث عنها الطلاب وأولياء الأمور عبر موقع الثانوية العامة (الأصلي) للاستعلام السريع والمباشر بدون تعقيدات.
-        </p>
-      </div>
-    </article>
 
   </main>
 
   <!-- Footer -->
   <footer class="bg-slate-900 text-slate-400 text-xs sm:text-sm mt-16 border-t border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 py-8 text-center text-slate-500">
-      © 2026 الثانوية العامة (الأصلي) — جميع الحقوق محفوظة.
+    <div class="max-w-7xl mx-auto px-4 py-8 text-center space-y-3">
+      <p class="text-white font-bold">الثانوية العامة (الأصلي) — البوابة الأولى لنتائج الطلاب في مصر</p>
+      <p class="text-slate-400 text-xs">تابعنا على تلجرام: <a href="https://t.me/Highschool0000" target="_blank" class="text-blue-400 underline">t.me/Highschool0000</a></p>
+      <p class="text-slate-600 text-xs pt-4">© 2026 الثانوية العامة (الأصلي) — جميع الحقوق محفوظة.</p>
     </div>
   </footer>
 
-  <!-- Script -->
+  <!-- Search Logic Script -->
   <script>
     async function searchStudent() {
       const query = document.getElementById('searchInput').value.trim();
@@ -204,7 +183,7 @@
       resultsDiv.innerHTML = `
         <div class="text-center py-8">
           <div class="inline-block w-8 h-8 border-4 border-brand-600 border-t-transparent rounded-full animate-spin mb-3"></div>
-          <p class="font-bold text-slate-600 text-sm">جاري جلب البيانات من القاعدة...</p>
+          <p class="font-bold text-slate-600 text-sm">جاري حساب المجموع والترتيب على الجمهورية...</p>
         </div>
       `;
 
@@ -221,19 +200,25 @@
           resultsDiv.innerHTML = `
             <div class="bg-amber-50 border border-amber-200 text-amber-900 p-6 rounded-2xl text-center">
               <strong class="block text-base mb-1">لم يتم العثور على نتيجة!</strong>
-              <p class="text-xs">تأكد من كتابة رقم الجلوس بصورة صحيحة أو تجربة جزء آخر من الاسم.</p>
+              <p class="text-xs mb-3">تأكد من كتابة رقم الجلوس بصورة صحيحة أو تجربة جزء آخر من الاسم.</p>
+              <a href="https://t.me/Highschool0000" target="_blank" class="inline-block bg-[#229ED9] text-white text-xs font-bold px-4 py-2 rounded-xl">انضم لقناة التلجرام للمساعدة 🚀</a>
             </div>
           `;
           return;
         }
 
-        let html = `<div class="space-y-6">`;
+        let html = `<div class="space-y-8">`;
 
         list.forEach(student => {
           const name = student.name || student.student_name || student.NAME || 'طالب ثانوية عامة';
           const seating = student.seating_no || student.seating_number || student.roll_no || student.seat_no || 'غير متوفر';
           const total = student.total_degree || student.total || student.score || student.degree || '—';
+          const branch = student.branch || student.section || 'عام';
+          const status = student.status || student.state || 'ناجح';
           
+          const rank = student.national_rank || '—';
+          const sameScore = student.same_score_count || '—';
+
           let percentage = student.percentage || student.percent || '';
           if (!percentage && total !== '—' && !isNaN(total)) {
              percentage = ((parseFloat(total) / 410) * 100).toFixed(1) + '%';
@@ -242,25 +227,53 @@
           }
 
           html += `
-            <div class="bg-white border-2 border-slate-100 rounded-3xl p-6 shadow-sm text-center space-y-6">
+            <div class="print-card bg-white border-2 border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm text-center space-y-6">
               
-              <div class="space-y-1">
-                <h3 class="text-xl sm:text-2xl font-black text-brand-600">${name}</h3>
-                <p class="text-slate-500 font-bold text-xs sm:text-sm">رقم الجلوس: <span class="text-slate-800">${seating}</span></p>
+              <!-- Student Header Info -->
+              <div class="border-b border-slate-100 pb-4 space-y-2">
+                <span class="bg-brand-50 text-brand-700 text-xs font-black px-3 py-1 rounded-full">الشعبة: ${branch} | الحالة: ${status}</span>
+                <h3 class="text-2xl sm:text-3xl font-black text-brand-600">${name}</h3>
+                <p class="text-slate-500 font-bold text-xs sm:text-sm">رقم الجلوس: <span class="text-slate-900 font-black">${seating}</span></p>
               </div>
 
-              <div class="grid grid-cols-2 gap-4 max-w-xl mx-auto">
+              <!-- 4 Main Statistics Cards Grid -->
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
                 
-                <div class="bg-slate-50 border border-slate-200/80 p-4 sm:p-5 rounded-2xl flex flex-col justify-center items-center">
-                  <span class="text-xs sm:text-sm font-bold text-slate-500 mb-1">المجموع الكلي</span>
+                <div class="bg-slate-50 border border-slate-200/80 p-4 rounded-2xl flex flex-col justify-center items-center">
+                  <span class="text-xs font-bold text-slate-500 mb-1">المجموع الكلي</span>
                   <span class="text-2xl sm:text-3xl font-black text-slate-900">${total}</span>
                 </div>
 
-                <div class="bg-slate-50 border border-slate-200/80 p-4 sm:p-5 rounded-2xl flex flex-col justify-center items-center">
-                  <span class="text-xs sm:text-sm font-bold text-slate-500 mb-1">النسبة المئوية</span>
+                <div class="bg-emerald-50/60 border border-emerald-200/80 p-4 rounded-2xl flex flex-col justify-center items-center">
+                  <span class="text-xs font-bold text-emerald-700 mb-1">النسبة المئوية</span>
                   <span class="text-2xl sm:text-3xl font-black text-emerald-600">${percentage || '—'}</span>
                 </div>
 
+                <div class="bg-amber-50/60 border border-amber-200/80 p-4 rounded-2xl flex flex-col justify-center items-center">
+                  <span class="text-xs font-bold text-amber-800 mb-1">الترتيب على الجمهورية 🏆</span>
+                  <span class="text-2xl sm:text-3xl font-black text-amber-600">#${rank}</span>
+                </div>
+
+                <div class="bg-blue-50/60 border border-blue-200/80 p-4 rounded-2xl flex flex-col justify-center items-center">
+                  <span class="text-xs font-bold text-blue-800 mb-1">نفس المجموع 👥</span>
+                  <span class="text-2xl sm:text-3xl font-black text-blue-600">${sameScore} طالب</span>
+                </div>
+
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="no-print flex flex-wrap justify-center gap-3 pt-2">
+                <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition flex items-center gap-2">
+                  🖨️ حفظ وتنزيل كـ PDF
+                </button>
+                
+                <a href="https://wa.me/?text=${encodeURIComponent('حصليت على نتيجة الثانوية العامة:\nاسم الطالب: ' + name + '\nالمجموع: ' + total + '\nالنسبة المئوية: ' + percentage + '\nالترتيب على الجمهورية: #' + rank + '\nتابع النتائج عبر التلجرام: https://t.me/Highschool0000')}" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition flex items-center gap-2">
+                  💬 مشاركة عبر الواتساب
+                </a>
+
+                <a href="https://t.me/Highschool0000" target="_blank" class="bg-[#229ED9] hover:bg-[#1a7eb0] text-white font-bold text-xs px-5 py-2.5 rounded-xl transition flex items-center gap-2">
+                  🚀 متابعة التنسيق على التلجرام
+                </a>
               </div>
 
             </div>
@@ -273,7 +286,7 @@
       } catch (err) {
         resultsDiv.innerHTML = `
           <div class="bg-amber-50 border border-amber-200 text-amber-900 p-6 rounded-2xl text-center">
-            <strong class="block text-base mb-1">لم يتم العثور على نتائج طابقة!</strong>
+            <strong class="block text-base mb-1">لم يتم العثور على نتائج مطابقة!</strong>
             <p class="text-xs">يرجى التأكد من كتابة الاسم أو رقم الجلوس بشكل صحيح.</p>
           </div>
         `;
