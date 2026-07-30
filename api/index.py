@@ -11,7 +11,6 @@ except ImportError:
     SUPABASE_AVAILABLE = False
 
 def clean_arabic(text):
-    """تجريد التشكيل وتوحيد الحروف العربية للمطابقة الدقيقة"""
     if not text:
         return ""
     text = str(text)
@@ -44,13 +43,13 @@ class handler(BaseHTTPRequestHandler):
             supabase_key = os.environ.get("SUPABASE_KEY")
             
             if not supabase_url or not supabase_key:
-                self.wfile.write(json.dumps({"results": [], "error": "المتغيرات SUPABASE_URL أو SUPABASE_KEY غير موجودة في Vercel"}, ensure_ascii=False).encode('utf-8'))
+                self.wfile.write(json.dumps({"results": [], "error": "المتغيرات البيئية لـ Supabase مفقودة"}, ensure_ascii=False).encode('utf-8'))
                 return
 
             supabase: Client = create_client(supabase_url, supabase_key)
             data = []
 
-            # 1. البحث برقم الجلوس (سريع جداً)
+            # 1. البحث برقم الجلوس
             if q.isdigit():
                 val = int(q)
                 try:
@@ -65,19 +64,17 @@ class handler(BaseHTTPRequestHandler):
                     except Exception:
                         pass
             
-            # 2. البحث بالاسم (مُحسّن لقواعد البيانات الضخمة)
+            # 2. البحث بالاسم
             else:
                 words = q.split()
                 first_word = words[0] if words else q
                 
-                # البحث ببدء الاسم بالكلمة أولاً (سريع جداً في PostgreSQL)
                 try:
                     res = supabase.table('results').select('*').ilike('name', f'{first_word}%').limit(20).execute()
                     data = res.data or []
                 except Exception:
                     pass
 
-                # إذا لم تجد نتائج، تجربة البحث في أي مكان بالاسم
                 if not data:
                     try:
                         res = supabase.table('results').select('*').ilike('name', f'%{first_word}%').limit(20).execute()
@@ -85,7 +82,6 @@ class handler(BaseHTTPRequestHandler):
                     except Exception:
                         pass
 
-                # إذا أدخل المستخدم أكثر من كلمة (مثل "عمر محمد") يتم الفلترة بدقة
                 if data and len(words) > 1:
                     clean_q_words = [clean_arabic(w) for w in words]
                     filtered = []
@@ -97,10 +93,57 @@ class handler(BaseHTTPRequestHandler):
                     if filtered:
                         data = filtered
 
-            # 3. إعداد بيانات العرض
+            # 3. توحيد قراءة المجموع وحساب الترتيب والنسبة المئوية
             for st in data[:5]:
-                st['national_rank'] = st.get('national_rank', '—')
-                st['same_score_count'] = st.get('same_score_count', '—')
+                tot_val = None
+                tot_col = None
+
+                # البحث عن اسم عمود المجموع محتمل المسمى
+                possible_cols = ['total_degree', 'total', 'score', 'degree', 'total_score', 'degree_total', 'tot_degree', 'mark', 'sum']
+                for c in possible_cols:
+                    if c in st and st[c] is not None:
+                        try:
+                            tot_val = float(st[c])
+                            tot_col = c
+                            break
+                        except (ValueError, TypeError):
+                            pass
+
+                # فحص احتياطي لجميع أعمدة الصف لإيجاد رقم المجموع (بين 0 و 410)
+                if tot_val is None:
+                    for k, v in st.items():
+                        if k not in ['seating_no', 'id'] and v is not None:
+                            try:
+                                v_float = float(v)
+                                if 0 <= v_float <= 410:
+                                    tot_val = v_float
+                                    tot_col = k
+                                    break
+                            except (ValueError, TypeError):
+                                pass
+
+                # إدراج القيمة والنسبة المئوية الموحدة في الكائن المرجّع
+                if tot_val is not None:
+                    st['formatted_total'] = tot_val
+                    st['percentage'] = f"{((tot_val / 410) * 100):.1f}%"
+                    
+                    if tot_col:
+                        try:
+                            rank_res = supabase.table('results').select(tot_col, count='exact').gt(tot_col, tot_val).execute()
+                            st['national_rank'] = (rank_res.count or 0) + 1
+                        except Exception:
+                            st['national_rank'] = st.get('national_rank', '—')
+
+                        try:
+                            same_res = supabase.table('results').select(tot_col, count='exact').eq(tot_col, tot_val).execute()
+                            st['same_score_count'] = same_res.count or 1
+                        except Exception:
+                            st['same_score_count'] = st.get('same_score_count', '—')
+                else:
+                    st['formatted_total'] = '—'
+                    st['percentage'] = '—'
+                    st['national_rank'] = st.get('national_rank', '—')
+                    st['same_score_count'] = st.get('same_score_count', '—')
 
             self.wfile.write(json.dumps({"results": data}, ensure_ascii=False).encode('utf-8'))
 
