@@ -1,44 +1,18 @@
-import os
+from http.server import BaseHTTPRequestHandler
 import json
-import ssl
 import urllib.request
 import urllib.parse
-from typing import Optional, List
-
-from fastapi import FastAPI, HTTPException, Query, Request
-from fastapi.responses import JSONResponse
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+import ssl
 
 SUPABASE_URL = "https://znewxywawcpibiodmtnj.supabase.co"
 SUPABASE_KEY = "sb_publishable_s2MTJ7z1DhS-PlWz1zwvGw_lKh7bb1P"
 MAX_TOTAL_SCORE = 320.0
 
-app = FastAPI(title="Thanaweya Amma 2026 API")
-
-# تفعيل CORS الشامل
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-# صمام أمان: التقاط أي خطأ سيرفر وإرجاعه كـ JSON مع CORS منعاً لـ Failed to fetch
-@app.exception_handler(Exception)
-async def global_exception_handler(request: Request, exc: Exception):
-    return JSONResponse(
-        status_code=500,
-        content={"detail": f"خطأ في الاتصال بالخادم: {str(exc)}"},
-        headers={"Access-Control-Allow-Origin": "*"}
-    )
-
 ssl_ctx = ssl.create_default_context()
 ssl_ctx.check_hostname = False
 ssl_ctx.verify_mode = ssl.CERT_NONE
 
-def fetch_from_supabase(endpoint_path: str):
+def fetch_from_supabase(endpoint_path):
     url = f"{SUPABASE_URL}/rest/v1/{endpoint_path}"
     req = urllib.request.Request(
         url,
@@ -49,73 +23,78 @@ def fetch_from_supabase(endpoint_path: str):
         },
     )
     try:
-        with urllib.request.urlopen(req, timeout=10, context=ssl_ctx) as response:
+        with urllib.request.urlopen(req, timeout=8, context=ssl_ctx) as response:
             return json.loads(response.read().decode("utf-8"))
-    except urllib.error.HTTPError as e:
-        raise Exception(f"Supabase HTTP {e.code}")
     except Exception as e:
-        raise Exception(f"فشل الاتصال بقاعدة البيانات: {str(e)}")
+        return None
 
-class StudentResult(BaseModel):
-    seating_no: int
-    name: str
-    total_score: float
-    percentage: float
-    status: str
-    school: Optional[str] = None
-    governorate: Optional[str] = None
+class handler(BaseHTTPRequestHandler):
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', '*')
+        self.end_headers()
 
-class SearchNameResult(BaseModel):
-    seating_no: int
-    name: str
-    total_score: float
-    status: str
+    def do_GET(self):
+        parsed = urllib.parse.urlparse(self.path)
+        path = parsed.path
+        query_params = urllib.parse.parse_qs(parsed.query)
 
-@app.get("/api/result/{seating_no}", response_model=StudentResult)
-@app.get("/result/{seating_no}", response_model=StudentResult)
-def get_result(seating_no: str):
-    seating_no = seating_no.strip()
-    if not seating_no.isdigit():
-        raise HTTPException(status_code=400, detail="رقم الجلوس يجب أن يتكون من أرقام فقط")
+        self.send_response(200)
+        self.send_header('Content-Type', 'application/json; charset=utf-8')
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', '*')
+        self.end_headers()
 
-    path = f"results?seating_no=eq.{seating_no}&select=*"
-    data = fetch_from_supabase(path)
+        # الاستعلام برقم الجلوس
+        if "/api/result/" in path or "/result/" in path:
+            seating_no = path.split("/")[-1].strip()
+            if not seating_no.isdigit():
+                response_data = {"detail": "رقم الجلوس يجب أن يتكون من أرقام فقط"}
+            else:
+                data = fetch_from_supabase(f"results?seating_no=eq.{seating_no}&select=*")
+                if not data:
+                    response_data = {"detail": "لم يتم العثور على نتيجة برقم الجلوس المدخل"}
+                else:
+                    student = data[0]
+                    total = float(student.get("total_score") or 0)
+                    response_data = {
+                        "seating_no": student.get("seating_no"),
+                        "name": student.get("name"),
+                        "total_score": total,
+                        "percentage": round((total / MAX_TOTAL_SCORE) * 100, 1),
+                        "status": student.get("school") or "ناجح",
+                        "school": "عام",
+                        "governorate": "جمهورية مصر العربية"
+                    }
+            self.wfile.write(json.dumps(response_data, ensure_ascii=False).encode('utf-8'))
+            return
 
-    if not data:
-        raise HTTPException(status_code=404, detail="لم يتم العثور على نتيجة برقم الجلوس المدخل")
+        # الاستعلام بالاسم
+        if "/api/search/name" in path or "/search/name" in path:
+            name_list = query_params.get("name", [""])
+            name_str = name_list[0].strip()
+            if len(name_str) < 3:
+                response_data = {"detail": "الرجاء كتابة 3 أحرف على الأقل للبحث"}
+            else:
+                encoded_name = urllib.parse.quote(f"*{name_str}*", safe="*")
+                data = fetch_from_supabase(f"results?name=ilike.{encoded_name}&limit=15&select=*")
+                if not data:
+                    response_data = {"detail": "لم يتم العثور على نتائج بهذا الاسم"}
+                else:
+                    results = []
+                    for item in data:
+                        results.append({
+                            "seating_no": item.get("seating_no"),
+                            "name": item.get("name"),
+                            "total_score": float(item.get("total_score") or 0),
+                            "status": item.get("school") or "ناجح"
+                        })
+                    response_data = results
+            self.wfile.write(json.dumps(response_data, ensure_ascii=False).encode('utf-8'))
+            return
 
-    student = data[0]
-    total_score = float(student.get("total_score") or 0)
-
-    return {
-        "seating_no": student.get("seating_no"),
-        "name": student.get("name"),
-        "total_score": total_score,
-        "percentage": round((total_score / MAX_TOTAL_SCORE) * 100, 1),
-        "status": student.get("school") or "ناجح",
-        "school": "عام",
-        "governorate": "جمهورية مصر العربية"
-    }
-
-@app.get("/api/search/name", response_model=List[SearchNameResult])
-@app.get("/search/name", response_model=List[SearchNameResult])
-def search_by_name(name: str = Query(..., min_length=3)):
-    search_str = name.strip()
-    encoded_name = urllib.parse.quote(f"*{search_str}*", safe="*")
-    
-    path = f"results?name=ilike.{encoded_name}&limit=15&select=*"
-    data = fetch_from_supabase(path)
-
-    if not data:
-        raise HTTPException(status_code=404, detail="لم يتم العثور على نتائج بهذا الاسم")
-
-    results = []
-    for item in data:
-        results.append({
-            "seating_no": item.get("seating_no"),
-            "name": item.get("name"),
-            "total_score": float(item.get("total_score") or 0),
-            "status": item.get("school") or "ناجح"
-        })
-
-    return results
+        response_data = {"detail": "مسار غير صالح"}
+        self.wfile.write(json.dumps(response_data, ensure_ascii=False).encode('utf-8'))
