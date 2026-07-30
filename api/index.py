@@ -10,14 +10,13 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://znewxywawcpibiodmtnj.supabase.co").strip().rstrip("/").replace("/rest/v1", "")
-SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "sb_publishable_s2MTJ7z1DhS-PlWz1zwvGw_lKh7bb1P").strip()
-
+SUPABASE_URL = "https://znewxywawcpibiodmtnj.supabase.co"
+SUPABASE_KEY = "sb_publishable_s2MTJ7z1DhS-PlWz1zwvGw_lKh7bb1P"
 MAX_TOTAL_SCORE = 320.0
 
 app = FastAPI(title="Thanaweya Amma 2026 API")
 
-# إتاحة CORS بشكل كامل
+# تفعيل CORS الشامل
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -26,17 +25,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# معالج أخطاء لمنع انقطاع CORS عند أي خطأ في السيرفر
+# صمام أمان: التقاط أي خطأ سيرفر وإرجاعه كـ JSON مع CORS منعاً لـ Failed to fetch
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
     return JSONResponse(
         status_code=500,
-        content={"detail": f"خطأ خادم: {str(exc)}"},
-        headers={
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "*",
-            "Access-Control-Allow-Headers": "*",
-        }
+        content={"detail": f"خطأ في الاتصال بالخادم: {str(exc)}"},
+        headers={"Access-Control-Allow-Origin": "*"}
     )
 
 ssl_ctx = ssl.create_default_context()
@@ -54,13 +49,12 @@ def fetch_from_supabase(endpoint_path: str):
         },
     )
     try:
-        with urllib.request.urlopen(req, timeout=8, context=ssl_ctx) as response:
+        with urllib.request.urlopen(req, timeout=10, context=ssl_ctx) as response:
             return json.loads(response.read().decode("utf-8"))
     except urllib.error.HTTPError as e:
-        error_body = e.read().decode("utf-8")
-        raise Exception(f"Supabase HTTP {e.code}: {error_body}")
+        raise Exception(f"Supabase HTTP {e.code}")
     except Exception as e:
-        raise Exception(f"Connection Error: {str(e)}")
+        raise Exception(f"فشل الاتصال بقاعدة البيانات: {str(e)}")
 
 class StudentResult(BaseModel):
     seating_no: int
@@ -77,7 +71,6 @@ class SearchNameResult(BaseModel):
     total_score: float
     status: str
 
-# دعم المسارين معاً لمنع خطأ 404 في Vercel
 @app.get("/api/result/{seating_no}", response_model=StudentResult)
 @app.get("/result/{seating_no}", response_model=StudentResult)
 def get_result(seating_no: str):
