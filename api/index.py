@@ -95,7 +95,7 @@ class handler(BaseHTTPRequestHandler):
 
             formatted_results = []
 
-            # 3. توحيد قراءة البيانات وحساب الترتيب والدرجات المفقودة
+            # 3. توحيد قراءة البيانات وحساب الترتيب والدرجات المفقودة بناءً على مجموع 320
             for st in raw_data[:5]:
                 tot_val = None
                 tot_col = None
@@ -104,7 +104,7 @@ class handler(BaseHTTPRequestHandler):
                     if k not in ['seating_no', 'id'] and v is not None:
                         try:
                             v_float = float(v)
-                            if 0 <= v_float <= 410:
+                            if 0 <= v_float <= 320:
                                 tot_val = v_float
                                 tot_col = k
                                 break
@@ -127,8 +127,9 @@ class handler(BaseHTTPRequestHandler):
                     except Exception:
                         pass
 
-                pct_val = round((tot_val / 410.0) * 100, 2) if tot_val is not None else '—'
-                lost_marks = round(410.0 - tot_val, 1) if tot_val is not None else '—'
+                # حساب النسبة المئوية والدرجات المفقودة من 320
+                pct_val = round((tot_val / 320.0) * 100, 2) if tot_val is not None else '—'
+                lost_marks = round(320.0 - tot_val, 1) if tot_val is not None else '—'
 
                 formatted_results.append({
                     "name": st.get('name') or 'طالب ثانوية عامة',
