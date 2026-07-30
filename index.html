@@ -3,575 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة نتيجة الثانوية العامة 2026</title>
-
-    <script>
-        tailwind = { config: { darkMode: 'class' } };
-    </script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-
+    <title>نتيجة الثانوية العامة 2026</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Cairo', sans-serif; }
-        .clean-card {
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            min-height: 100vh;
+        }
+        .main-card {
             background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
             border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
         }
-        .dark .clean-card {
-            background: #1e293b;
-            border-color: #334155;
+        .btn-custom {
+            background-color: #1d4ed8;
+            color: white;
+            border-radius: 12px;
+            padding: 12px 30px;
+            font-weight: 700;
+            transition: all 0.2s;
         }
-        .tab-btn.active {
+        .btn-custom:hover {
             background-color: #1e40af;
-            color: #ffffff;
-            box-shadow: 0 2px 10px rgba(30, 64, 175, 0.25);
+            color: white;
+            transform: translateY(-1px);
         }
-        .spinner {
-            border: 2.5px solid rgba(255,255,255,0.4);
-            border-top-color: #fff;
-            border-radius: 50%;
-            width: 16px; height: 16px;
-            animation: spin .7s linear infinite;
-            display: inline-block;
+        .badge-custom {
+            background-color: #eff6ff;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
+            border-radius: 50px;
+            padding: 6px 16px;
+            font-weight: 600;
+            font-size: 0.875rem;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        .result-box {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 16px;
+        }
+        .error-box {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 16px;
+            color: #991b1b;
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between p-4 md:p-8 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors">
+<body>
 
-    <!-- Header -->
-    <header class="max-w-4xl mx-auto w-full flex justify-between items-center mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
-        <div class="flex items-center gap-3">
-            <div class="bg-blue-900 text-white p-2.5 rounded-xl shadow-sm">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+    <nav class="navbar navbar-light bg-white border-bottom py-3">
+        <div class="container">
+            <div class="d-flex align-items-center gap-2">
+                <div class="bg-primary text-white rounded-3 p-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                    <i class="fas fa-graduation-cap fa-lg"></i>
+                </div>
+                <span class="fw-bold fs-5">نتيجة الثانوية العامة</span>
             </div>
-            <div>
-                <h1 class="font-extrabold text-lg leading-tight">بوابة نتيجة الثانوية العامة 2026</h1>
-                <p class="text-xs text-slate-500 dark:text-slate-400 font-semibold">الدور الأول — استعلام مباشر</p>
-            </div>
+            <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-2">
+                <i class="fas fa-check-circle me-1"></i> النتيجة معتمدة 2026
+            </span>
         </div>
-        <div class="flex items-center gap-2">
-            <a id="navTelegramLink" href="#" target="_blank" class="hidden sm:flex items-center gap-2 bg-sky-50 dark:bg-sky-950 text-sky-700 dark:text-sky-300 hover:bg-sky-100 text-xs px-3.5 py-2 rounded-xl border border-sky-200 dark:border-sky-800 font-bold transition">
-                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2 9.43c-.15.68-.55.84-1.12.52l-3.05-2.25-1.47 1.42c-.16.16-.3.3-.61.3l.22-3.1 5.64-5.1c.25-.22-.05-.34-.38-.12L7.8 13.5l-3-.94c-.65-.2-.66-.65.14-.96l11.72-4.52c.54-.2 1.02.13.9 1.08z"/></svg>
-                <span>قناة التليجرام</span>
-            </a>
-            <button onclick="toggleDarkMode()" aria-label="تبديل الوضع الليلي" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition">
-                <svg id="iconSun" class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.36 6.36l-.7-.7M6.34 6.34l-.7-.7m12.72 0l-.7.7M6.34 17.66l-.7.7M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                <svg id="iconMoon" class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
-            </button>
-        </div>
-    </header>
+    </nav>
 
-    <main class="max-w-3xl mx-auto w-full flex-grow space-y-5">
-
-        <!-- Search Box -->
-        <div class="clean-card rounded-2xl p-6">
-            <div class="grid grid-cols-2 gap-2 p-1 bg-slate-100 dark:bg-slate-900 rounded-xl mb-5 border border-slate-200 dark:border-slate-700">
-                <button id="tab-seat" onclick="switchTab('seat')" class="py-2.5 text-xs font-bold rounded-lg bg-blue-800 text-white shadow-sm">البحث برقم الجلوس</button>
-                <button id="tab-name" onclick="switchTab('name')" class="py-2.5 text-xs font-bold rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white">البحث بالاسم</button>
+    <div class="container py-5">
+        <div class="text-center mb-4">
+            <div class="d-inline-flex gap-2 mb-3">
+                <span class="badge-custom"><i class="fas fa-globe me-1"></i> نتيجة جمهورية موحدة</span>
+                <span class="badge-custom">العام الدراسي 2026</span>
             </div>
-
-            <div class="space-y-4">
-                <input type="text" id="searchInput" placeholder="أدخل رقم الجلوس (مثال: 2001970)"
-                       class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3.5 text-center text-base font-bold focus:outline-none focus:border-blue-600 focus:bg-white dark:focus:bg-slate-800 transition">
-
-                <button id="searchBtn" onclick="performSearch()" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-extrabold py-3.5 rounded-xl text-sm shadow-md transition flex items-center justify-center gap-2">
-                    <span id="searchBtnLabel">🔍 عرض النتيجة</span>
-                </button>
-            </div>
+            <h1 class="fw-extrabold display-5 mb-3">استعلم فوراً عن نتيجتك برقم الجلوس أو الاسم</h1>
+            <p class="text-muted fs-5">أدخل رقم الجلوس أو الاسم كاملاً لمعرفة تفاصيل المجموع والنسبة المئوية رسمياً.</p>
         </div>
 
-        <div id="errorBox" class="hidden bg-rose-50 dark:bg-rose-950 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 p-4 rounded-xl text-center text-xs font-bold"></div>
-        <div id="multipleBox" class="hidden clean-card rounded-2xl p-4"><div id="multipleList" class="space-y-2 max-h-56 overflow-y-auto"></div></div>
-
-        <!-- Optional channel banner -->
-        <div id="promoBanner" class="hidden bg-sky-50 dark:bg-sky-950 border border-sky-200 dark:border-sky-800 text-sky-800 dark:text-sky-300 p-3.5 rounded-xl text-xs font-bold flex items-center justify-between gap-3">
-            <span>تابع آخر تحديثات النتيجة والتنسيق عبر قناة التليجرام</span>
-            <div class="flex items-center gap-2 shrink-0">
-                <a id="promoTelegramBtn" href="#" target="_blank" class="bg-sky-600 hover:bg-sky-700 text-white px-3 py-1.5 rounded-lg">انضمام</a>
-                <button onclick="document.getElementById('promoBanner').classList.add('hidden')" class="text-sky-500 hover:text-sky-700 px-1">✕</button>
-            </div>
-        </div>
-
-        <!-- MAIN DASHBOARD -->
-        <div id="resultBox" class="hidden space-y-5">
-
-            <!-- Dashboard Tabs -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 p-1.5 bg-slate-200/70 dark:bg-slate-800 rounded-xl border border-slate-300 dark:border-slate-700 text-center">
-                <button onclick="showDashTab('main')" id="dtab-main" class="tab-btn active py-2.5 rounded-lg text-xs font-bold transition">📊 النتيجة</button>
-                <button onclick="showDashTab('college')" id="dtab-college" class="tab-btn py-2.5 rounded-lg text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition">🏛️ دليل التنسيق</button>
-                <button onclick="showDashTab('transfer')" id="dtab-transfer" class="tab-btn py-2.5 rounded-lg text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition">🗺️ تقليل المغتربين</button>
-                <button onclick="showDashTab('compare')" id="dtab-compare" class="tab-btn py-2.5 rounded-lg text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition">⚔️ مقارنة صديق</button>
-            </div>
-
-            <!-- TAB 1: Main Card -->
-            <div id="view-main" class="dash-view space-y-4">
-                <div class="clean-card rounded-2xl p-6 border-t-4 space-y-5" id="mainResultCard">
-
-                    <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-700 pb-3 flex-wrap gap-2">
-                        <span id="res-status" class="text-xs font-bold px-3 py-1 rounded-full border">---</span>
-                        <span id="res-branch-badge" class="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-600 text-xs font-bold px-3 py-1 rounded-full">الشعبة: لم تحدد بعد</span>
-                    </div>
-
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-300 rounded-xl flex items-center justify-center font-black text-xl shrink-0">🎓</div>
-                        <div>
-                            <h3 id="res-name" class="text-xl font-black">---</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">رقم الجلوس: <span id="res-seat" class="font-bold text-blue-700 dark:text-blue-400">---</span></p>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="main-card p-4 p-md-5 mb-4">
+                    <form id="searchForm" onsubmit="handleSearch(event)">
+                        <div class="row g-2">
+                            <div class="col-md-9">
+                                <div class="position-relative">
+                                    <input type="text" id="searchInput" class="form-control form-control-lg pe-5" placeholder="أدخل رقم الجلوس أو الاسم..." required style="border-radius: 12px; height: 54px;">
+                                    <i class="fas fa-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" id="submitBtn" class="btn btn-custom w-100 h-100 d-flex align-items-center justify-content-center gap-2">
+                                    <span>عرض النتيجة</span>
+                                    <i class="fas fa-arrow-left"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-
-                    <!-- Metric Cards Grid -->
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                        <div class="bg-slate-50 dark:bg-slate-900 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 text-center">
-                            <p class="text-xs font-bold text-slate-500 dark:text-slate-400">المجموع الكلي</p>
-                            <p id="res-score" class="text-base md:text-lg font-black mt-1" dir="ltr">0 / 320</p>
-                        </div>
-                        <div class="bg-slate-50 dark:bg-slate-900 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 text-center">
-                            <p class="text-xs font-bold text-slate-500 dark:text-slate-400">النسبة المئوية</p>
-                            <p id="res-percentage" class="text-base md:text-lg font-black text-blue-700 dark:text-blue-400 mt-1">0%</p>
-                        </div>
-                        <div class="bg-indigo-50 dark:bg-indigo-950 p-3.5 rounded-xl border border-indigo-200 dark:border-indigo-800 text-center">
-                            <p class="text-xs font-bold text-indigo-900 dark:text-indigo-300">نفس المجموع</p>
-                            <p id="res-same-score" class="text-base md:text-lg font-black text-indigo-700 dark:text-indigo-400 mt-1">—</p>
-                        </div>
-                        <div class="bg-amber-50 dark:bg-amber-950 p-3.5 rounded-xl border border-amber-200 dark:border-amber-800 text-center">
-                            <p class="text-xs font-bold text-amber-800 dark:text-amber-300">الترتيب من إجمالي الطلاب</p>
-                            <p id="res-rank" class="text-base md:text-lg font-black text-amber-700 dark:text-amber-400 mt-1">—</p>
-                        </div>
-                    </div>
-                    <p class="text-[11px] text-slate-400 dark:text-slate-500 text-center -mt-2">الترتيب محسوب فعليًا من عدد الطلاب الحاصلين على مجموع أعلى — وليس تقديرًا.</p>
-
-                    <!-- Branch Selector -->
-                    <div id="branchPromptCard" class="bg-blue-50 dark:bg-blue-950 border-2 border-blue-200 dark:border-blue-800 p-4 rounded-xl space-y-3">
-                        <div class="text-blue-900 dark:text-blue-300 font-extrabold text-xs">حدد شعبتك لعرض دليل التنسيق الاسترشادي المناسب لها:</div>
-                        <div class="grid grid-cols-3 gap-2">
-                            <button onclick="selectBranch('علمي علوم')" class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2.5 rounded-lg text-xs transition">علمي علوم</button>
-                            <button onclick="selectBranch('علمي رياضة')" class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2.5 rounded-lg text-xs transition">علمي رياضة</button>
-                            <button onclick="selectBranch('أدبي')" class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2.5 rounded-lg text-xs transition">أدبي</button>
-                        </div>
-                    </div>
-
-                    <!-- Actions -->
-                    <div class="flex gap-3 pt-1">
-                        <button onclick="downloadStoryCard()" class="flex-1 bg-slate-900 hover:bg-black text-white font-bold py-3 rounded-xl text-xs flex items-center justify-center gap-2 shadow-sm">
-                            📸 تحميل كارت النتيجة
-                        </button>
-                        <button onclick="shareWhatsApp()" class="flex-1 bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950 dark:hover:bg-emerald-900 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-800 font-bold py-3 rounded-xl text-xs flex items-center justify-center gap-2">
-                            💬 مشاركة عبر واتساب
-                        </button>
-                    </div>
-
+                    </form>
                 </div>
-            </div>
 
-            <!-- TAB 2: Tanseeq Guide -->
-            <div id="view-college" class="dash-view hidden space-y-4">
-                <div class="clean-card rounded-2xl p-6 space-y-4">
-                    <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-700 pb-3 flex-wrap gap-2">
-                        <h3 class="text-sm font-extrabold">🏛️ دليل تنسيق استرشادي (نظام 320 درجة)</h3>
-                        <span id="tanseeqBranchBadge" class="bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 text-xs font-bold px-3 py-1 rounded-full">حدد الشعبة أولاً</span>
-                    </div>
-                    <div class="bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-300 text-[11px] font-bold p-3 rounded-lg leading-relaxed">
-                        ⚠️ الأرقام هنا استرشادية غير رسمية (مبنية على تنسيق أعوام سابقة) وليست الحد الأدنى الرسمي لتنسيق 2026.
-                        الحد الأدنى الفعلي يُعلن رسميًا من المجلس الأعلى للجامعات بعد بدء التنسيق — راجعه دايمًا قبل اتخاذ قرارك.
-                    </div>
-                    <div id="cutoffList" class="space-y-2.5 max-h-80 overflow-y-auto pr-1"></div>
-                </div>
-            </div>
-
-            <!-- TAB 3: Transfer Calculator -->
-            <div id="view-transfer" class="dash-view hidden space-y-4">
-                <div class="clean-card rounded-2xl p-6 space-y-4">
-                    <h3 class="text-sm font-extrabold border-b border-slate-100 dark:border-slate-700 pb-3">🗺️ دليل تقليل المغتربين والتحويلات الجغرافية</h3>
-                    <div class="space-y-3">
-                        <label class="text-xs text-slate-600 dark:text-slate-400 font-bold block">اختر المحافظة التابع لها مدرستك:</label>
-                        <select id="govSelect" onchange="calculateTransferRules()" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl p-3 text-xs font-bold outline-none focus:border-blue-600">
-                            <option value="">-- اختر المحافظة --</option>
-                            <option value="cairo">القاهرة / الجيزة / القليوبية</option>
-                            <option value="alex">الإسكندرية / البحيرة</option>
-                            <option value="delta">الدقهلية / الشرقية / الغربية / المنوفية / كفر الشيخ</option>
-                            <option value="canal">السويس / الإسماعيلية / بورسعيد / شمال وسيناء</option>
-                            <option value="upper">محافظات الصعيد (الفيوم - بني سويف - المنيا - أسيوط - سوهاج - قنا - أسوان)</option>
-                        </select>
-                        <div id="transferInfo" class="hidden bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-4 rounded-xl text-xs leading-relaxed space-y-2"></div>
-                        <p class="text-[11px] text-slate-400 dark:text-slate-500">القواعد العامة قد تتغير سنويًا — تأكد من آخر تعليمات المجلس الأعلى للجامعات.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 4: Compare with Friend -->
-            <div id="view-compare" class="dash-view hidden space-y-4">
-                <div class="clean-card rounded-2xl p-6 space-y-4">
-                    <h3 class="text-sm font-extrabold">⚔️ مقارنة النتيجة مع صديق</h3>
-                    <div class="space-y-2">
-                        <div class="flex gap-2">
-                            <input type="text" id="compareInput" placeholder="أدخل رقم جلوس الصديق أو اسمه..." class="flex-grow bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs outline-none focus:border-blue-600">
-                            <button onclick="compareWithFriend()" class="bg-blue-700 hover:bg-blue-800 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition">بحث</button>
-                        </div>
-                        <div id="friendSelectList" class="hidden bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl p-3 space-y-2 max-h-48 overflow-y-auto"></div>
-                    </div>
-                    <div id="compareResultContainer" class="hidden grid grid-cols-2 gap-3 text-center pt-2">
-                        <div id="myCompareBox" class="bg-slate-50 dark:bg-slate-900 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700"></div>
-                        <div id="friendCompareBox" class="bg-blue-50 dark:bg-blue-950 p-3.5 rounded-xl border border-blue-200 dark:border-blue-800"></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </main>
-
-    <!-- HIDDEN STORY EXPORT TEMPLATE -->
-    <div style="position: absolute; left: -9999px; top: -9999px;">
-        <div id="storyExportCard" style="width: 450px; background: #ffffff; padding: 35px; border-radius: 20px; color: #0f172a; font-family: 'Cairo', sans-serif; border: 3px solid #1e40af;">
-            <div style="text-align: center; margin-bottom: 25px;">
-                <p style="font-size: 13px; color: #1e40af; font-weight: 800; margin-bottom: 4px;">بوابة نتيجة الثانوية العامة 2026</p>
-                <h2 id="exp-name" style="font-size: 22px; font-weight: 900; color: #0f172a; margin: 0;">اسم الطالب</h2>
-                <p style="font-size: 13px; color: #64748b; margin-top: 4px;">رقم الجلوس: <span id="exp-seat" style="color: #0f172a; font-weight: 800;">---</span> • <span id="exp-branch" style="color: #1e40af; font-weight: 800;">---</span></p>
-            </div>
-            <div style="background: #f8fafc; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
-                    <span style="font-size: 14px; color: #64748b; font-weight: 700;">المجموع الكلي:</span>
-                    <span id="exp-score" style="font-size: 18px; font-weight: 900; color: #0f172a; direction: ltr; unicode-bidi: isolate;">0 / 320</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
-                    <span style="font-size: 14px; color: #64748b; font-weight: 700;">النسبة المئوية:</span>
-                    <span id="exp-perc" style="font-size: 18px; font-weight: 900; color: #1e40af;">0%</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 14px; color: #64748b; font-weight: 700;">الحالة:</span>
-                    <span id="exp-status" style="font-size: 15px; font-weight: 900; color: #b45309;">---</span>
-                </div>
-            </div>
-            <div style="text-align: center; border-top: 1px solid #e2e8f0; padding-top: 15px;">
-                <p style="font-size: 11px; color: #64748b; margin: 0;">تابع النتائج والتنسيق عبر: <b id="exp-channel" style="color: #1e40af;">---</b></p>
+                <!-- Container display results -->
+                <div id="outputArea"></div>
             </div>
         </div>
     </div>
 
-    <footer class="text-center text-xs text-slate-500 dark:text-slate-400 mt-10 py-4 border-t border-slate-200 dark:border-slate-700 max-w-3xl mx-auto w-full">
-        بوابة نتيجة الثانوية العامة 2026 — أداة استعلام غير رسمية. للتأكد النهائي من النتيجة راجع الموقع الرسمي لوزارة التربية والتعليم.
-    </footer>
-
     <script>
-        // =====================================================================
-        // ربط نسبي مباشر مع الـ API المحلي/أونلاين
-        // =====================================================================
-        const API_BASE = "/api";
-        const TELEGRAM_CHANNEL_URL = "https://t.me/Highschool0000"; 
-
-        let searchMode = 'seat';
-        let currentStudentData = null;
-        let selectedBranch = null;
-
-        const INDICATIVE_TANSEEQ_320 = {
-            "علمي علوم": [
-                { name: "طب القاهرة / عين شمس", min: 301.5 },
-                { name: "طب سوهاج / بور سعيد", min: 300.5 },
-                { name: "طب أسنان المنصورة", min: 298.0 },
-                { name: "صيدلة عين شمس", min: 294.5 },
-                { name: "علاج طبيعي بنها", min: 294.5 },
-                { name: "حاسبات ومعلومات علوم", min: 292.5 },
-                { name: "تمريض طنطا", min: 278.0 }
-            ],
-            "علمي رياضة": [
-                { name: "هندسة القاهرة / عين شمس", min: 295.5 },
-                { name: "هندسة طنطا / بني سويف", min: 293.5 },
-                { name: "حاسبات ومعلومات رياضة", min: 279.5 },
-                { name: "فنون جميلة (عمارة)", min: 267.0 }
-            ],
-            "أدبي": [
-                { name: "اقتصاد وعلوم سياسية", min: 268.5 },
-                { name: "ألسن عين شمس", min: 267.5 },
-                { name: "إعلام القاهرة", min: 264.0 },
-                { name: "تجارة القاهرة", min: 222.0 }
-            ]
-        };
-
-        const STATUS_STYLES = {
-            "ناجح دور أول": "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950 dark:text-emerald-400 dark:border-emerald-800",
-            "دور ثان": "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950 dark:text-amber-400 dark:border-amber-800",
-            "راسب دور أول": "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950 dark:text-rose-400 dark:border-rose-800",
-            "غياب كلى دور أول": "bg-slate-100 text-slate-700 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-600",
-        };
-
-        document.getElementById('navTelegramLink').href = TELEGRAM_CHANNEL_URL;
-        document.getElementById('promoTelegramBtn').href = TELEGRAM_CHANNEL_URL;
-
-        function toggleDarkMode() {
-            document.documentElement.classList.toggle('dark');
-            try {
-                localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-            } catch (e) {}
-        }
-        (function initTheme() {
-            try {
-                const saved = localStorage.getItem('theme');
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                if (saved === 'dark' || (!saved && prefersDark)) {
-                    document.documentElement.classList.add('dark');
-                }
-            } catch (e) {}
-        })();
-
-        function switchTab(mode) {
-            searchMode = mode;
-            const tabSeat = document.getElementById('tab-seat');
-            const tabName = document.getElementById('tab-name');
-            const input = document.getElementById('searchInput');
-
-            if (mode === 'seat') {
-                tabSeat.className = "py-2.5 text-xs font-bold rounded-lg bg-blue-800 text-white shadow-sm";
-                tabName.className = "py-2.5 text-xs font-bold rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white";
-                input.placeholder = "أدخل رقم الجلوس (مثال: 2001970)";
-            } else {
-                tabName.className = "py-2.5 text-xs font-bold rounded-lg bg-blue-800 text-white shadow-sm";
-                tabSeat.className = "py-2.5 text-xs font-bold rounded-lg text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white";
-                input.placeholder = "أدخل اسم الطالب (3 أحرف على الأقل)";
-            }
-        }
-
-        function showDashTab(tabName) {
-            document.querySelectorAll('.dash-view').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(`view-${tabName}`).classList.remove('hidden');
-            document.getElementById(`dtab-${tabName}`).classList.add('active');
-        }
-
-        async function performSearch() {
+        async function handleSearch(e) {
+            e.preventDefault();
             const query = document.getElementById('searchInput').value.trim();
-            const errorBox = document.getElementById('errorBox');
-            const resultBox = document.getElementById('resultBox');
-            const multipleBox = document.getElementById('multipleBox');
-            const btn = document.getElementById('searchBtn');
-            const btnLabel = document.getElementById('searchBtnLabel');
+            const output = document.getElementById('outputArea');
+            const btn = document.getElementById('submitBtn');
 
-            if (!query) {
-                errorBox.innerText = "يرجى إدخال رقم الجلوس أو اسم الطالب أولاً";
-                errorBox.classList.remove('hidden');
-                return;
-            }
+            if (!query) return;
 
-            errorBox.classList.add('hidden');
-            multipleBox.classList.add('hidden');
-            document.getElementById('promoBanner').classList.add('hidden');
-
-            const isNumeric = /^\d+$/.test(query);
             btn.disabled = true;
-            btnLabel.innerHTML = '<span class="spinner"></span> جارِ البحث...';
+            btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span> جاري البحث...`;
+            output.innerHTML = '';
+
+            const isNumber = /^\d+$/.test(query);
+            // استخدام مسار نسبي مباشر يربط تلقائياً بفرسيل بدون CORS أو Mixed Content
+            const url = isNumber 
+                ? `/api/result/${query}` 
+                : `/api/search/name?name=${encodeURIComponent(query)}`;
 
             try {
-                if (isNumeric) {
-                    const response = await fetch(`${API_BASE}/result/${encodeURIComponent(query)}`);
-                    const data = await response.json();
-                    if (!response.ok) throw new Error(data.detail || "رقم الجلوس غير موجود");
-                    currentStudentData = data;
-                    renderInitialResult(data);
-                } else {
-                    if (query.length < 3) throw new Error("يرجى إدخال 3 أحرف على الأقل من الاسم");
-                    const response = await fetch(`${API_BASE}/search/name?name=${encodeURIComponent(query)}`);
-                    const data = await response.json();
-                    if (!response.ok) throw new Error(data.detail || "لم يتم العثور على نتائج بهذا الاسم");
+                const res = await fetch(url);
+                const data = await res.json();
 
-                    if (Array.isArray(data) && data.length > 1) {
-                        showMultipleResults(data);
-                    } else {
-                        const seat = Array.isArray(data) ? data[0].seating_no : data.seating_no;
-                        const full = await (await fetch(`${API_BASE}/result/${seat}`)).json();
-                        currentStudentData = full;
-                        renderInitialResult(full);
-                    }
+                if (!res.ok) {
+                    throw new Error(data.detail || 'حدث خطأ في جلب البيانات');
+                }
+
+                if (isNumber) {
+                    renderSingleResult(data);
+                } else {
+                    renderMultipleResults(data);
                 }
             } catch (err) {
-                resultBox.classList.add('hidden');
-                errorBox.innerText = err.message;
-                errorBox.classList.remove('hidden');
-            } finally {
-                btn.disabled = false;
-                btnLabel.innerText = "🔍 عرض النتيجة";
-            }
-        }
-
-        function showMultipleResults(students) {
-            const multipleBox = document.getElementById('multipleBox');
-            const multipleList = document.getElementById('multipleList');
-            document.getElementById('resultBox').classList.add('hidden');
-
-            multipleList.innerHTML = '<p class="text-[11px] font-bold text-blue-900 dark:text-blue-400 mb-2">عُثر على أكثر من طالب، اختر الطالب المطلوب:</p>';
-            students.forEach(student => {
-                const btn = document.createElement('button');
-                btn.className = "w-full text-right p-3 bg-slate-50 dark:bg-slate-900 hover:bg-blue-50 dark:hover:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-700 transition flex justify-between items-center text-xs";
-                btn.innerHTML = `<span class="font-bold">${student.name}</span><span class="text-blue-700 dark:text-blue-400 font-bold">جلوس: ${student.seating_no}</span>`;
-                btn.onclick = async () => {
-                    multipleBox.classList.add('hidden');
-                    const full = await (await fetch(`${API_BASE}/result/${student.seating_no}`)).json();
-                    currentStudentData = full;
-                    renderInitialResult(full);
-                };
-                multipleList.appendChild(btn);
-            });
-            multipleBox.classList.remove('hidden');
-        }
-
-        function renderInitialResult(data) {
-            selectedBranch = null;
-
-            document.getElementById('res-name').innerText = data.name || "—";
-            document.getElementById('res-seat').innerText = data.seating_no;
-            document.getElementById('res-score').innerHTML = `<span dir="ltr">${data.total_score} / 320</span>`;
-            document.getElementById('res-percentage').innerText = `${data.percentage}%`;
-            document.getElementById('res-same-score').innerText = `${Number(data.same_score_count).toLocaleString('ar-EG')} طالب`;
-            document.getElementById('res-rank').innerText = `${Number(data.rank).toLocaleString('ar-EG')} من ${Number(data.total_students).toLocaleString('ar-EG')}`;
-
-            const statusEl = document.getElementById('res-status');
-            statusEl.innerText = `حالة الطالب: ${data.status}`;
-            statusEl.className = "text-xs font-bold px-3 py-1 rounded-full border " + (STATUS_STYLES[data.status] || STATUS_STYLES["غياب كلى دور أول"]);
-
-            document.getElementById('res-branch-badge').innerText = "الشعبة: لم تحدد بعد";
-            document.getElementById('branchPromptCard').classList.remove('hidden');
-            document.getElementById('tanseeqBranchBadge').innerText = "حدد الشعبة أولاً";
-            document.getElementById('cutoffList').innerHTML = '<div class="text-center py-6 text-xs text-slate-500 dark:text-slate-400 font-bold">اختر شعبتك أولاً لعرض دليل التنسيق الاسترشادي.</div>';
-
-            showDashTab('main');
-            document.getElementById('resultBox').classList.remove('hidden');
-
-            if (TELEGRAM_CHANNEL_URL && TELEGRAM_CHANNEL_URL.includes('t.me/')) {
-                document.getElementById('promoBanner').classList.remove('hidden');
-            }
-            document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-
-        function selectBranch(branchName) {
-            selectedBranch = branchName;
-            document.getElementById('res-branch-badge').innerText = `الشعبة: ${branchName}`;
-            document.getElementById('branchPromptCard').classList.add('hidden');
-            updateTanseeqUI(currentStudentData.total_score);
-        }
-
-        function updateTanseeqUI(score) {
-            document.getElementById('tanseeqBranchBadge').innerText = `شعبة (${selectedBranch})`;
-            const cutoffs = INDICATIVE_TANSEEQ_320[selectedBranch] || [];
-            const cutoffList = document.getElementById('cutoffList');
-            cutoffList.innerHTML = '';
-
-            cutoffs.forEach(col => {
-                const isEligible = score >= col.min;
-                const colPerc = ((col.min / 320) * 100).toFixed(1);
-                const item = document.createElement('div');
-                item.className = `p-3 rounded-xl border text-xs flex justify-between items-center ${isEligible ? 'bg-emerald-50 border-emerald-200 text-emerald-900 dark:bg-emerald-950 dark:border-emerald-800 dark:text-emerald-300' : 'bg-slate-50 border-slate-200 text-slate-500 dark:bg-slate-900 dark:border-slate-700 dark:text-slate-400'}`;
-                item.innerHTML = `
-                    <span class="font-bold">${col.name}</span>
-                    <div class="flex items-center gap-3">
-                        <span class="font-semibold" dir="ltr">${col.min} / 320 (${colPerc}%)</span>
-                        <span class="px-2.5 py-1 rounded-lg text-[10px] font-black ${isEligible ? 'bg-emerald-600 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}">
-                            ${isEligible ? 'متاح ✓' : 'غير متاح'}
-                        </span>
+                output.innerHTML = `
+                    <div class="error-box p-4 text-center">
+                        <i class="fas fa-exclamation-circle fa-2x mb-2 text-danger"></i>
+                        <h5 class="fw-bold mb-1">لم نتمكن من إيجاد النتيجة</h5>
+                        <p class="mb-0 text-muted">${err.message}</p>
                     </div>
                 `;
-                cutoffList.appendChild(item);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<span>عرض النتيجة</span> <i class="fas fa-arrow-left"></i>`;
+            }
+        }
+
+        function renderSingleResult(data) {
+            document.getElementById('outputArea').innerHTML = `
+                <div class="result-box p-4 text-center">
+                    <h3 class="fw-bold text-success mb-2">${data.name}</h3>
+                    <p class="text-muted mb-3">رقم الجلوس: <strong>${data.seating_no}</strong></p>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="bg-white p-3 rounded-3 border">
+                                <span class="d-block text-muted small">المجموع الكلي</span>
+                                <span class="fs-3 fw-bold text-primary">${data.total_score}</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="bg-white p-3 rounded-3 border">
+                                <span class="d-block text-muted small">النسبة المئوية</span>
+                                <span class="fs-3 fw-bold text-success">${data.percentage}%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderMultipleResults(list) {
+            let html = `<div class="bg-white rounded-4 border p-3"><h5 class="fw-bold mb-3 px-2">نتائج البحث (${list.length}):</h5><div class="list-group list-group-flush">`;
+            list.forEach(item => {
+                html += `
+                    <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+                        <div>
+                            <h6 class="fw-bold mb-1">${item.name}</h6>
+                            <small class="text-muted">رقم الجلوس: ${item.seating_no}</small>
+                        </div>
+                        <span class="badge bg-primary rounded-pill fs-6">${item.total_score} درجة</span>
+                    </div>
+                `;
             });
+            html += `</div></div>`;
+            document.getElementById('outputArea').innerHTML = html;
         }
-
-        function downloadStoryCard() {
-            if (!currentStudentData) return;
-            const d = currentStudentData;
-
-            document.getElementById('exp-name').innerText = d.name || "طالب";
-            document.getElementById('exp-seat').innerText = d.seating_no;
-            document.getElementById('exp-branch').innerText = selectedBranch || "—";
-            document.getElementById('exp-score').innerText = `${d.total_score} / 320`;
-            document.getElementById('exp-perc').innerText = `${d.percentage}%`;
-            document.getElementById('exp-status').innerText = d.status;
-            document.getElementById('exp-channel').innerText = TELEGRAM_CHANNEL_URL.replace('https://', '');
-
-            html2canvas(document.getElementById('storyExportCard'), { backgroundColor: '#ffffff', scale: 2 })
-                .then(canvas => {
-                    const link = document.createElement('a');
-                    link.download = `نتيجة_${d.name || 'طالب'}.png`;
-                    link.href = canvas.toDataURL("image/png");
-                    link.click();
-                });
-        }
-
-        function calculateTransferRules() {
-            const val = document.getElementById('govSelect').value;
-            const info = document.getElementById('transferInfo');
-            if (!val) return info.classList.add('hidden');
-            info.innerHTML = "<b>قواعد تقليل المغتربين العامة:</b><br>• التحويل المناظر يتم عادة في حدود نسبة من الطاقة الاستيعابية للكليات لتقليل الاغتراب الجغرافي.<br>• التحويل غير المناظر يتطلب حصول الطالب على الحد الأدنى المعلن للكلية بمنطقته.<br><span class='text-amber-600 dark:text-amber-400 font-bold'>راجع تعليمات المجلس الأعلى للجامعات لهذا العام تحديدًا قبل التقديم.</span>";
-            info.classList.remove('hidden');
-        }
-
-        async function compareWithFriend() {
-            const friendInput = document.getElementById('compareInput').value.trim();
-            const friendSelectList = document.getElementById('friendSelectList');
-            if (!friendInput) return alert("أدخل رقم جلوس الصديق أو اسمه");
-
-            friendSelectList.classList.add('hidden');
-            const isNumeric = /^\d+$/.test(friendInput);
-
-            try {
-                if (isNumeric) {
-                    const res = await fetch(`${API_BASE}/result/${encodeURIComponent(friendInput)}`);
-                    const friend = await res.json();
-                    if (!res.ok) throw new Error(friend.detail || "رقم الجلوس غير موجود");
-                    renderComparison(friend);
-                } else {
-                    if (friendInput.length < 3) throw new Error("أدخل 3 أحرف على الأقل من اسم الصديق");
-                    const res = await fetch(`${API_BASE}/search/name?name=${encodeURIComponent(friendInput)}`);
-                    const data = await res.json();
-                    if (!res.ok) throw new Error(data.detail || "لم يتم العثور على صديق بهذا الاسم");
-
-                    if (Array.isArray(data) && data.length > 1) {
-                        friendSelectList.innerHTML = '<p class="text-[11px] font-bold text-blue-900 dark:text-blue-400 mb-1">اختر الصديق المطلوب للمقارنة:</p>';
-                        data.forEach(friend => {
-                            const btn = document.createElement('button');
-                            btn.className = "w-full text-right p-2.5 bg-white dark:bg-slate-800 hover:bg-blue-100 dark:hover:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-700 transition flex justify-between items-center text-xs";
-                            btn.innerHTML = `<span class="font-bold">${friend.name}</span><span class="text-blue-700 dark:text-blue-400 font-bold">جلوس: ${friend.seating_no}</span>`;
-                            btn.onclick = async () => {
-                                friendSelectList.classList.add('hidden');
-                                const full = await (await fetch(`${API_BASE}/result/${friend.seating_no}`)).json();
-                                renderComparison(full);
-                            };
-                            friendSelectList.appendChild(btn);
-                        });
-                        friendSelectList.classList.remove('hidden');
-                    } else {
-                        const seat = Array.isArray(data) ? data[0].seating_no : data.seating_no;
-                        const full = await (await fetch(`${API_BASE}/result/${seat}`)).json();
-                        renderComparison(full);
-                    }
-                }
-            } catch (e) { alert(e.message); }
-        }
-
-        function renderComparison(friendData) {
-            const me = currentStudentData;
-            document.getElementById('myCompareBox').innerHTML = `
-                <p class="text-xs font-bold text-slate-500 dark:text-slate-400">أنت</p>
-                <p class="text-base font-black mt-1" dir="ltr">${me.total_score} / 320</p>
-                <p class="text-xs text-blue-700 dark:text-blue-400 font-bold mt-1">${me.percentage}%</p>
-                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">الترتيب: ${Number(me.rank).toLocaleString('ar-EG')}</p>
-            `;
-            document.getElementById('friendCompareBox').innerHTML = `
-                <p class="text-xs font-bold text-blue-900 dark:text-blue-300">${friendData.name}</p>
-                <p class="text-base font-black mt-1" dir="ltr">${friendData.total_score} / 320</p>
-                <p class="text-xs text-blue-700 dark:text-blue-400 font-bold mt-1">${friendData.percentage}%</p>
-                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">الترتيب: ${Number(friendData.rank).toLocaleString('ar-EG')}</p>
-            `;
-            document.getElementById('compareResultContainer').classList.remove('hidden');
-        }
-
-        function shareWhatsApp() {
-            if (!currentStudentData) return;
-            const d = currentStudentData;
-            const text = `نتيجة الثانوية العامة 2026%0Aالطالب: ${d.name}%0Aالمجموع: ${d.total_score} من 320 (${d.percentage}%)%0Aالحالة: ${d.status}`;
-            window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
-        }
-
-        document.getElementById('searchInput').addEventListener('keypress', e => { if (e.key === 'Enter') performSearch(); });
     </script>
 </body>
 </html>
