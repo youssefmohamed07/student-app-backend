@@ -4,14 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>نتيجة الثانوية العامة 2026 برقم الجلوس والاسم — الثانوية العامة (الأصلي)</title>
-  <meta name="description" content="استعلم عن نتيجة الثانوية العامة 2026 برقم الجلوس أو الاسم واستخرج ترتيبك على الجمهورية وعدد الطلاب الحاصلين على نفس المجموع.">
+  <meta name="description" content="استعلم عن نتيجة الثانوية العامة 2026 برقم الجلوس أو الاسم واستخرج ترتيبك على الجمهورية، ومؤشر التنسيق المتوقع.">
   
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -46,7 +44,7 @@
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 
   <!-- Header -->
-  <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <div class="bg-brand-600 text-white p-2 rounded-2xl">
@@ -66,19 +64,19 @@
     </div>
   </header>
 
-  <main class="max-w-4xl mx-auto px-4 py-8 sm:py-12 w-full space-y-8">
+  <main class="max-w-4xl mx-auto px-4 pt-6 pb-12 w-full space-y-8">
     
-    <!-- Hero Section -->
+    <!-- Hero Section (تم إصلاح Overflow النص المقطوع) -->
     <section class="bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-10 text-center shadow-sm space-y-4">
-      <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full">
+      <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 text-xs font-bold px-3.5 py-1.5 rounded-full">
         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
         نتيجة جمهورية موحدة — عام دراسي 2026
       </div>
-      <h2 class="text-2xl sm:text-4xl font-black text-slate-900 leading-tight">
+      <h2 class="text-2xl sm:text-4xl font-black text-slate-900 leading-snug py-1">
         نتيجة الثانوية العامة 2026 والترتيب على الجمهورية
       </h2>
-      <p class="text-xs sm:text-sm text-slate-500 font-semibold max-w-xl mx-auto">
-        جمهورية مصر العربية — استعلم فوراً عن نتيجتك، وترتيبك على الجمهورية، وعدد الطلاب الحاصلين على نفس المجموع.
+      <p class="text-xs sm:text-sm text-slate-500 font-semibold max-w-xl mx-auto leading-relaxed">
+        جمهورية مصر العربية — استعلم فوراً عن نتيجتك، وترتيبك على الجمهورية، وعدد الطلاب الحاصلين على نفس المجموع، ومؤشر القبول بالكليات.
       </p>
       <div class="pt-2 flex flex-wrap justify-center gap-3">
         <a href="#searchSection" class="bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-2xl shadow-sm transition">
@@ -132,6 +130,14 @@
 
   <!-- Script -->
   <script>
+    function getCollegeTarget(pct) {
+      if (pct >= 88) return "مؤشر ممتاز: كليات القطاع الطبي والهندسي والذكاء الاصطناعي 🩺💻";
+      if (pct >= 75) return "مؤشر جيد جداً: كليات الحاسبات، التمريض، العلوم، والعلوم السياسية 🔬📊";
+      if (pct >= 65) return "مؤشر جيد: كليات التجارة، التربية، الفنون، والإعلام 📚🎨";
+      if (pct >= 50) return "مؤشر مقبول: كليات الآداب، الحقوق، الخدمة الاجتماعية والمعاهد العليا 🏛️";
+      return "فرص متاحة في المعاهد الفنية والمتخصصة وتنسيق المرحلة الثالثة 🎓";
+    }
+
     async function searchStudent() {
       const query = document.getElementById('searchInput').value.trim();
       const resultsDiv = document.getElementById('searchResults');
@@ -155,12 +161,10 @@
         const list = data.results || [];
 
         if (list.length === 0) {
-          const errorMsg = data.error ? `<p class="text-xs text-red-600 font-bold mb-2">تنبيه السيرفر: ${data.error}</p>` : '';
           resultsDiv.innerHTML = `
             <div class="bg-amber-50 border border-amber-200 text-amber-900 p-6 rounded-2xl text-center space-y-2">
               <strong class="block text-base">لم يتم العثور على نتيجة!</strong>
-              ${errorMsg}
-              <p class="text-xs text-amber-800">تأكد من كتابة رقم الجلوس بصورة صحيحة أو تجربة جزء آخر من الاسم.</p>
+              <p class="text-xs text-amber-800">تأكد من كتابة رقم الجلوس بصورة صحيحة أو تجربة الاسم بشكل ثنائي أو ثلاثي.</p>
               <div class="pt-2">
                 <a href="https://t.me/Highschool0000" target="_blank" class="inline-block bg-telegram text-white text-xs font-bold px-5 py-2.5 rounded-xl shadow-sm hover:opacity-90 transition">
                   انضم لقناة التلجرام للمساعدة 🚀
@@ -174,23 +178,30 @@
         let html = `<div class="space-y-8 pt-4">`;
 
         list.forEach(student => {
-          const name = student.name || student.student_name || student.full_name || student.fullname || student.NAME || 'طالب ثانوية عامة';
-          const seating = student.seating_no || student.seating_number || student.roll_no || student.seat_no || 'غير متوفر';
-          
-          // استخراج المجموع الكلي والنسبة المئوية الموحدة من الباك إند
-          const total = student.formatted_total !== undefined && student.formatted_total !== '—' ? student.formatted_total : (student.total_degree || student.total || student.score || student.degree || '—');
-          const percentage = student.percentage || '—';
-          
-          const rank = student.national_rank || '—';
-          const sameScore = student.same_score_count || '—';
-          const branch = student.branch || student.section || 'عام';
-          const status = student.status || student.school || 'ناجح';
+          const name = student.name;
+          const seating = student.seating_no;
+          const total = student.total;
+          const percentage = student.percentage;
+          const pctNum = student.pct_num || 0;
+          const rank = student.national_rank;
+          const sameScore = student.same_score_count;
+          const status = student.status;
+          const branch = student.branch;
+          const collegeTarget = getCollegeTarget(pctNum);
+
+          // لون الشريط المئوي حسب النتيجة
+          let barColor = "bg-brand-600";
+          if (pctNum >= 85) barColor = "bg-emerald-500";
+          else if (pctNum >= 65) barColor = "bg-blue-600";
+          else if (pctNum >= 50) barColor = "bg-amber-500";
+          else if (pctNum > 0) barColor = "bg-rose-500";
 
           html += `
             <div class="print-card bg-white border-2 border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm text-center space-y-6">
               
+              <!-- Header Details -->
               <div class="border-b border-slate-100 pb-4 space-y-2">
-                <span class="inline-block bg-brand-50 text-brand-700 text-xs font-black px-3 py-1 rounded-full">
+                <span class="inline-block bg-brand-50 text-brand-700 text-xs font-black px-3.5 py-1.5 rounded-full">
                   الشعبة: ${branch} | الحالة: ${status}
                 </span>
                 <h3 class="text-2xl sm:text-3xl font-black text-brand-600">${name}</h3>
@@ -199,6 +210,7 @@
                 </p>
               </div>
 
+              <!-- Main Stats Grid -->
               <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
                 <div class="bg-slate-50 border border-slate-200/80 p-4 rounded-2xl flex flex-col justify-center items-center">
                   <span class="text-xs font-bold text-slate-500 mb-1">المجموع الكلي</span>
@@ -221,17 +233,41 @@
                 </div>
               </div>
 
+              <!-- Visual Progress Bar -->
+              ${pctNum > 0 ? `
+                <div class="space-y-1.5 text-right">
+                  <div class="flex justify-between text-xs font-bold text-slate-500">
+                    <span>مستوى الأداء العام</span>
+                    <span>${percentage}</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
+                    <div class="${barColor} h-3 rounded-full transition-all duration-1000" style="width: ${pctNum}%"></div>
+                  </div>
+                </div>
+              ` : ''}
+
+              <!-- College Predictor Feature -->
+              <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 text-right space-y-1">
+                <span class="text-xs font-bold text-slate-400 block">🎯 مؤشر القبول والتنسيق المتوقع:</span>
+                <p class="text-xs sm:text-sm font-black text-slate-800">${collegeTarget}</p>
+              </div>
+
+              <!-- Action Buttons -->
               <div class="no-print flex flex-wrap justify-center gap-3 pt-2">
                 <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition flex items-center gap-2">
-                  🖨️ حفظ وتنزيل كـ PDF
+                  🖨️ حفظ كـ PDF
+                </button>
+
+                <button onclick="navigator.clipboard.writeText(window.location.href); alert('تم نسخ رابط الصفحة المباشر!')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition flex items-center gap-2">
+                  🔗 نسخ الرابط
                 </button>
                 
-                <a href="https://wa.me/?text=${encodeURIComponent('نتيجة الثانوية العامة:\nاسم الطالب: ' + name + '\nالمجموع: ' + total + '\nالنسبة المئوية: ' + percentage + '\nالترتيب على الجمهورية: #' + rank + '\nتابعنا عبر التلجرام: https://t.me/Highschool0000')}" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition flex items-center gap-2">
-                  💬 مشاركة عبر الواتساب
+                <a href="https://wa.me/?text=${encodeURIComponent('نتيجة الثانوية العامة 2026:\nاسم الطالب: ' + name + '\nالمجموع: ' + total + '\nالنسبة المئوية: ' + percentage + '\nالترتيب على الجمهورية: #' + rank + '\nتابع النتائج هنا: https://t.me/Highschool0000')}" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition flex items-center gap-2">
+                  💬 مشاركة الواتساب
                 </a>
 
                 <a href="https://t.me/Highschool0000" target="_blank" class="bg-telegram hover:opacity-90 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition flex items-center gap-2">
-                  🚀 متابعة التنسيق على التلجرام
+                  🚀 متابعة التنسيق
                 </a>
               </div>
 
@@ -246,7 +282,7 @@
         resultsDiv.innerHTML = `
           <div class="bg-amber-50 border border-amber-200 text-amber-900 p-6 rounded-2xl text-center">
             <strong class="block text-base mb-1">تعذر جلب البيانات حالياً!</strong>
-            <p class="text-xs text-amber-800">يرجى المحاولة مرة أخرى بعد لحظات أو التأكد من الاتصال بالإنترنت.</p>
+            <p class="text-xs text-amber-800">يرجى المحاولة مرة أخرى بعد لحظات.</p>
           </div>
         `;
       }
