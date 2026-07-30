@@ -35,27 +35,12 @@
   
   <style>
     body { font-family: 'Cairo', sans-serif; background-color: #f8fafc; }
-    
-    /* قواعد الطباعة الصارمة لعزل الشهادة فقط وحظر باقي الواجهة */
-    @media print {
-      body * { visibility: hidden !important; }
-      #printableArea, #printableArea * { visibility: visible !important; }
-      #printableArea {
-        position: absolute !important;
-        left: 0 !important;
-        top: 0 !important;
-        width: 100% !important;
-        padding: 0 !important;
-        margin: 0 !important;
-      }
-      .no-print { display: none !important; }
-    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 
   <!-- Header -->
-  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm no-print">
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <div class="bg-brand-600 text-white p-2 rounded-2xl">
@@ -78,7 +63,7 @@
   <main class="max-w-4xl mx-auto px-4 pt-6 pb-12 w-full space-y-8">
     
     <!-- Hero Section -->
-    <section class="no-print bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-10 text-center shadow-sm space-y-4">
+    <section class="bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-10 text-center shadow-sm space-y-4">
       <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 text-xs font-bold px-3.5 py-1.5 rounded-full">
         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
         نتيجة جمهورية موحدة — عام دراسي 2026
@@ -100,7 +85,7 @@
     </section>
 
     <!-- Search Section -->
-    <section id="searchSection" class="no-print bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+    <section id="searchSection" class="bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
       <form onsubmit="event.preventDefault(); searchStudent();" class="flex flex-col sm:flex-row gap-3">
         <input 
           type="text" 
@@ -116,36 +101,142 @@
           عرض النتيجة والشهادة
         </button>
       </form>
-    </section>
+      <p class="text-center text-xs text-slate-400 font-semibold">
+        الاستعلام برقم الجلوس أو بالاسم — الثانوية العامة (الأصلي) 2026.
+      </p>
 
-    <!-- Container for Display & PDF Printing -->
-    <div id="printableArea">
       <div id="searchResults"></div>
-    </div>
+    </section>
 
   </main>
 
   <!-- Telegram Floating Button -->
-  <a href="https://t.me/Highschool0000" target="_blank" class="no-print telegram-float fixed bottom-5 left-5 bg-telegram hover:opacity-90 text-white font-bold text-xs sm:text-sm px-4 py-3 rounded-2xl shadow-lg flex items-center gap-2 z-50 transition">
+  <a href="https://t.me/Highschool0000" target="_blank" class="telegram-float fixed bottom-5 left-5 bg-telegram hover:opacity-90 text-white font-bold text-xs sm:text-sm px-4 py-3 rounded-2xl shadow-lg flex items-center gap-2 z-50 transition">
     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.51c-.15.68-.55.85-1.12.53l-3.08-2.27-1.48 1.43c-.16.16-.3.3-.62.3l.22-3.15 5.73-5.18c.25-.22-.05-.34-.38-.12l-7.08 4.46-3.06-.96c-.66-.21-.68-.66.14-.98l11.96-4.61c.55-.2 1.04.14.89.84z"/></svg>
     قناة التلجرام الرسمية
   </a>
 
   <!-- Footer -->
-  <footer class="no-print bg-slate-900 text-slate-400 py-8 text-center text-xs border-t border-slate-800 space-y-2 mt-12">
+  <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs border-t border-slate-800 space-y-2 mt-12">
     <p class="font-bold text-slate-300">الثانوية العامة (الأصلي) — البوابة الأولى لنتائج الطلاب في مصر</p>
     <p>تابعنا على تلجرام: <a href="https://t.me/Highschool0000" target="_blank" class="text-telegram font-bold underline">t.me/Highschool0000</a></p>
     <p class="text-slate-500 pt-2">© 2026 الثانوية العامة (الأصلي) — جميع الحقوق محفوظة.</p>
   </footer>
 
-  <!-- Script -->
   <script>
+    let globalStudentsList = [];
+
     function getCollegeTarget(pct, branch) {
       if (pct >= 88) return "مؤشر ممتاز: كليات الطب البشري، الأسنان، العلاج الطبيعي، الهندسة، الحاسبات والذكاء الاصطناعي 🩺💻";
       if (pct >= 75) return "مؤشر جيد جداً: كليات الصيدلة، التمريض، العلوم، الاقتصاد والعلوم السياسية، والألسن 🔬📊";
       if (pct >= 65) return "مؤشر جيد: كليات التجارة، التربية، الفنون التطبيقية، الإعلام، والأثريين 📚🎨";
       if (pct >= 50) return "مؤشر مقبول: كليات الحقوق، الآداب، الخدمة الاجتماعية والمعاهد العليا المعتمدة 🏛️";
       return "متاح التقديم في المعاهد الفنية المتخصصة وتنسيق المرحلة الثالثة 🎓";
+    }
+
+    // دالة طباعة معزولة 100% لتوليد PDF بدون أي أجزاء إضافية من الموقع
+    function printIsolatedCertificate(index) {
+      const student = globalStudentsList[index];
+      if (!student) return;
+
+      const dateStr = new Date().toLocaleDateString('ar-EG');
+      const serialNo = 'THN-2026-' + Math.floor(100000 + Math.random() * 900000);
+      const verifyUrl = encodeURIComponent(`https://t.me/Highschool0000`);
+      const qrCodeImg = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${verifyUrl}`;
+      const collegeTarget = getCollegeTarget(student.pct_num, student.branch);
+
+      const printWindow = window.open('', '_blank', 'width=800,height=900');
+      
+      const certificateHTML = `
+        <!DOCTYPE html>
+        <html lang="ar" dir="rtl">
+        <head>
+          <meta charset="UTF-8">
+          <title>شهادة نتيجة — ${student.name}</title>
+          <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+          <style>
+            * { box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+            body { background: #fff; color: #0f172a; margin: 0; padding: 20px; }
+            .cert-box { border: 4px double #1e40af; padding: 30px; border-radius: 20px; position: relative; max-width: 800px; margin: auto; }
+            .watermark { position: absolute; top: 35%; left: 15%; font-size: 110px; color: rgba(30, 64, 175, 0.04); font-weight: 900; transform: rotate(-25deg); pointer-events: none; }
+            .header { text-align: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px; }
+            .header h1 { margin: 0; font-size: 26px; color: #1e40af; font-weight: 900; }
+            .header p { margin: 5px 0 0; font-size: 13px; color: #64748b; font-weight: 700; }
+            .info-grid { display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 15px 20px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #e2e8f0; }
+            .info-item { font-size: 14px; font-weight: 700; }
+            .info-item span { color: #1e40af; font-weight: 900; }
+            .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; text-align: center; }
+            .stat-card { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 12px; border-radius: 12px; }
+            .stat-card.green { background: #ecfdf5; border-color: #a7f3d0; }
+            .stat-card.amber { background: #fffbeb; border-color: #fde68a; }
+            .stat-card.blue { background: #eff6ff; border-color: #bfdbfe; }
+            .stat-title { font-size: 11px; color: #475569; font-weight: 700; display: block; margin-bottom: 4px; }
+            .stat-val { font-size: 22px; font-weight: 900; color: #0f172a; }
+            .target-box { background: #f8fafc; border: 1px border-slate-300; padding: 12px 15px; border-radius: 12px; font-size: 13px; font-weight: 800; color: #1e293b; margin-bottom: 20px; }
+            .footer-notes { display: flex; justify-content: space-between; align-items: center; border-top: 2px solid #e2e8f0; pt: 15px; font-size: 11px; color: #64748b; font-weight: 700; margin-top: 25px; }
+            @media print {
+              body { padding: 0; }
+              .cert-box { border-color: #000; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="cert-box">
+            <div class="watermark">الثانوية العامة (الأصلي)</div>
+            
+            <div class="header">
+              <h1>جمهورية مصر العربية — وزارة التربية والتعليم</h1>
+              <p>مستند استخراج نتيجة الثانوية العامة الرسمي 2026 — منصة الثانوية العامة (الأصلي)</p>
+            </div>
+
+            <div class="info-grid">
+              <div>
+                <div class="info-item">اسم الطالب: <span>${student.name}</span></div>
+                <div class="info-item" style="margin-top: 5px;">رقم الجلوس: <span>${student.seating_no}</span> | الشعبة: <span>${student.branch}</span></div>
+              </div>
+              <div style="text-align: center;">
+                <img src="${qrCodeImg}" style="width: 70px; height: 70px; border-radius: 8px;">
+                <div style="font-size: 9px; color: #16a34a; font-weight: 900; margin-top: 2px;">مستند موثق برقم: ${serialNo}</div>
+              </div>
+            </div>
+
+            <div class="stats-grid">
+              <div class="stat-card">
+                <span class="stat-title">المجموع الكلي</span>
+                <span class="stat-val">${student.total} <small style="font-size:11px; color:#64748b;">/410</small></span>
+              </div>
+              <div class="stat-card green">
+                <span class="stat-title" style="color:#047857;">النسبة المئوية</span>
+                <span class="stat-val" style="color:#059669;">${student.percentage}</span>
+              </div>
+              <div class="stat-card amber">
+                <span class="stat-title" style="color:#b45309;">الترتيب على الجمهورية</span>
+                <span class="stat-val" style="color:#d97706;">${student.national_rank !== '—' ? '#' + student.national_rank : '—'}</span>
+              </div>
+              <div class="stat-card blue">
+                <span class="stat-title" style="color:#1d4ed8;">نفس المجموع</span>
+                <span class="stat-val" style="color:#2563eb;">${student.same_score_count !== '—' ? student.same_score_count : '—'}</span>
+              </div>
+            </div>
+
+            <div class="target-box">
+              🎯 مؤشر التنسيق التقديري: ${collegeTarget}
+            </div>
+
+            <div class="footer-notes">
+              <div>الدرجات المفقودة: ${student.lost_marks} درجة | حالة الطالب: ${student.status}</div>
+              <div>تاريخ الإصدار: ${dateStr}</div>
+            </div>
+          </div>
+          <script>
+            window.onload = function() { window.print(); };
+          <\/script>
+        </body>
+        </html>
+      `;
+
+      printWindow.document.write(certificateHTML);
+      printWindow.document.close();
     }
 
     async function searchStudent() {
@@ -155,9 +246,9 @@
       if (!query) return;
 
       resultsDiv.innerHTML = `
-        <div class="text-center py-10 space-y-3 no-print">
+        <div class="text-center py-10 space-y-3">
           <div class="inline-block w-8 h-8 border-4 border-brand-600 border-t-transparent rounded-full animate-spin"></div>
-          <p class="font-bold text-slate-600 text-sm">جاري جلب النتيجة وتجهيز الشهادة الرسمية...</p>
+          <p class="font-bold text-slate-600 text-sm">جاري جلب النتيجة وتجهيز الشهادة المعتمدة...</p>
         </div>
       `;
 
@@ -168,11 +259,11 @@
         }
 
         const data = await response.json();
-        const list = data.results || [];
+        globalStudentsList = data.results || [];
 
-        if (list.length === 0) {
+        if (globalStudentsList.length === 0) {
           resultsDiv.innerHTML = `
-            <div class="bg-amber-50 border border-amber-200 text-amber-900 p-6 rounded-2xl text-center space-y-2 no-print">
+            <div class="bg-amber-50 border border-amber-200 text-amber-900 p-6 rounded-2xl text-center space-y-2">
               <strong class="block text-base">لم يتم العثور على نتيجة!</strong>
               <p class="text-xs text-amber-800">تأكد من كتابة رقم الجلوس بصورة صحيحة أو تجربة جزء آخر من الاسم.</p>
               <div class="pt-2">
@@ -185,9 +276,9 @@
           return;
         }
 
-        let html = `<div class="space-y-8">`;
+        let html = `<div class="space-y-8 pt-4">`;
 
-        list.forEach(student => {
+        globalStudentsList.forEach((student, idx) => {
           const name = student.name;
           const seating = student.seating_no;
           const total = student.total;
@@ -197,11 +288,8 @@
           const sameScore = student.same_score_count;
           const status = student.status;
           const branch = student.branch;
+          const lostMarks = student.lost_marks;
           const collegeTarget = getCollegeTarget(pctNum, branch);
-          
-          // رابط الـ QR للتحقق
-          const verifyUrl = encodeURIComponent(`https://t.me/Highschool0000`);
-          const qrCodeImg = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${verifyUrl}`;
 
           let barColor = "bg-brand-600";
           if (pctNum >= 85) barColor = "bg-emerald-500";
@@ -210,53 +298,37 @@
           else if (pctNum > 0) barColor = "bg-rose-500";
 
           html += `
-            <div class="bg-white border-2 border-slate-200 rounded-3xl p-6 sm:p-10 shadow-md relative overflow-hidden space-y-6">
+            <div class="bg-white border-2 border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
               
-              <!-- Watermark Stamp for Print -->
-              <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none select-none text-slate-900 font-black text-8xl">
-                الأصلي
+              <!-- Student Header Details -->
+              <div class="border-b border-slate-100 pb-4 text-center space-y-2">
+                <span class="inline-block bg-brand-50 text-brand-700 text-xs font-black px-3.5 py-1.5 rounded-full">
+                  الشعبة: ${branch} | الحالة: ${status}
+                </span>
+                <h3 class="text-2xl sm:text-3xl font-black text-brand-600">${name}</h3>
+                <p class="text-slate-500 font-bold text-xs sm:text-sm">
+                  رقم الجلوس: <span class="text-slate-900 font-black">${seating}</span> | الدرجات المفقودة: <span class="text-rose-600 font-black">${lostMarks} درجة</span>
+                </p>
               </div>
 
-              <!-- Certificate Header -->
-              <div class="border-b-2 border-slate-100 pb-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-right">
-                <div class="space-y-1">
-                  <span class="inline-block bg-brand-50 text-brand-700 text-xs font-black px-3.5 py-1 rounded-full border border-brand-200">
-                    مستند نتيجة معتمد — 2026
-                  </span>
-                  <h3 class="text-2xl sm:text-3xl font-black text-slate-900">${name}</h3>
-                  <p class="text-slate-500 font-bold text-xs sm:text-sm">
-                    رقم الجلوس: <span class="text-brand-600 font-black text-base">${seating}</span> | الشعبة: <span class="text-slate-800 font-bold">${branch}</span>
-                  </p>
-                </div>
-
-                <div class="flex items-center gap-3 bg-slate-50 p-2.5 rounded-2xl border border-slate-200">
-                  <img src="${qrCodeImg}" alt="QR Code" class="w-16 h-16 rounded-lg">
-                  <div class="text-right text-[10px] text-slate-500 font-semibold space-y-0.5">
-                    <p class="font-bold text-slate-800">رمز التحقق المعتمد</p>
-                    <p>الثانوية العامة (الأصلي)</p>
-                    <p class="text-emerald-600 font-black">الحالة: ${status}</p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Main Grid -->
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-                <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl flex flex-col justify-center items-center">
+              <!-- Main Stats Grid -->
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 text-center">
+                <div class="bg-slate-50 border border-slate-200/80 p-4 rounded-2xl flex flex-col justify-center items-center">
                   <span class="text-xs font-bold text-slate-500 mb-1">المجموع الكلي</span>
-                  <span class="text-2xl sm:text-3xl font-black text-slate-900">${total} <span class="text-xs font-normal text-slate-400">/ 410</span></span>
+                  <span class="text-2xl sm:text-3xl font-black text-slate-900">${total} <span class="text-xs text-slate-400 font-normal">/ 410</span></span>
                 </div>
 
-                <div class="bg-emerald-50/70 border border-emerald-200 p-4 rounded-2xl flex flex-col justify-center items-center">
+                <div class="bg-emerald-50/70 border border-emerald-200/80 p-4 rounded-2xl flex flex-col justify-center items-center">
                   <span class="text-xs font-bold text-emerald-800 mb-1">النسبة المئوية</span>
                   <span class="text-2xl sm:text-3xl font-black text-emerald-600">${percentage}</span>
                 </div>
 
-                <div class="bg-amber-50/70 border border-amber-200 p-4 rounded-2xl flex flex-col justify-center items-center">
+                <div class="bg-amber-50/70 border border-amber-200/80 p-4 rounded-2xl flex flex-col justify-center items-center">
                   <span class="text-xs font-bold text-amber-800 mb-1">الترتيب على الجمهورية 🏆</span>
                   <span class="text-2xl sm:text-3xl font-black text-amber-600">${rank !== '—' ? '#' + rank : '—'}</span>
                 </div>
 
-                <div class="bg-blue-50/70 border border-blue-200 p-4 rounded-2xl flex flex-col justify-center items-center">
+                <div class="bg-blue-50/70 border border-blue-200/80 p-4 rounded-2xl flex flex-col justify-center items-center">
                   <span class="text-xs font-bold text-blue-800 mb-1">نفس المجموع 👥</span>
                   <span class="text-2xl sm:text-3xl font-black text-blue-600">${sameScore !== '—' ? sameScore + ' طالب' : '—'}</span>
                 </div>
@@ -264,9 +336,9 @@
 
               <!-- Visual Progress Bar -->
               ${pctNum > 0 ? `
-                <div class="space-y-1.5 text-right pt-2">
-                  <div class="flex justify-between text-xs font-bold text-slate-600">
-                    <span>مستوى الأداء العام بالنسبة المئوية</span>
+                <div class="space-y-1.5 text-right">
+                  <div class="flex justify-between text-xs font-bold text-slate-500">
+                    <span>شريط الأداء التراكمي</span>
                     <span>${percentage}</span>
                   </div>
                   <div class="w-full bg-slate-100 rounded-full h-3.5 overflow-hidden p-0.5 border border-slate-200">
@@ -276,33 +348,27 @@
               ` : ''}
 
               <!-- College Predictor -->
-              <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-right space-y-1">
-                <span class="text-xs font-bold text-brand-600 block">🎯 مؤشر القبول والتنسيق التقديري:</span>
+              <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 text-right space-y-1">
+                <span class="text-xs font-bold text-brand-600 block">🎯 مؤشر القبول والتنسيق المتوقع:</span>
                 <p class="text-xs sm:text-sm font-black text-slate-800">${collegeTarget}</p>
               </div>
 
-              <!-- Official Certificate Stamp Note -->
-              <div class="text-center pt-2 border-t border-slate-100 text-[11px] text-slate-400 font-bold flex justify-between items-center">
-                <span>تم الاستخراج عبر: منصة الثانوية العامة (الأصلي) 2026</span>
-                <span>تاريخ الاستخراج: ${new Date().toLocaleDateString('ar-EG')}</span>
-              </div>
-
               <!-- Action Buttons -->
-              <div class="no-print flex flex-wrap justify-center gap-3 pt-3">
-                <button onclick="window.print()" class="bg-slate-900 hover:bg-black text-white font-bold text-xs px-6 py-3 rounded-xl transition flex items-center gap-2 shadow-sm">
+              <div class="flex flex-wrap justify-center gap-3 pt-2">
+                <button onclick="printIsolatedCertificate(${idx})" class="bg-slate-900 hover:bg-black text-white font-bold text-xs px-5 py-3 rounded-xl transition flex items-center gap-2 shadow-sm">
                   🖨️ طباعة الشهادة / حفظ PDF
                 </button>
 
-                <button onclick="navigator.clipboard.writeText('نتيجة الطالب: ${name}\\nالمجموع: ${total} (${percentage})\\nالترتيب على الجمهورية: #${rank}\\nاستعلم عن نتيجتك من هنا: https://t.me/Highschool0000'); alert('تم نسخ كارت النتيجة وجاهز للمشاركة على الاستوري والفيسبوك!')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-5 py-3 rounded-xl transition flex items-center gap-2">
-                  📋 نسخ كارت النتيجة للاستوري
+                <button onclick="navigator.clipboard.writeText('نتيجة الطالب: ${name}\\nالمجموع: ${total} من 410 (${percentage})\\nالترتيب على الجمهورية: #${rank}\\nتابع نتيجتك من هنا: https://t.me/Highschool0000'); alert('تم نسخ كارت النتيجة ومتاح للنشر على الاستوري والفيسبوك!')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-5 py-3 rounded-xl transition flex items-center gap-2">
+                  📋 نسخ كارت الاستوري
                 </button>
                 
-                <a href="https://wa.me/?text=${encodeURIComponent('نتيجة الثانوية العامة 2026:\nاسم الطالب: ' + name + '\nالمجموع: ' + total + '\nالنسبة المئوية: ' + percentage + '\nالترتيب على الجمهورية: #' + rank + '\nتابع النتائج هنا: https://t.me/Highschool0000')}" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-3 rounded-xl transition flex items-center gap-2">
-                  💬 مشاركة عبر الواتساب
+                <a href="https://wa.me/?text=${encodeURIComponent('نتيجة الثانوية العامة 2026:\nاسم الطالب: ' + name + '\nالمجموع: ' + total + ' من 410\nالنسبة المئوية: ' + percentage + '\nالترتيب على الجمهورية: #' + rank + '\nتابع التنسيق من هنا: https://t.me/Highschool0000')}" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-3 rounded-xl transition flex items-center gap-2">
+                  💬 مشاركة الواتساب
                 </a>
 
                 <a href="https://t.me/Highschool0000" target="_blank" class="bg-telegram hover:opacity-90 text-white font-bold text-xs px-5 py-3 rounded-xl transition flex items-center gap-2">
-                  🚀 متابعة التنسيق على التلجرام
+                  🚀 متابعة التنسيق
                 </a>
               </div>
 
@@ -315,7 +381,7 @@
 
       } catch (err) {
         resultsDiv.innerHTML = `
-          <div class="bg-amber-50 border border-amber-200 text-amber-900 p-6 rounded-2xl text-center no-print">
+          <div class="bg-amber-50 border border-amber-200 text-amber-900 p-6 rounded-2xl text-center">
             <strong class="block text-base mb-1">تعذر جلب البيانات حالياً!</strong>
             <p class="text-xs text-amber-800">يرجى المحاولة مرة أخرى بعد لحظات.</p>
           </div>
