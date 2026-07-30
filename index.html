@@ -50,7 +50,7 @@
     body { font-family: 'Cairo', sans-serif; background-color: #f8fafc; }
   </style>
 
-  <!-- Google AdSense Auto Ads (تفعيل جاهز بمجرد استبدال XXXXXXXXXX بمعرفك) -->
+  <!-- Google AdSense Auto Ads -->
   <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
@@ -159,12 +159,60 @@
   <script>
     let globalStudentsList = [];
 
+    // الخوارزمية المحدثة الدقيقة للتنسيق حسب الشعبة والنسبة المئوية
     function getCollegeTarget(pct, branch) {
-      if (pct >= 88) return "مؤشر ممتاز: كليات الطب البشري، الأسنان، العلاج الطبيعي، الهندسة، الحاسبات والذكاء الاصطناعي 🩺💻";
-      if (pct >= 75) return "مؤشر جيد جداً: كليات الصيدلة، التمريض، العلوم، الاقتصاد والعلوم السياسية، والألسن 🔬📊";
-      if (pct >= 65) return "مؤشر جيد: كليات التجارة، التربية، الفنون التطبيقية، الإعلام، والأثريين 📚🎨";
-      if (pct >= 50) return "مؤشر مقبول: كليات الحقوق، الآداب، الخدمة الاجتماعية والمعاهد العليا المعتمدة 🏛️";
-      return "متاح التقديم في المعاهد الفنية المتخصصة وتنسيق المرحلة الثالثة 🎓";
+      const b = String(branch || "").trim();
+
+      if (b.includes("رياضة") || b === "math") {
+        if (pct >= 85) return "مؤشر ممتاز: كليات الهندسة، الحاسبات والمعلومات، الذكاء الاصطناعي، التخطيط العمراني، الفنون التطبيقية 🎯";
+        if (pct >= 75) return "مؤشر جيد جداً: كليات الحاسبات (خاص/أهلي)، العلوم، الفنون التطبيقية، الاقتصاد والعلوم السياسية، التجارة 📊";
+        if (pct >= 65) return "مؤشر جيد: كليات التجارة، التربية، التكنولوجيا والتنمية، الحقوق، الآداب 📐";
+        return "مؤشر مقبول: المعاهد العليا للهندسة والتكنولوجيا، المعاهد الفنية، التجارة والآداب (انتساب) 🏫";
+      } 
+      else if (b.includes("علوم") || b === "science") {
+        if (pct >= 90) return "مؤشر ممتاز: كليات الطب البشري، طب الأسنان، العلاج الطبيعي، الصيدلة 🩺";
+        if (pct >= 82) return "مؤشر جيد جداً: كليات الصيدلة، التمريض، الطب البيطري، العلوم، العلوم الطبية 🔬";
+        if (pct >= 70) return "مؤشر جيد: كليات التمريض، العلوم، الزراعة، الاقتصاد والعلوم السياسية، الألسن 🧪";
+        return "مؤشر مقبول: كليات التجارة، الآداب، الحقوق، المعاهد الفنية الصحية 🏫";
+      } 
+      else { // أدبي
+        if (pct >= 80) return "مؤشر ممتاز: كليات الاقتصاد والعلوم السياسية، الألسن، الإعلام، الآثار 📚";
+        if (pct >= 70) return "مؤشر جيد جداً: كليات التربية، الفنون الجميلة، التجارة، الآداب 🎨";
+        if (pct >= 60) return "مؤشر جيد: كليات الحقوق، السياحة والفنادق، الخدمة الاجتماعية 🏛️";
+        return "مؤشر مقبول: الحقوق والآداب (انتساب)، المعاهد العليا للغات والإدارة 🏫";
+      }
+    }
+
+    // دالة التغيير التفاعلي للشعبة من كارت الطالب مباشرة
+    function changeStudentBranch(idx, branchKey) {
+      const student = globalStudentsList[idx];
+      if (!student) return;
+
+      if (branchKey === 'math') student.branch = "علمي رياضة";
+      else if (branchKey === 'science') student.branch = "علمي علوم";
+      else student.branch = "أدبي";
+
+      // 1. تحديث نص التنسيق المتوقع
+      const targetEl = document.getElementById(`target-text-${idx}`);
+      if (targetEl) {
+        targetEl.innerText = getCollegeTarget(student.pct_num, student.branch);
+      }
+
+      // 2. تحديث نص الشعبة العلوي
+      const badgeEl = document.getElementById(`branch-badge-${idx}`);
+      if (badgeEl) {
+        badgeEl.innerText = `الشعبة: ${student.branch} | الحالة: ${student.status}`;
+      }
+
+      // 3. تحديث أشكال الأزرار النشطة
+      const buttons = document.querySelectorAll(`.branch-btn-${idx}`);
+      buttons.forEach(btn => {
+        btn.className = `branch-btn-${idx} py-1.5 px-3 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900 border border-transparent`;
+      });
+      const activeBtn = document.getElementById(`btn-${branchKey}-${idx}`);
+      if (activeBtn) {
+        activeBtn.className = `branch-btn-${idx} py-1.5 px-3 text-xs font-bold rounded-lg transition-all bg-white text-brand-600 shadow-sm border border-slate-200`;
+      }
     }
 
     function printIsolatedCertificate(index) {
@@ -319,6 +367,9 @@
           const rank = student.national_rank;
           const sameScore = student.same_score_count;
           const status = student.status;
+          
+          // تحديد الشعبة الافتراضية
+          if (!student.branch) student.branch = "علمي علوم";
           const branch = student.branch;
           const lostMarks = student.lost_marks;
           const collegeTarget = getCollegeTarget(pctNum, branch);
@@ -329,12 +380,16 @@
           else if (pctNum >= 50) barColor = "bg-amber-500";
           else if (pctNum > 0) barColor = "bg-rose-500";
 
+          const isMath = branch.includes("رياضة");
+          const isScience = branch.includes("علوم");
+          const isLiterary = !isMath && !isScience;
+
           html += `
             <div class="bg-white border-2 border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
               
               <!-- Student Header Details -->
               <div class="border-b border-slate-100 pb-4 text-center space-y-2">
-                <span class="inline-block bg-brand-50 text-brand-700 text-xs font-black px-3.5 py-1.5 rounded-full">
+                <span id="branch-badge-${idx}" class="inline-block bg-brand-50 text-brand-700 text-xs font-black px-3.5 py-1.5 rounded-full">
                   الشعبة: ${branch} | الحالة: ${status}
                 </span>
                 <h3 class="text-2xl sm:text-3xl font-black text-brand-600">${name}</h3>
@@ -379,10 +434,26 @@
                 </div>
               ` : ''}
 
+              <!-- أزرار تحديد الشعبة التفاعلية -->
+              <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200/80 text-center space-y-2">
+                <span class="text-xs font-bold text-slate-500 block">حدد الشعبة لتعديل مؤشر التنسيق فوراً:</span>
+                <div class="inline-flex p-1 bg-slate-200/60 rounded-xl gap-1">
+                  <button id="btn-science-${idx}" onclick="changeStudentBranch(${idx}, 'science')" class="branch-btn-${idx} py-1.5 px-3 text-xs font-bold rounded-lg transition-all ${isScience ? 'bg-white text-brand-600 shadow-sm border border-slate-200' : 'text-slate-600 hover:text-slate-900 border border-transparent'}">
+                    علمي علوم
+                  </button>
+                  <button id="btn-math-${idx}" onclick="changeStudentBranch(${idx}, 'math')" class="branch-btn-${idx} py-1.5 px-3 text-xs font-bold rounded-lg transition-all ${isMath ? 'bg-white text-brand-600 shadow-sm border border-slate-200' : 'text-slate-600 hover:text-slate-900 border border-transparent'}">
+                    علمي رياضة
+                  </button>
+                  <button id="btn-literary-${idx}" onclick="changeStudentBranch(${idx}, 'literary')" class="branch-btn-${idx} py-1.5 px-3 text-xs font-bold rounded-lg transition-all ${isLiterary ? 'bg-white text-brand-600 shadow-sm border border-slate-200' : 'text-slate-600 hover:text-slate-900 border border-transparent'}">
+                    أدبي
+                  </button>
+                </div>
+              </div>
+
               <!-- College Predictor -->
               <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 text-right space-y-1">
                 <span class="text-xs font-bold text-brand-600 block">🎯 مؤشر القبول والتنسيق المتوقع:</span>
-                <p class="text-xs sm:text-sm font-black text-slate-800">${collegeTarget}</p>
+                <p id="target-text-${idx}" class="text-xs sm:text-sm font-black text-slate-800">${collegeTarget}</p>
               </div>
 
               <!-- Action Buttons -->
