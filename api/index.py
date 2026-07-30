@@ -95,12 +95,11 @@ class handler(BaseHTTPRequestHandler):
 
             formatted_results = []
 
-            # 3. معالجة وتوحيد كافة الحقول
+            # 3. توحيد قراءة البيانات ومعالجة الحقول
             for st in raw_data[:5]:
                 tot_val = None
                 tot_col = None
 
-                # البحث عن قيمة المجموع من أي عمود رقمي بين 0 و 410
                 for k, v in st.items():
                     if k not in ['seating_no', 'id'] and v is not None:
                         try:
@@ -112,7 +111,6 @@ class handler(BaseHTTPRequestHandler):
                         except (ValueError, TypeError):
                             pass
 
-                # حساب الترتيب والعدد
                 national_rank = '—'
                 same_score_count = '—'
 
@@ -129,7 +127,7 @@ class handler(BaseHTTPRequestHandler):
                     except Exception:
                         pass
 
-                pct_val = round((tot_val / 410.0) * 100, 1) if tot_val is not None else '—'
+                pct_val = round((tot_val / 410.0) * 100, 2) if tot_val is not None else '—'
 
                 formatted_results.append({
                     "name": st.get('name') or 'طالب ثانوية عامة',
@@ -140,7 +138,7 @@ class handler(BaseHTTPRequestHandler):
                     "national_rank": national_rank,
                     "same_score_count": same_score_count,
                     "status": st.get('school') or st.get('status') or 'ناجح',
-                    "branch": st.get('branch') or 'عام'
+                    "branch": st.get('branch') or 'علمي / أدبي'
                 })
 
             self.wfile.write(json.dumps({"results": formatted_results}, ensure_ascii=False).encode('utf-8'))
