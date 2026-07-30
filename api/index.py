@@ -43,7 +43,7 @@ class handler(BaseHTTPRequestHandler):
             supabase_key = os.environ.get("SUPABASE_KEY")
             
             if not supabase_url or not supabase_key:
-                self.wfile.write(json.dumps({"results": [], "error": "المتغيرات البيئية غير مكتملة"}, ensure_ascii=False).encode('utf-8'))
+                self.wfile.write(json.dumps({"results": [], "error": "المتغيرات البيئية لـ Supabase مفقودة"}, ensure_ascii=False).encode('utf-8'))
                 return
 
             supabase: Client = create_client(supabase_url, supabase_key)
@@ -70,14 +70,14 @@ class handler(BaseHTTPRequestHandler):
                 first_word = words[0] if words else q
                 
                 try:
-                    res = supabase.table('results').select('*').ilike('name', f'{first_word}%').limit(20).execute()
+                    res = supabase.table('results').select('*').ilike('name', f'{first_word}%').limit(25).execute()
                     raw_data = res.data or []
                 except Exception:
                     pass
 
                 if not raw_data:
                     try:
-                        res = supabase.table('results').select('*').ilike('name', f'%{first_word}%').limit(20).execute()
+                        res = supabase.table('results').select('*').ilike('name', f'%{first_word}%').limit(25).execute()
                         raw_data = res.data or []
                     except Exception:
                         pass
@@ -95,7 +95,7 @@ class handler(BaseHTTPRequestHandler):
 
             formatted_results = []
 
-            # 3. توحيد قراءة البيانات ومعالجة الحقول
+            # 3. توحيد قراءة البيانات وحساب الترتيب والدرجات المفقودة
             for st in raw_data[:5]:
                 tot_val = None
                 tot_col = None
@@ -128,17 +128,19 @@ class handler(BaseHTTPRequestHandler):
                         pass
 
                 pct_val = round((tot_val / 410.0) * 100, 2) if tot_val is not None else '—'
+                lost_marks = round(410.0 - tot_val, 1) if tot_val is not None else '—'
 
                 formatted_results.append({
                     "name": st.get('name') or 'طالب ثانوية عامة',
                     "seating_no": st.get('seating_no') or q,
                     "total": tot_val if tot_val is not None else '—',
+                    "lost_marks": lost_marks,
                     "percentage": f"{pct_val}%" if pct_val != '—' else '—',
                     "pct_num": pct_val if pct_val != '—' else 0,
                     "national_rank": national_rank,
                     "same_score_count": same_score_count,
                     "status": st.get('school') or st.get('status') or 'ناجح',
-                    "branch": st.get('branch') or 'علمي / أدبي'
+                    "branch": st.get('branch') or 'عام'
                 })
 
             self.wfile.write(json.dumps({"results": formatted_results}, ensure_ascii=False).encode('utf-8'))
