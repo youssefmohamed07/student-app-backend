@@ -18,19 +18,12 @@
   <meta property="og:url" content="https://thanawiya.elmodaresbook.com/">
   <meta property="og:title" content="نتيجة الثانوية العامة 2026 برقم الجلوس والاسم — المدرس بوك">
   <meta property="og:description" content="استعلم فورياً عن نتيجتك برقم الجلوس على مستوى الجمهورية. النتيجة معتمدة رسمياً لجميع المحافظات.">
-  <meta property="og:image" content="https://elmodaresbook.com/og-image.jpg">
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:title" content="نتيجة الثانوية العامة 2026 برقم الجلوس والاسم — المدرس بوك">
-  <meta property="twitter:description" content="استعلم فورياً عن نتيجتك برقم الجلوس على مستوى الجمهورية. النتيجة معتمدة رسمياً.">
-
-  <!-- Fonts & Styling -->
+  <!-- Fonts & Tailwind CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -57,7 +50,7 @@
     body { font-family: 'Cairo', sans-serif; background-color: #f8fafc; }
   </style>
 
-  <!-- Schema.org JSON-LD for Google Rich Results -->
+  <!-- Schema.org JSON-LD for Google Rich Snippets -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -66,8 +59,7 @@
     "description": "صفحة الاستعلام عن نتيجة الثانوية العامة 2026 في مصر برقم الجلوس والاسم على مستوى الجمهورية.",
     "publisher": {
       "@type": "Organization",
-      "name": "المدرس بوك",
-      "url": "https://elmodaresbook.com"
+      "name": "المدرس بوك"
     }
   }
   </script>
@@ -114,7 +106,7 @@
           </div>
           <div>
             <span class="text-2xl font-black text-slate-900 tracking-tight block">المدرس بوك</span>
-            <span class="text-xs font-bold text-brand-600 block -mt-1">موقع التعليم الأول في مصر</span>
+            <span class="text-xs font-bold text-brand-600 block -mt-1">بوابة النتائج التعليمية</span>
           </div>
         </a>
 
@@ -124,7 +116,7 @@
           <a href="#" class="hover:text-brand-600 transition">ابتدائي</a>
           <a href="#" class="hover:text-brand-600 transition">إعدادي</a>
           <a href="#" class="hover:text-brand-600 transition">ثانوي</a>
-          <a href="#" class="hover:text-brand-600 transition">للمعلمين</a>
+          <a href="#" class="hover:text-brand-600 transition">لالمعلمين</a>
           <a href="#" class="hover:text-brand-600 transition">لأولياء الأمور</a>
           <a href="#" class="bg-brand-50 text-brand-600 px-4 py-2 rounded-xl font-black border border-brand-100">نتائج الطلاب</a>
         </nav>
@@ -158,7 +150,7 @@
   <main class="max-w-5xl mx-auto px-4 py-8 flex-grow w-full">
 
     <!-- Breadcrumb -->
-    <nav class="flex items-center gap-2 text-xs text-slate-500 font-bold mb-6" aria-label="Breadcrumb">
+    <nav class="flex items-center gap-2 text-xs text-slate-500 font-bold mb-6">
       <a href="#" class="hover:text-brand-600">رئيسية النتائج</a>
       <span>›</span>
       <a href="#" class="hover:text-brand-600">الثانوية العامة</a>
@@ -208,7 +200,8 @@
             type="submit"
             class="bg-brand-accent hover:bg-brand-hoverAccent text-slate-900 font-black text-base px-8 py-3.5 rounded-2xl transition active:scale-95 shadow-md flex items-center justify-center gap-2 shrink-0"
           >
-            اعرض النتيجة
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            عرض النتيجة
           </button>
         </div>
         <p class="text-center text-xs text-slate-500 mt-3 font-semibold">
@@ -216,11 +209,11 @@
         </p>
       </form>
 
-      <!-- Dynamic Search Output Box -->
+      <!-- Dynamic Output -->
       <div id="searchResults" class="mt-8 transition-all"></div>
     </section>
 
-    <!-- 5. Quick Info Cards Grid -->
+    <!-- 5. Status Indicators -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
       <div class="bg-emerald-50/70 border border-emerald-200/80 p-5 rounded-2xl">
         <span class="text-xs font-bold text-emerald-700 block mb-1">حالة الصفحة</span>
@@ -236,7 +229,7 @@
       </div>
     </div>
 
-    <!-- 6. Detailed SEO Content Articles -->
+    <!-- 6. SEO Detailed Article -->
     <article class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 space-y-8 text-slate-700 leading-relaxed text-sm sm:text-base">
       
       <div>
@@ -269,23 +262,8 @@
         <p class="mb-3">
           للوصول إلى نتيجة الثانوية العامة 2026 من هذه الصفحة، استخدم صندوق الاستعلام الموجود في الأعلى فور إتاحة النتيجة. اكتب رقم الجلوس كما هو في بطاقة الامتحان، ثم اضغط زر عرض النتيجة. إذا كانت النتيجة منشورة لهذا العام، سيتم نقلك إلى صفحة الطالب التي تعرض الاسم، رقم الجلوس، المدرسة، الإدارة التعليمية عند توفرها، المحافظة، الشعبة، المجموع، النسبة المئوية، حالة النجاح أو الرسوب، وتفاصيل درجات المواد.
         </p>
-        <p class="mb-3">
-          إذا كانت صفحة نتيجة الثانوية العامة 2026 ما زالت في وضع الانتظار، فهذا يعني أن النتيجة لم تعتمد بعد أو لم يتم رفع بيانات هذا العام. في هذه الحالة قد تعرض الصفحة أحدث نتيجة منشورة مثل نتيجة الثانوية العامة 2026 لأغراض الاستعلام والأرشفة، مع توضيح واضح حتى لا يختلط الأمر على الطالب. هذا مهم لأن كثيرين يدخلون مبكرا قبل إعلان وزارة التربية والتعليم، ويحتاجون إلى معرفة هل الرابط جاهز، وهل النتيجة ظهرت، وهل رقم الجلوس سيعمل بمجرد الرفع أم لا.
-        </p>
         <p>
           أفضل طريقة لتجنب الأخطاء وقت الضغط أن تجهز رقم جلوسك مسبقا، وتتأكد من كتابته بالأرقام فقط، ثم تستخدم البحث مرة واحدة وتنتظر تحميل صفحة الطالب. تكرار الضغط بسرعة على زر الاستعلام قد يسبب بطئا في أي موقع وقت إعلان النتيجة، لذلك تم تصميم البحث هنا ليكون مباشرا قدر الإمكان: رقم جلوس واحد، نتيجة واحدة، وصفحة تفصيلية واحدة يمكن حفظها أو مشاركتها بعد فتحها.
-        </p>
-      </div>
-
-      <hr class="border-slate-100">
-
-      <div>
-        <h3 class="text-xl font-extrabold text-slate-900 mb-3">ما الذي يظهر في صفحة نتيجة تالتة ثانوي؟</h3>
-        <p class="mb-3">
-          صفحة نتيجة تالتة ثانوي لا تكتفي بإظهار كلمة ناجح أو راسب، بل تعرض تفاصيل تساعد الطالب على فهم موقفه كاملا. أهم ما يبحث عنه الطالب هو المجموع الكلي في الثانوية العامة، ثم النسبة المئوية، ثم درجات المواد. وتظهر المواد حسب الشعبة التي ينتمي إليها الطالب، سواء كانت شعبة علمي علوم، علمي رياضة، أو أدبي. كما تظهر المواد العامة المشتركة، ومواد لا تضاف للمجموع إن كانت البيانات الرسمية تتضمنها بهذه الصورة.
-        </p>
-        <p>
-          عند قراءة النتيجة، يجب الانتباه إلى الفرق بين درجة الطالب والنهاية العظمى للمادة. عرض النهاية العظمى بجوار الدرجة يساعد الطالب وولي الأمر على فهم نسبة الأداء في كل مادة بدلا من النظر إلى رقم مجرد. فمثلا درجة مادة من 80 تختلف في معناها عن درجة مادة من 60 أو 40. لهذا يكون تنظيم الدرجات داخل صفحة الطالب مهما، خصوصا في المواد الأساسية مثل اللغة العربية، اللغة الأجنبية الأولى، اللغة الأجنبية الثانية، الفيزياء، الكيمياء، الأحياء، الجيولوجيا، الرياضيات البحتة، الرياضيات التطبيقية، التاريخ، الجغرافيا، الفلسفة والمنطق، وعلم النفس والاجتماع حسب الشعبة.
         </p>
       </div>
 
@@ -304,11 +282,6 @@
           <h4 class="font-bold text-slate-900 text-base mb-1">هل أحتاج إلى اختيار المحافظة قبل الاستعلام؟</h4>
           <p class="text-slate-600 text-xs sm:text-sm">لا. نتيجة الثانوية العامة نتيجة جمهورية موحدة، ولذلك لا يحتاج الطالب إلى اختيار محافظة قبل كتابة رقم الجلوس.</p>
         </div>
-
-        <div>
-          <h4 class="font-bold text-slate-900 text-base mb-1">هل صفحة الطالب تعرض درجات المواد؟</h4>
-          <p class="text-slate-600 text-xs sm:text-sm">نعم، عند توفر البيانات الكاملة تظهر درجات المواد، النهاية العظمى لكل مادة، المجموع، النسبة، وحالة الطالب.</p>
-        </div>
       </div>
 
     </article>
@@ -323,7 +296,7 @@
         <div class="space-y-3">
           <span class="text-2xl font-black text-white block">المدرس بوك</span>
           <p class="text-xs leading-relaxed text-slate-400">
-            موقع تعليمي مصري يهدف إلى توفير كل ما يحتاجه الطالب والمعلم من مذكرات وكتب وامتحانات في مكان واحد.
+            موقع تعليمي مصري يهدف إلى توفير كل ما يحتاجه الطالب والمعلم من مذكرات وكتب وامتحانات ونتائج في مكان واحد.
           </p>
         </div>
 
@@ -334,7 +307,6 @@
             <li><a href="#" class="hover:text-white transition">نتائج الطلاب</a></li>
             <li><a href="#" class="hover:text-white transition">الصفوف الدراسية</a></li>
             <li><a href="#" class="hover:text-white transition">المذكرات التعليمية</a></li>
-            <li><a href="#" class="hover:text-white transition">أخبار تعليمية</a></li>
           </ul>
         </div>
 
@@ -350,7 +322,7 @@
 
         <div>
           <h4 class="text-white font-bold mb-3 text-sm">اشترك في نشرتنا</h4>
-          <p class="text-xs mb-3 text-slate-400">اشترك ليصلك كل جديد من المذكرات والامتحانات والمراجعات.</p>
+          <p class="text-xs mb-3 text-slate-400">اشترك ليصلك كل جديد من المذكرات والنتائج فور إعلانها.</p>
           <div class="flex gap-2">
             <input type="email" placeholder="البريد الإلكتروني" class="bg-slate-800 border border-slate-700 text-white text-xs rounded-xl px-3 py-2 w-full focus:outline-none">
             <button class="bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs px-4 py-2 rounded-xl transition">اشتراك</button>
@@ -365,7 +337,7 @@
     </div>
   </footer>
 
-  <!-- Search Logic and Card Rendering Script -->
+  <!-- Search Logic and Robust Response Handling -->
   <script>
     async function searchStudent() {
       const query = document.getElementById('searchInput').value.trim();
@@ -381,20 +353,24 @@
       `;
 
       try {
-        const response = await fetch(`/api/index.py?q=${encodeURIComponent(query)}`);
-        
+        let response = await fetch(`/api/index.py?q=${encodeURIComponent(query)}`);
         if (!response.ok) {
-          throw new Error('حدث خطأ في الاتصال بالخادم');
+          response = await fetch(`/api?q=${encodeURIComponent(query)}`);
         }
 
         const data = await response.json();
-        const list = data.results || data || [];
+        
+        if (data.error) {
+          console.error("Backend Error:", data.error);
+        }
+
+        const list = data.results || (Array.isArray(data) ? data : []);
 
         if (list.length === 0) {
           resultsDiv.innerHTML = `
             <div class="bg-amber-50 border border-amber-200 text-amber-900 p-6 rounded-2xl text-center">
               <strong class="block text-base mb-1">لم يتم العثور على نتيجة!</strong>
-              <p class="text-xs">تأكد من كتابة رقم الجلوس بشكل صحيح أو جرب البحث بكلمة أخرى من الاسم.</p>
+              <p class="text-xs">تأكد من كتابة رقم الجلوس بشكل صحيح أو جرب البحث باسم الطالب.</p>
             </div>
           `;
           return;
@@ -417,22 +393,18 @@
           html += `
             <div class="bg-white border-2 border-slate-100 rounded-3xl p-6 shadow-sm hover:shadow-md transition text-center space-y-6">
               
-              <!-- Student Header Info -->
               <div class="space-y-1">
                 <h3 class="text-xl sm:text-2xl font-black text-brand-500">${name}</h3>
                 <p class="text-slate-500 font-bold text-xs sm:text-sm">رقم الجلوس: <span class="text-slate-800">${seating}</span></p>
               </div>
 
-              <!-- Stat Cards Grid -->
               <div class="grid grid-cols-2 gap-4 max-w-xl mx-auto">
                 
-                <!-- Total Score Box -->
                 <div class="bg-slate-50 border border-slate-200/80 p-4 sm:p-5 rounded-2xl flex flex-col justify-center items-center">
                   <span class="text-xs sm:text-sm font-bold text-slate-500 mb-1">المجموع الكلي</span>
                   <span class="text-2xl sm:text-3xl font-black text-slate-900">${total}</span>
                 </div>
 
-                <!-- Percentage Box -->
                 <div class="bg-slate-50 border border-slate-200/80 p-4 sm:p-5 rounded-2xl flex flex-col justify-center items-center">
                   <span class="text-xs sm:text-sm font-bold text-slate-500 mb-1">النسبة المئوية</span>
                   <span class="text-2xl sm:text-3xl font-black text-emerald-600">${percentage || '—'}</span>
@@ -450,8 +422,8 @@
       } catch (err) {
         resultsDiv.innerHTML = `
           <div class="bg-red-50 border border-red-200 text-red-700 p-6 rounded-2xl text-center">
-            <strong class="block text-base mb-1">عذراً، حدث خطأ أثناء الاستعلام</strong>
-            <p class="text-xs">يرجى المحاولة مرة أخرى لاحقاً.</p>
+            <strong class="block text-base mb-1">تعذر جلب البيانات حالياً</strong>
+            <p class="text-xs">يرجى المحاولة مرة أخرى بعد لحظات.</p>
           </div>
         `;
       }
