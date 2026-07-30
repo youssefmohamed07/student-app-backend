@@ -163,6 +163,10 @@
     function getCollegeTarget(pct, branch) {
       const b = String(branch || "").trim();
 
+      if (!b) {
+        return "👈 برجاء اختيار شعبتك بالأعلى لعرض الكليات المتاحة لمجموعك...";
+      }
+
       if (b.includes("رياضة") || b === "math") {
         if (pct >= 85) return "مؤشر ممتاز: كليات الهندسة، الحاسبات والمعلومات، الذكاء الاصطناعي، التخطيط العمراني، الفنون التطبيقية 🎯";
         if (pct >= 75) return "مؤشر جيد جداً: كليات الحاسبات (خاص/أهلي)، العلوم، الفنون التطبيقية، الاقتصاد والعلوم السياسية، التجارة 📊";
@@ -192,10 +196,11 @@
       else if (branchKey === 'science') student.branch = "علمي علوم";
       else student.branch = "أدبي";
 
-      // 1. تحديث نص التنسيق المتوقع
+      // 1. تحديث نص التنسيق المتوقع وإزالة تأثير الأنيميشن التمهيدي
       const targetEl = document.getElementById(`target-text-${idx}`);
       if (targetEl) {
         targetEl.innerText = getCollegeTarget(student.pct_num, student.branch);
+        targetEl.className = "text-xs sm:text-sm font-black text-slate-800";
       }
 
       // 2. تحديث نص الشعبة العلوي
@@ -207,17 +212,22 @@
       // 3. تحديث أشكال الأزرار النشطة
       const buttons = document.querySelectorAll(`.branch-btn-${idx}`);
       buttons.forEach(btn => {
-        btn.className = `branch-btn-${idx} py-1.5 px-3 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900 border border-transparent`;
+        btn.className = `branch-btn-${idx} py-2 px-3 text-xs sm:text-sm font-bold rounded-xl transition-all text-slate-600 hover:text-slate-900 border border-slate-200 bg-white`;
       });
       const activeBtn = document.getElementById(`btn-${branchKey}-${idx}`);
       if (activeBtn) {
-        activeBtn.className = `branch-btn-${idx} py-1.5 px-3 text-xs font-bold rounded-lg transition-all bg-white text-brand-600 shadow-sm border border-slate-200`;
+        activeBtn.className = `branch-btn-${idx} py-2 px-3 text-xs sm:text-sm font-black rounded-xl transition-all bg-brand-600 text-white shadow-sm border border-brand-600`;
       }
     }
 
     function printIsolatedCertificate(index) {
       const student = globalStudentsList[index];
       if (!student) return;
+
+      if (!student.branch) {
+        alert("برجاء تحديد الشعبة أولاً قبل طباعة الشهادة!");
+        return;
+      }
 
       const dateStr = new Date().toLocaleDateString('ar-EG');
       const serialNo = 'THN-2026-' + Math.floor(100000 + Math.random() * 900000);
@@ -359,6 +369,9 @@
         let html = `<div class="space-y-8 pt-4">`;
 
         globalStudentsList.forEach((student, idx) => {
+          // تفريغ الشعبة أولاً لإجبار الموقع على سؤال الطالب
+          student.branch = "";
+          
           const name = student.name;
           const seating = student.seating_no;
           const total = student.total;
@@ -367,12 +380,8 @@
           const rank = student.national_rank;
           const sameScore = student.same_score_count;
           const status = student.status;
-          
-          // تحديد الشعبة الافتراضية
-          if (!student.branch) student.branch = "علمي علوم";
-          const branch = student.branch;
           const lostMarks = student.lost_marks;
-          const collegeTarget = getCollegeTarget(pctNum, branch);
+          const collegeTarget = getCollegeTarget(pctNum, student.branch);
 
           let barColor = "bg-brand-600";
           if (pctNum >= 85) barColor = "bg-emerald-500";
@@ -380,17 +389,13 @@
           else if (pctNum >= 50) barColor = "bg-amber-500";
           else if (pctNum > 0) barColor = "bg-rose-500";
 
-          const isMath = branch.includes("رياضة");
-          const isScience = branch.includes("علوم");
-          const isLiterary = !isMath && !isScience;
-
           html += `
             <div class="bg-white border-2 border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
               
               <!-- Student Header Details -->
               <div class="border-b border-slate-100 pb-4 text-center space-y-2">
                 <span id="branch-badge-${idx}" class="inline-block bg-brand-50 text-brand-700 text-xs font-black px-3.5 py-1.5 rounded-full">
-                  الشعبة: ${branch} | الحالة: ${status}
+                  الحالة: ${status} (يرجى تحديد الشعبة)
                 </span>
                 <h3 class="text-2xl sm:text-3xl font-black text-brand-600">${name}</h3>
                 <p class="text-slate-500 font-bold text-xs sm:text-sm">
@@ -434,17 +439,17 @@
                 </div>
               ` : ''}
 
-              <!-- أزرار تحديد الشعبة التفاعلية -->
-              <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200/80 text-center space-y-2">
-                <span class="text-xs font-bold text-slate-500 block">حدد الشعبة لتعديل مؤشر التنسيق فوراً:</span>
-                <div class="inline-flex p-1 bg-slate-200/60 rounded-xl gap-1">
-                  <button id="btn-science-${idx}" onclick="changeStudentBranch(${idx}, 'science')" class="branch-btn-${idx} py-1.5 px-3 text-xs font-bold rounded-lg transition-all ${isScience ? 'bg-white text-brand-600 shadow-sm border border-slate-200' : 'text-slate-600 hover:text-slate-900 border border-transparent'}">
+              <!-- سؤال إجباري لتحديد الشعبة -->
+              <div class="bg-blue-50/80 p-5 rounded-2xl border-2 border-blue-200 text-center space-y-3">
+                <h4 class="text-sm font-black text-blue-900">👇 حدد الشعبة لتعديل مؤشر التنسيق فوراً:</h4>
+                <div class="grid grid-cols-3 gap-2">
+                  <button id="btn-science-${idx}" onclick="changeStudentBranch(${idx}, 'science')" class="branch-btn-${idx} py-2 px-3 text-xs sm:text-sm font-bold rounded-xl transition-all text-slate-600 hover:text-slate-900 border border-slate-200 bg-white">
                     علمي علوم
                   </button>
-                  <button id="btn-math-${idx}" onclick="changeStudentBranch(${idx}, 'math')" class="branch-btn-${idx} py-1.5 px-3 text-xs font-bold rounded-lg transition-all ${isMath ? 'bg-white text-brand-600 shadow-sm border border-slate-200' : 'text-slate-600 hover:text-slate-900 border border-transparent'}">
+                  <button id="btn-math-${idx}" onclick="changeStudentBranch(${idx}, 'math')" class="branch-btn-${idx} py-2 px-3 text-xs sm:text-sm font-bold rounded-xl transition-all text-slate-600 hover:text-slate-900 border border-slate-200 bg-white">
                     علمي رياضة
                   </button>
-                  <button id="btn-literary-${idx}" onclick="changeStudentBranch(${idx}, 'literary')" class="branch-btn-${idx} py-1.5 px-3 text-xs font-bold rounded-lg transition-all ${isLiterary ? 'bg-white text-brand-600 shadow-sm border border-slate-200' : 'text-slate-600 hover:text-slate-900 border border-transparent'}">
+                  <button id="btn-literary-${idx}" onclick="changeStudentBranch(${idx}, 'literary')" class="branch-btn-${idx} py-2 px-3 text-xs sm:text-sm font-bold rounded-xl transition-all text-slate-600 hover:text-slate-900 border border-slate-200 bg-white">
                     أدبي
                   </button>
                 </div>
@@ -453,7 +458,7 @@
               <!-- College Predictor -->
               <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 text-right space-y-1">
                 <span class="text-xs font-bold text-brand-600 block">🎯 مؤشر القبول والتنسيق المتوقع:</span>
-                <p id="target-text-${idx}" class="text-xs sm:text-sm font-black text-slate-800">${collegeTarget}</p>
+                <p id="target-text-${idx}" class="text-xs sm:text-sm font-bold text-slate-500 animate-pulse">${collegeTarget}</p>
               </div>
 
               <!-- Action Buttons -->
