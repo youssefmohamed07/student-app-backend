@@ -1,202 +1,376 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نتيجة الثانوية العامة 2026</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: #f8fafc;
-            color: #1e293b;
-            min-height: 100vh;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نتيجة الثانوية العامة 2026 برقم الجلوس والاسم — المدرس بوك</title>
+  <meta name="description" content="استعلم فورياً عن نتيجة الثانوية العامة 2026 برقم الجلوس أو الاسم على مستوى الجمهورية. نتيجة معتمدة رسمياً لجميع المحافظات والشُعب.">
+  
+  <!-- الخطوط الرسمية (Cairo) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            cairo: ['Cairo', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              500: '#2563eb',
+              600: '#1d4ed8',
+              700: '#1e40af',
+              accent: '#f59e0b',
+            }
+          }
         }
-        .main-card {
-            background: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e2e8f0;
-        }
-        .btn-custom {
-            background-color: #1d4ed8;
-            color: white;
-            border-radius: 12px;
-            padding: 12px 30px;
-            font-weight: 700;
-            transition: all 0.2s;
-        }
-        .btn-custom:hover {
-            background-color: #1e40af;
-            color: white;
-        }
-        .badge-custom {
-            background-color: #eff6ff;
-            color: #1d4ed8;
-            border: 1px solid #bfdbfe;
-            border-radius: 50px;
-            padding: 6px 16px;
-            font-weight: 600;
-            font-size: 0.875rem;
-        }
-        .result-card {
-            background-color: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-        .error-box {
-            background-color: #fef2f2;
-            border: 1px solid #fecaca;
-            border-radius: 16px;
-            color: #991b1b;
-        }
-    </style>
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Cairo', sans-serif; background-color: #f8fafc; }
+  </style>
 </head>
-<body>
+<body class="text-slate-800 antialiased flex flex-col min-h-screen">
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-light bg-white border-bottom py-3">
-        <div class="container">
-            <div class="d-flex align-items-center gap-2">
-                <div class="bg-primary text-white rounded-3 p-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                    <i class="fas fa-graduation-cap fa-lg"></i>
-                </div>
-                <span class="fw-bold fs-5">نتيجة الثانوية العامة</span>
-            </div>
-            <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-2">
-                <i class="fas fa-check-circle me-1"></i> النتيجة معتمدة 2026
-            </span>
+  <!-- 1. Top Navbar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo -->
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-brand-600 rounded-xl flex items-center justify-center text-white shadow-md shadow-brand-500/20">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+            </svg>
+          </div>
+          <div>
+            <span class="text-2xl font-black text-slate-900 tracking-tight">المدرس بوك</span>
+            <span class="block text-xs font-semibold text-brand-600">بوابة النتائج التعليمية</span>
+          </div>
         </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-6 font-bold text-slate-700 text-sm">
+          <a href="#" class="hover:text-brand-600 transition">رياض أطفال</a>
+          <a href="#" class="hover:text-brand-600 transition">ابتدائي</a>
+          <a href="#" class="hover:text-brand-600 transition">إعدادي</a>
+          <a href="#" class="hover:text-brand-600 transition">ثانوي</a>
+          <a href="#" class="hover:text-brand-600 transition">للمعلمين</a>
+          <a href="#" class="hover:text-brand-600 transition">لأولياء الأمور</a>
+          <a href="#" class="bg-brand-50 text-brand-600 px-4 py-2 rounded-lg font-bold border border-brand-100">نتائج الطلاب</a>
+        </nav>
+
+        <!-- Search input header -->
+        <div class="hidden lg:block w-64">
+          <div class="relative">
+            <input type="text" placeholder="إبحث عن مذكرة أو كتاب..." class="w-full bg-slate-100 border border-slate-200 text-xs rounded-xl py-2.5 px-4 pr-10 focus:outline-none focus:ring-2 focus:ring-brand-500">
+            <svg class="w-4 h-4 absolute right-3 top-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. Ticker News Bar -->
+  <div class="bg-red-600 text-white text-xs sm:text-sm py-2.5 px-4 shadow-inner">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3 overflow-hidden">
+        <span class="bg-white text-red-600 font-extrabold px-2.5 py-0.5 rounded-md text-xs shrink-0 animate-pulse">عاجل</span>
+        <p class="truncate font-medium">تابعونا لكل جديد في النتائج والتنسيق — لأي مذكرات أو كتب دراسية لمرحلتك زر موقع المدرس بوك.</p>
+      </div>
+      <span class="hidden sm:inline-block text-red-200 font-bold shrink-0">تحديث مستمر 2026</span>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="max-w-5xl mx-auto px-4 py-8 flex-grow w-full">
+
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs text-slate-500 font-bold mb-6">
+      <a href="#" class="hover:text-brand-600">رئيسية النتائج</a>
+      <span>/</span>
+      <a href="#" class="hover:text-brand-600">الثانوية العامة</a>
+      <span>/</span>
+      <span class="text-slate-800">نتيجة 2026</span>
     </nav>
 
-    <!-- Main Content -->
-    <div class="container py-5">
-        <div class="text-center mb-4">
-            <div class="d-inline-flex gap-2 mb-3">
-                <span class="badge-custom"><i class="fas fa-globe me-1"></i> نتيجة جمهورية موحدة</span>
-                <span class="badge-custom">العام الدراسي 2026</span>
-            </div>
-            <h1 class="fw-extrabold display-5 mb-3" style="font-weight: 800;">استعلم فوراً عن نتيجتك برقم الجلوس أو الاسم</h1>
-            <p class="text-muted fs-5">أدخل رقم الجلوس أو الاسم كاملاً لمعرفة تفاصيل المجموع والنسبة المئوية رسمياً.</p>
-        </div>
+    <!-- 3. Hero Header Box -->
+    <section class="bg-gradient-to-br from-white to-slate-50 rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm mb-8 text-center sm:text-right relative overflow-hidden">
+      <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-4">
+        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+          نتيجة جمهورية موحّدة
+        </span>
+        <span class="bg-brand-50 text-brand-700 text-xs font-bold px-3 py-1 rounded-full">عام دراسي 2026</span>
+      </div>
 
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="main-card p-4 p-md-5 mb-4">
-                    <form id="searchForm" onsubmit="handleSearch(event)">
-                        <div class="row g-2">
-                            <div class="col-md-9">
-                                <div class="position-relative">
-                                    <input type="text" id="searchInput" class="form-control form-control-lg pe-5" placeholder="أدخل رقم الجلوس أو الاسم..." required style="border-radius: 12px; height: 54px;">
-                                    <i class="fas fa-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <button type="submit" id="submitBtn" class="btn btn-custom w-100 h-100 d-flex align-items-center justify-content-center gap-2">
-                                    <span>عرض النتيجة</span>
-                                    <i class="fas fa-arrow-left"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+      <h1 class="text-2xl sm:text-4xl font-black text-slate-900 mb-3 leading-tight">
+        نتيجة الثانوية العامة 2026 برقم الجلوس على مستوى الجمهورية
+      </h1>
+      <p class="text-slate-600 font-medium text-sm sm:text-base mb-6 max-w-2xl">
+        جمهورية مصر العربية — استعلم فورياً عن نتيجتك برقم الجلوس أو الاسم على مستوى الجمهورية. النتيجة معتمدة رسمياً.
+      </p>
 
-                <div id="outputArea"></div>
-            </div>
+      <div class="flex flex-wrap gap-2 justify-center sm:justify-start text-xs font-bold text-slate-600">
+        <span class="bg-slate-200/60 px-3 py-1.5 rounded-lg">✔ معتمدة للاستعلام</span>
+        <span class="bg-slate-200/60 px-3 py-1.5 rounded-lg">جميع الشُعب (علمي / أدبي)</span>
+        <span class="bg-slate-200/60 px-3 py-1.5 rounded-lg">تحديث مباشر</span>
+      </div>
+    </section>
+
+    <!-- 4. Interactive Search Card -->
+    <section class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-brand-100 shadow-xl shadow-brand-500/5 mb-10">
+      <form onsubmit="event.preventDefault(); searchStudent();" class="max-w-2xl mx-auto">
+        <label for="searchInput" class="block text-center font-extrabold text-xl text-slate-900 mb-2">
+          استعلم فوراً عن نتيجتك برقم الجلوس أو الاسم
+        </label>
+        <p class="text-center text-xs text-slate-500 mb-6 font-medium">أدخل رقم الجلوس أو الاسم كاملاً لمعرفة تفاصيل المجموع والنسبة المئوية رسمياً.</p>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <input 
+            type="text" 
+            id="searchInput"
+            placeholder="أدخل رقم الجلوس أو اسم الطالب..." 
+            class="flex-1 bg-slate-50 border-2 border-slate-200 text-slate-900 font-bold text-base rounded-2xl px-5 py-4 focus:outline-none focus:border-brand-600 focus:bg-white transition text-center sm:text-right"
+            required
+          >
+          <button 
+            type="submit"
+            class="bg-brand-accent hover:bg-amber-500 text-slate-900 font-black text-lg px-8 py-4 rounded-2xl shadow-lg shadow-amber-500/20 transition active:scale-95 flex items-center justify-center gap-2"
+          >
+            <svg class="w-5 h-5 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            عرض النتيجة
+          </button>
         </div>
+      </form>
+
+      <!-- Dynamic Search Results Box -->
+      <div id="searchResults" class="mt-8 transition-all"></div>
+    </section>
+
+    <!-- 5. Quick Info Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+      <div class="bg-emerald-50/50 border border-emerald-200/60 p-5 rounded-2xl">
+        <span class="text-xs font-bold text-emerald-700 block mb-1">حالة الصفحة</span>
+        <strong class="text-slate-900 text-base font-extrabold">متاحة للاستعلام الآن</strong>
+      </div>
+      <div class="bg-blue-50/50 border border-blue-200/60 p-5 rounded-2xl">
+        <span class="text-xs font-bold text-blue-700 block mb-1">طريقة البحث الأساسية</span>
+        <strong class="text-slate-900 text-base font-extrabold">رقم الجلوس للصف الثالث الثانوي</strong>
+      </div>
+      <div class="bg-purple-50/50 border border-purple-200/60 p-5 rounded-2xl">
+        <span class="text-xs font-bold text-purple-700 block mb-1">نطاق النتيجة</span>
+        <strong class="text-slate-900 text-base font-extrabold">جميع محافظات الجمهورية</strong>
+      </div>
     </div>
 
-    <script>
-        async function handleSearch(e) {
-            e.preventDefault();
-            const query = document.getElementById('searchInput').value.trim();
-            const output = document.getElementById('outputArea');
-            const btn = document.getElementById('submitBtn');
+    <!-- 6. SEO Articles & Detailed Guide -->
+    <article class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 space-y-8 text-slate-700 leading-relaxed text-sm sm:text-base">
+      
+      <div>
+        <span class="text-xs font-extrabold text-brand-600 block mb-1">دليل نتيجة الثانوية العامة</span>
+        <h2 class="text-2xl font-black text-slate-900 mb-4">نتيجة الثانوية العامة 2026 برقم الجلوس في مصر</h2>
+        <p class="mb-3">
+          هذه الصفحة مخصصة لمتابعة نتيجة الثانوية العامة 2026، وهي نفس النتيجة التي يبحث عنها الطلاب وأولياء الأمور بعبارات مثل نتيجة تالتة ثانوي، نتيجة الصف الثالث الثانوي، نتيجة الثانوية العامة برقم الجلوس، ورابط نتيجة الثانوية العامة بعد اعتمادها من وزارة التربية والتعليم والتعليم الفني. الهدف هنا أن يجد الطالب صفحة واحدة واضحة للاستعلام، وفهم شكل النتيجة، ومعرفة ما يجب فعله قبل وبعد ظهور الدرجات، من غير تنقل بين صفحات كثيرة أو عناوين مبالغ فيها.
+        </p>
+      </div>
 
-            if (!query) return;
+      <hr class="border-slate-100">
 
-            btn.disabled = true;
-            btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span> جاري البحث...`;
-            output.innerHTML = '';
+      <div>
+        <h3 class="text-xl font-extrabold text-slate-900 mb-3">لماذا يبحث الجميع عن نتيجة الثانوية العامة برقم الجلوس؟</h3>
+        <p class="mb-3">
+          نتيجة الثانوية العامة ليست مجرد درجات في نهاية عام دراسي، لكنها خطوة فاصلة في طريق الجامعة والتنسيق واختيار الكلية. لذلك ترتفع عمليات البحث في مصر مع اقتراب إعلانها، وتظهر عبارات متعددة لها نفس النية، مثل نتيجة الثانوية العامة 2026، نتيجة الصف الثالث الثانوي 2026، نتيجة تالتة ثانوي، نتيجة الثانوية العامة بالاسم، ونتيجة الثانوية العامة برقم الجلوس.
+        </p>
+        <p>
+          الاعتماد على رقم الجلوس هو الطريقة الأدق في نتيجة الثانوية العامة، لأن أسماء الطلاب قد تتشابه. أما رقم الجلوس فهو معرف مباشر للطالب داخل الكنترول، لذلك يتم استخدامه في مربع البحث أعلى الصفحة. وإذا بحث ولي الأمر بعبارة نتيجة الثانوية العامة بالاسم، فمن الأفضل أن يحتفظ أيضا برقم الجلوس.
+        </p>
+      </div>
 
-            const isNumber = /^\d+$/.test(query);
-            const url = isNumber 
-                ? `/api/result/${query}` 
-                : `/api/search/name?name=${encodeURIComponent(query)}`;
+      <hr class="border-slate-100">
 
-            try {
-                const res = await fetch(url);
-                const data = await res.json();
+      <div>
+        <h3 class="text-xl font-extrabold text-slate-900 mb-3">رابط نتيجة الثانوية العامة 2026 وطريقة الاستعلام الصحيحة</h3>
+        <p class="mb-3">
+          للوصول إلى نتيجة الثانوية العامة 2026 من هذه الصفحة، استخدم صندوق الاستعلام الموجود في الأعلى فور إتاحة النتيجة. اكتب رقم الجلوس كما هو في بطاقة الامتحان، ثم اضغط زر عرض النتيجة.
+        </p>
+        <p>
+          أفضل طريقة لتجنب الأخطاء وقت الضغط أن تجهز رقم جلوسك مسبقا، وتتأكد من كتابته بالأرقام فقط، ثم تستخدم البحث مرة واحدة وتنتظر تحميل صفحة الطالب.
+        </p>
+      </div>
 
-                if (!res.ok) {
-                    throw new Error(data.detail || 'حدث خطأ في جلب البيانات');
-                }
+      <hr class="border-slate-100">
 
-                if (isNumber) {
-                    renderSingleResult(data);
-                } else {
-                    renderMultipleResults(data);
-                }
-            } catch (err) {
-                output.innerHTML = `
-                    <div class="error-box p-4 text-center">
-                        <i class="fas fa-exclamation-circle fa-2x mb-2 text-danger"></i>
-                        <h5 class="fw-bold mb-1">لم نتمكن من إيجاد النتيجة</h5>
-                        <p class="mb-0 text-muted">${err.message}</p>
-                    </div>
-                `;
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = `<span>عرض النتيجة</span> <i class="fas fa-arrow-left"></i>`;
-            }
+      <div>
+        <h3 class="text-xl font-extrabold text-slate-900 mb-3">نتيجة الثانوية العامة في المحافظات</h3>
+        <p>
+          نتيجة الصف الثالث الثانوي العام تصدر مركزياً على مستوى الجمهورية. الطالب في القاهرة، الجيزة، الإسكندرية، القليوبية، الشرقية، الدقهلية، البحيرة، المنيا، أسيوط، سوهاج، قنا، الأقصر، أسوان، وجميع المحافظات يستخدم نفس أسلوب البحث الموحد بدون الحاجة لاختيار محافظة.
+        </p>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200/80">
+        <h3 class="text-xl font-extrabold text-slate-900 mb-4">أسئلة شائعة حول نتيجة الثانوية العامة</h3>
+        
+        <div class="space-y-4">
+          <div>
+            <h4 class="font-bold text-slate-900">هل نتيجة الثانوية العامة 2026 تظهر بالاسم فقط؟</h4>
+            <p class="text-slate-600 text-xs sm:text-sm mt-1">قد يتوفر البحث بالاسم، لكن رقم الجلوس يظل الطريقة الأسرع والأدق لتحديد الطالب لتجنب تشابه الأسماء.</p>
+          </div>
+          <div>
+            <h4 class="font-bold text-slate-900">هل أحتاج إلى اختيار المحافظة قبل الاستعلام؟</h4>
+            <p class="text-slate-600 text-xs sm:text-sm mt-1">لا، نتيجة الثانوية العامة هي نتيجة جمهورية موحدة وتظهر لكل المحافظات في نفس الوقت.</p>
+          </div>
+        </div>
+      </div>
+
+    </article>
+
+  </main>
+
+  <!-- 7. Footer -->
+  <footer class="bg-slate-900 text-slate-400 text-sm mt-16 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        
+        <div class="space-y-3">
+          <span class="text-xl font-black text-white">المدرس بوك</span>
+          <p class="text-xs leading-relaxed text-slate-400">
+            موقع تعليمي مصري يهدف إلى توفير كل ما يحتاجه الطالب والمعلم من مذكرات وكتب وامتحانات ونتائج في مكان واحد.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold mb-3">روابط سريعة</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="#" class="hover:text-white transition">الرئيسية</a></li>
+            <li><a href="#" class="hover:text-white transition">نتائج الطلاب</a></li>
+            <li><a href="#" class="hover:text-white transition">المذكرات التعليمية</a></li>
+            <li><a href="#" class="hover:text-white transition">الامتحانات الاسترشادية</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold mb-3">معلومات</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="#" class="hover:text-white transition">من نحن</a></li>
+            <li><a href="#" class="hover:text-white transition">سياسة الخصوصية</a></li>
+            <li><a href="#" class="hover:text-white transition">شروط الاستخدام</a></li>
+            <li><a href="#" class="hover:text-white transition">اتصل بنا</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold mb-3">اشترك في نشرتنا</h4>
+          <p class="text-xs mb-3 text-slate-400">اشترك ليصلك كل جديد من المذكرات والنتائج فور إعلانها.</p>
+          <div class="flex gap-2">
+            <input type="email" placeholder="بريدك الإلكتروني" class="bg-slate-800 text-white text-xs rounded-lg px-3 py-2 w-full focus:outline-none">
+            <button class="bg-brand-600 text-white text-xs font-bold px-3 py-2 rounded-lg">اشتراك</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="border-t border-slate-800 pt-6 text-center text-xs text-slate-500">
+        © 2026 المدرس بوك — جميع الحقوق محفوظة. صُنع بإتقان لخدمة الطلاب والمعلمين في مصر.
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS Logic for API Fetching -->
+  <script>
+    async function searchStudent() {
+      const query = document.getElementById('searchInput').value.trim();
+      const resultsDiv = document.getElementById('searchResults');
+      
+      if (!query) return;
+
+      resultsDiv.innerHTML = `
+        <div class="text-center py-8">
+          <div class="inline-block w-8 h-8 border-4 border-brand-600 border-t-transparent rounded-full animate-spin mb-3"></div>
+          <p class="font-bold text-slate-600 text-sm">جاري البحث في القاعدة الرسمية...</p>
+        </div>
+      `;
+
+      try {
+        const response = await fetch(`/api/index.py?q=${encodeURIComponent(query)}`);
+        
+        if (!response.ok) {
+          throw new Error('شبكة اتصال غير مستقرة');
         }
 
-        function renderSingleResult(data) {
-            document.getElementById('outputArea').innerHTML = `
-                <div class="result-card p-4 text-center">
-                    <h3 class="fw-bold text-primary mb-2">${data.name}</h3>
-                    <p class="text-muted mb-4">رقم الجلوس: <strong>${data.seating_no}</strong></p>
-                    <div class="row g-3">
-                        <div class="col-6">
-                            <div class="bg-light p-3 rounded-3 border">
-                                <span class="d-block text-muted small mb-1">المجموع الكلي</span>
-                                <span class="fs-2 fw-bold text-dark">${data.total_score}</span>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="bg-light p-3 rounded-3 border">
-                                <span class="d-block text-muted small mb-1">النسبة المئوية</span>
-                                <span class="fs-2 fw-bold text-success">${data.percentage}%</span>
-                            </div>
-                        </div>
-                    </div>
+        const data = await response.json();
+        const list = data.results || data || [];
+
+        if (list.length === 0) {
+          resultsDiv.innerHTML = `
+            <div class="bg-amber-50 border border-amber-200 text-amber-800 p-6 rounded-2xl text-center">
+              <strong class="block text-base mb-1">لم يتم العثور على نتيجة matching!</strong>
+              <p class="text-xs">تأكد من كتابة رقم الجلوس بشكل صحيح أو تجربة كتابة الاسم ثلاثياً.</p>
+            </div>
+          `;
+          return;
+        }
+
+        let html = `
+          <div class="space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+              <span class="font-black text-slate-900 text-sm">عُثر على (${list.length}) طالب:</span>
+              <span class="text-xs font-bold text-brand-600">نتائج معتمدة</span>
+            </div>
+        `;
+
+        list.forEach(student => {
+          const name = student.name || student.student_name || student.NAME || 'طالب ثانوية عامة';
+          const seating = student.seating_no || student.seating_number || student.roll_no || student.seat_no || 'غير متوفر';
+          const total = student.total_degree || student.total || student.score || student.degree || '—';
+          const percent = student.percentage || student.percent ? `${student.percentage || student.percent}%` : '';
+
+          html += `
+            <div class="bg-slate-50 border border-slate-200 hover:border-brand-500 rounded-2xl p-5 transition flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div class="space-y-1">
+                <h4 class="font-extrabold text-slate-900 text-base sm:text-lg">${name}</h4>
+                <div class="flex flex-wrap gap-3 text-xs font-bold text-slate-500">
+                  <span>رقم الجلوس: <strong class="text-slate-800">${seating}</strong></span>
                 </div>
-            `;
-        }
+              </div>
+              <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-0 pt-3 sm:pt-0 border-slate-200">
+                ${percent ? `<span class="bg-emerald-100 text-emerald-800 font-black text-xs px-3 py-1.5 rounded-xl">${percent}</span>` : ''}
+                <div class="bg-brand-600 text-white font-black text-base px-5 py-2.5 rounded-xl shadow-md shadow-brand-500/20">
+                  ${total} درجة
+                </div>
+              </div>
+            </div>
+          `;
+        });
 
-        function renderMultipleResults(list) {
-            let html = `
-                <div class="result-card p-3">
-                    <h6 class="fw-bold mb-3 px-2 text-muted">عُثر على (${list.length}) طالب بنفس الاسم:</h6>
-                    <div class="list-group list-group-flush">
-            `;
-            list.forEach(item => {
-                html += `
-                    <div class="list-group-item d-flex justify-content-between align-items-center py-3 bg-transparent">
-                        <div>
-                            <h6 class="fw-bold mb-1">${item.name}</h6>
-                            <small class="text-muted">جلوس: ${item.seating_no}</small>
-                        </div>
-                        <span class="badge bg-primary rounded-pill px-3 py-2 fs-6">${item.total_score} درجة</span>
-                    </div>
-                `;
-            });
-            html += `</div></div>`;
-            document.getElementById('outputArea').innerHTML = html;
-        }
-    </script>
+        html += `</div>`;
+        resultsDiv.innerHTML = html;
+
+      } catch (err) {
+        resultsDiv.innerHTML = `
+          <div class="bg-red-50 border border-red-200 text-red-700 p-6 rounded-2xl text-center">
+            <strong class="block text-base mb-1">تعذر جلب البيانات</strong>
+            <p class="text-xs">يرجى التأكد من الاتصال بالإنترنت وإعادة المحاولة.</p>
+          </div>
+        `;
+      }
+    }
+  </script>
 </body>
 </html>
